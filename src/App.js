@@ -6,6 +6,9 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
 import { Domains, Events, Sponsers, Workshops } from './pages';
 import Home from './pages/Home'
+import Domainadd from './pages/Domainadd'
+import Eventadd from './pages/Eventadd'
+import Workshopadd from './pages/Workshopadd'
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -74,6 +77,9 @@ const App = () => {
                 <Route path="/events" element={<Events />} />
                 <Route path="/sponsers" element={<Sponsers />} />
                 <Route path="/workshops" element={<Workshops />} />
+                <Route path="/domainadd" element={<Domainadd />} />
+                <Route path="/eventadd" element={<Eventadd />} />
+                <Route path="/workshopadd" element={<Workshopadd />} />
 
 
                 {/* charts  */}

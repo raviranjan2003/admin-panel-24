@@ -98,6 +98,18 @@ export const links = [
         name: 'Sponsers',
         icon: <RiContactsLine />,
       },
+      {
+        name: 'Domainadd',
+        icon: <RiContactsLine />,
+      },
+      {
+        name: 'Eventadd',
+        icon: <RiContactsLine />,
+      },
+      {
+        name: 'Workshopadd',
+        icon: <RiContactsLine />,
+      },
     ],
   },
   {

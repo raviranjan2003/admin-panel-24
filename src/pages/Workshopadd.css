@@ -1,0 +1,49 @@
+.workshopAdd{
+    margin: 2em;
+}
+
+input{
+    border-bottom: 2px solid red;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+
+textarea{
+    border: 2px solid green;
+    margin-top: 0.5em;
+}
+
+div{
+    margin-bottom: 1.5em;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+}
+
+.submit-btn{
+    width: 8%;
+    display: block;
+  margin-left: auto;
+  margin-right: 5em;
+  border: 0.1em solid black;
+  padding: 0.3em;
+  border-radius: 10%;
+}
+
+.submit-btn:hover{
+    background-color: rgb(53, 197, 53);
+}
+
+.workshopBox{
+    border: 2px solid green;
+    padding: 0.7em;
+    border-radius: 10%;
+}
+
+.container-head{
+    font-size: 1.5em;
+    margin: 0.2em;
+}

@@ -1,34 +1,135 @@
 import React from 'react';
-import { GridComponent, ColumnsDirective, ColumnDirective, Page, Selection, Inject, Edit, Toolbar, Sort, Filter } from '@syncfusion/ej2-react-grids';
-
-import { customersData, customersGrid } from '../data/dummy';
-import { Header } from '../components';
+import DataTable , { createTheme } from 'react-data-table-component';
 
 const Domains = () => {
-  const selectionsettings = { persistSelection: true };
-  const toolbarOptions = ['Delete'];
-  const editing = { allowDeleting: true, allowEditing: true };
+createTheme('solarized', {
+  text: {
+    primary: '#ffffff',
+    secondary: '#ffffff',
+  },
+  background: {
+    default: '#006600',
+  },
+}, 'dark');
+
+  const columns = [
+    {
+      name: 'iD',
+      selector: row => row.id,
+  },
+    {
+        name: 'Domain Name',
+        selector: row => row.domainName,
+    },
+    {
+        name: 'Domain Co-ordinator',
+        selector: row => row.domainCoordinator,
+    },
+    {
+      name: 'Faculty Advisor',
+      selector: row => row.facultyAdvisor,
+  },
+];
+
+const data = [
+  {
+      id: 1,
+      domainName: 'Plexus',
+      domainCoordinator: 'Ashish',
+      facultyAdvisor:'Ashish'
+  },
+  {
+      id: 2,
+      domainName: 'Chemfor',
+      domainCoordinator: 'Ashish',
+      facultyAdvisor:'Ashish'
+  },
+  {
+    id: 3,
+    domainName: 'Chemfor',
+    domainCoordinator: 'Ashish',
+    facultyAdvisor:'Ashish'
+},
+{
+  id: 4,
+  domainName: 'Chemfor',
+  domainCoordinator: 'Ashish',
+  facultyAdvisor:'Ashish'
+},
+{
+  id: 5,
+  domainName: 'Chemfor',
+  domainCoordinator: 'Ashish',
+  facultyAdvisor:'Ashish'
+},
+{
+  id: 6,
+  domainName: 'Chemfor',
+  domainCoordinator: 'Ashish',
+  facultyAdvisor:'Ashish'
+},
+{
+  id: 7,
+  domainName: 'Chemfor',
+  domainCoordinator: 'Ashish',
+  facultyAdvisor:'Ashish'
+},
+{
+  id: 8,
+  domainName: 'Chemfor',
+  domainCoordinator: 'Ashish',
+  facultyAdvisor:'Ashish'
+},
+{
+  id: 9,
+  domainName: 'Chemfor',
+  domainCoordinator: 'Ashish',
+  facultyAdvisor:'Ashish'
+},
+{
+  id: 10,
+  domainName: 'Chemfor',
+  domainCoordinator: 'Ashish',
+  facultyAdvisor:'Ashish'
+},
+{
+  id: 11,
+  domainName: 'Chemfor',
+  domainCoordinator: 'Ashish',
+  facultyAdvisor:'Ashish'
+},
+]
 
   return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Fields" title="Domains" />
-      <GridComponent
-        dataSource={customersData}
-        enableHover={false}
-        allowPaging
-        pageSettings={{ pageCount: 5 }}
-        selectionSettings={selectionsettings}
-        toolbar={toolbarOptions}
-        editSettings={editing}
-        allowSorting
-      >
-        <ColumnsDirective>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          {customersGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
-        </ColumnsDirective>
-        <Inject services={[Page, Selection, Toolbar, Edit, Sort, Filter]} />
-      </GridComponent>
-    </div>
+    <>
+    <div className="heading" style={{
+        "width": "auto",
+        "textAlign": "center",
+        "fontSize": "2.5em",
+        "margin": "0.2em",
+        "marginBottom": "0em"
+      }}>Namaste ! Super Admin</div>
+      <div className="description" style={{
+        "width": "auto",
+        "textAlign": "center",
+        "fontSize": "0.75em",
+        "marginBottom":"3.5em"
+      }}>Your unique tF ID is t960</div>
+      <div style={{
+        "width": "auto",
+        "textAlign": "left",
+        "fontSize": "2.5em",
+        "margin":"0.5em"
+      }}>DOMAINS</div>
+      <div style={{"border":"2px solid green", "padding":"1.2em", "borderRadius":'15px', "background":"#006600"}}>
+    <DataTable
+            columns={columns}
+            data={data}
+            pagination
+            theme="solarized"
+        />
+      </div>
+    </>
   );
 };
 

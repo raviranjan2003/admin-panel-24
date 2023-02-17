@@ -1,0 +1,11 @@
+.containerSidebar{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.techfestHeader{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}

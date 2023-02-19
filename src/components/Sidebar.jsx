@@ -3,11 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { SiShopware } from 'react-icons/si';
 import { MdOutlineCancel } from 'react-icons/md';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-import Domainadd from '../pages/Domainadd'
-import Eventadd from '../pages/Eventadd'
-import Workshopadd from '../pages/Workshopadd'
 import { Domains, Events, Sponsers, Workshops } from '../pages';
 import './Sidebar.css'
+import logo from './logo.png'
 import { links } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 
@@ -24,25 +22,30 @@ const Sidebar = () => {
   const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
 
   return (
+    <>
+
     <div className="containerSidebar">
-    <div className='techfestHeader'>
-      <div><Link to="/home" >techFest'23</Link></div>
-      <div><Link to="/home" style={{"marginLeft":"2.3em"}}>Home</Link></div>
-    </div>
-    
-    <div className="sidebarItems">
-      
-    <div><Link to="/domains" >Domains</Link></div>
-    <div><Link to="/domainadd" >Add Domains</Link></div>
-    <div><Link to="/events" >Events</Link></div>
-    <div><Link to="/eventadd" >Add Events</Link></div>
-    <div><Link to="/workshops" >Workshops</Link></div>
-    <div><Link to="/workshopadd" >Add Workshops</Link></div>
-    <div><Link to="/sponsers" >Sponsers</Link></div> 
+
+
+      <div className="sidebarItems">
+    <div className="logo">
+          <Link to="/home">
+            <img src={logo} alt="techFEST'23" />
+          </Link>
+        </div>
+          <div className='techfestHeader item'><Link to="/home">Home</Link></div>
+        <div className='item'><Link to="/domains" >Domains</Link></div>
+        {/* <div><Link to="/domainadd" >Add Domains</Link></div> */}
+        <div className='item'><Link to="/events" >Events</Link></div>
+        {/* <div><Link to="/eventadd" >Add Events</Link></div> */}
+        <div className='item'><Link to="/workshops" >Workshops</Link></div>
+        {/* <div><Link to="/workshopadd" >Add Workshops</Link></div> */}
+        <div className='item'><Link to="/sponsers" >Sponsers</Link></div>
+
+      </div>
 
     </div>
-    
-    </div>
+    </>
   );
 };
 

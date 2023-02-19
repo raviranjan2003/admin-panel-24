@@ -1,11 +1,32 @@
+img{
+    border-radius: 10px;
+}
 .containerSidebar{
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height:auto;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 50%;
 }
 
-.techfestHeader{
+
+.sidebarItems{
     display: flex;
     flex-direction: column;
-    margin: 10px;
+    justify-content: space-evenly;
+    font-size: 1.3rem;
+}
+
+.item{
+    border-bottom: 2px solid red;
+    border-radius: 5px;
+}
+
+.item:hover{
+    color: green;
+    border-bottom: 2px solid blue;
+    border-radius: 5px;
 }

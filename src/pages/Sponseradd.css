@@ -1,4 +1,4 @@
-.eventAdd{
+.sponserAdd{
     margin: 2em;
 }
 
@@ -37,7 +37,7 @@ div{
     background-color: rgb(53, 197, 53);
 }
 
-.eventBox{
+.sponserBox{
     border: 2px solid green;
     padding: 0.7em;
     border-radius: 10%;
@@ -48,8 +48,8 @@ div{
     margin: 0.2em;
 }
 
-.eventItems{
+.sponserItems{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content:space-between;
 }

@@ -38,12 +38,21 @@ div{
 }
 
 .domainBox{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
     border: 2px solid green;
-    padding: 0.7em;
+    padding: 0.4em;
     border-radius: 10%;
 }
 
 .container-head{
     font-size: 1.5em;
     margin: 0.2em;
+}
+
+.domainItems{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

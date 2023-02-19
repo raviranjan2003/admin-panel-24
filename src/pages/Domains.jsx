@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import Domainadd from '../pages/Domainadd'
 import DataTable , { createTheme } from 'react-data-table-component';
 
 const Domains = () => {
 createTheme('solarized', {
   text: {
-    primary: '#ffffff',
-    secondary: '#ffffff',
+    primary: '#eaf200',
+    secondary: '#eaf200',
   },
   background: {
-    default: '#006600',
+    default: '#8578e3',
   },
 }, 'dark');
 
@@ -117,11 +119,17 @@ const data = [
       }}>Your unique tF ID is t960</div>
       <div style={{
         "width": "auto",
-        "textAlign": "left",
+        "textAlign": "center",
         "fontSize": "2.5em",
         "margin":"0.5em"
       }}>DOMAINS</div>
-      <div style={{"border":"2px solid green", "padding":"1.2em", "borderRadius":'15px', "background":"#006600"}}>
+      <div style={{"fontSize": "18px","border":"2px solid blue", "display": "table",
+    "margin": "7px auto", "padding":"5px","borderRadius":"8px"}}><Link to="/domainadd">
+    <button type="button">
+         Add New Domain
+    </button>
+</Link></div>
+      <div style={{"border":"2px solid green", "padding":"1.2em", "borderRadius":'15px', "background":"#8578e3", "fontSize":"2em"}}>
     <DataTable
             columns={columns}
             data={data}

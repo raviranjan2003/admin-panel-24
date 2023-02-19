@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Domainadd from './pages/Domainadd'
 import Eventadd from './pages/Eventadd'
 import Workshopadd from './pages/Workshopadd'
+import Sponseradd from './pages/Sponseradd'
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -80,6 +81,7 @@ const App = () => {
                 <Route path="/domainadd" element={<Domainadd />} />
                 <Route path="/eventadd" element={<Eventadd />} />
                 <Route path="/workshopadd" element={<Workshopadd />} />
+                <Route path="/sponseradd" element={<Sponseradd />} />
 
 
                 {/* charts  */}

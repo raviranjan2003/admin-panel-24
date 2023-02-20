@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link, useNavigate } from "react-router-dom";
+import Workshopadd from '../pages/Workshopadd'
 import DataTable , { createTheme } from 'react-data-table-component';
 
 const Workshops = () => {
@@ -71,12 +73,18 @@ const data = [
         "fontSize": "0.75em",
         "marginBottom":"3.5em"
       }}>Your unique tF ID is t960</div>
-      <div style={{
+      <div className='container' style={{
         "width": "auto",
-        "textAlign": "left",
+        "textAlign": "center",
         "fontSize": "2.5em",
         "margin":"0.5em"
       }}>WORKSHOPS</div>
+      <div style={{"fontSize": "18px","border":"2px solid blue", "display": "table",
+    "margin": "5px auto", "padding":"5px","borderRadius":"8px"}}><Link to="/workshopadd">
+    <button type="button">
+         Add New Workshop
+    </button>
+</Link></div>
       <div style={{"border":"2px solid green", "padding":"1.2em", "borderRadius":'15px', "background":"#006600"}}>
       <DataTable
             columns={columns}

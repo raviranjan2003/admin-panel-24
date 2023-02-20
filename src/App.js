@@ -5,10 +5,12 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
 import { Domains, Events, Sponsers, Workshops } from './pages';
-import Home from './pages/Home'
-import Domainadd from './pages/Domainadd'
-import Eventadd from './pages/Eventadd'
-import Workshopadd from './pages/Workshopadd'
+import Home from './pages/Home';
+import Domainadd from './pages/Domainadd';
+import Eventadd from './pages/Eventadd';
+import Workshopadd from './pages/Workshopadd';
+// import Signup from './components/Signup/Signup.jsx';
+
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';

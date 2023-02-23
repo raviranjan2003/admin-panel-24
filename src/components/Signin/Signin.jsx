@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './Signin.module.css';
 import { baseUrl } from '../../API/api';
-import AuthContext from '../../contexts/authContext';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 const Signin = () => {
-  const authContext = useContext(AuthContext);
+  const { loginHandler } = useStateContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -23,12 +23,11 @@ const Signin = () => {
       .then((result) => {
         setIsLoading(false);
         const res = result;
-        alert(JSON.stringify(res.data));
         if (res.status === 204) {
           setMailErr(res.data.message);
           setTimeout(() => {
             setMailErr(null);
-            navigate('/sign-up');
+            navigate('/');
           }, 3000);
         } else if (res.status === 208) {
           setPasswordErr(res.data.message);
@@ -51,9 +50,9 @@ const Signin = () => {
           const coordinatorData = {
             token: res.data.token,
             coordinatorId: res.data.coordinatorId,
-            coordinatorRole: res.data.coordinatorRole,
+            coordinatorType: res.data.coordinatorType,
           };
-          authContext.login(coordinatorData);
+          loginHandler(coordinatorData);
           navigate('/home');
         } else {
           setErrorsMade(res.data.message);
@@ -149,7 +148,7 @@ const Signin = () => {
         </form>
         <p className={styles.signin__text}>
           Don&apos;t have an account?
-          <Link to="/sign-up">
+          <Link to="/">
             <span className={styles.signin__link}>Sign Up</span>
           </Link>
         </p>

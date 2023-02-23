@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { baseUrl } from '../../API/api.js';
 import styles from './Signup.module.css';
 
 const Signup = () => {
@@ -8,11 +10,9 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [cPassword, setCPassword] = useState('');
   const [phone, setPhone] = useState('');
-  const [collegeName, setCollegeName] = useState();
-  const [dob, setDob] = useState();
-  const [referral, setReferral] = useState('');
+  const [type, setType] = useState('0');
   const [branch, setBranch] = useState('0');
-  const [confirm_err, setConfirmErr] = useState(null);
+  const [confirmErr, setConfirmErr] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorsMade, setErrorsMade] = useState(null);
   const [fieldErr, setFieldErr] = useState(null);
@@ -22,14 +22,14 @@ const Signup = () => {
   const [phoneErr, setPhoneErr] = useState(null);
   const [divOne, setDivOne] = useState(true);
   const [divTwo, setDivTwo] = useState(false);
-  const [errorMade, setErrorMade] = useState();
+  // const [errorMade, setErrorMade] = useState();
 
-  const onErrorMadeHandle = () => {
-    setErrorMade(null);
-  };
+  // const onErrorMadeHandle = () => {
+  //   setErrorMade(null);
+  // };
 
-  let stringArray = name.split(/(\s+)/);
-
+  const stringArray = name.split(/(\s+)/);
+  const navigate = useNavigate();
 
   const handleConfirm = (value) => {
     setCPassword(value);
@@ -43,12 +43,7 @@ const Signup = () => {
   };
 
   const showDivTwo = () => {
-    if (
-      email.trim().length === 0 ||
-      password.trim().length === 0 ||
-      name.trim().length === 0 ||
-      cPassword.trim().length === 0
-    ) {
+    if (email.trim().length === 0 || password.trim().length === 0 || name.trim().length === 0 || cPassword.trim().length === 0) {
       setFieldErr('Field should not be empty');
       setTimeout(() => {
         setFieldErr(null);
@@ -67,10 +62,8 @@ const Signup = () => {
       setTimeout(() => {
         setPasswordErr(null);
       }, 3000);
-      return;
-    } 
-    else
-    {
+      // return;
+    } else {
       setDivOne(false);
       setDivTwo(true);
     }
@@ -82,15 +75,7 @@ const Signup = () => {
 
   const PostData = async (e) => {
     e.preventDefault();
-    if (
-      email.trim().length === 0 ||
-      password.trim().length === 0 ||
-      name.trim().length === 0 ||
-      cPassword.trim().length === 0 ||
-      phone.trim().length === 0 || 
-      collegeName.trim().length === 0 || 
-      branch.valueOf === 0
-    ) {
+    if (email.trim().length === 0 || password.trim().length === 0 || name.trim().length === 0 || cPassword.trim().length === 0 || phone.trim().length === 0 || branch.valueOf === 0) {
       setFieldErr('Field should not be empty');
       setTimeout(() => {
         setFieldErr(null);
@@ -132,52 +117,69 @@ const Signup = () => {
       password,
       phone,
       branch,
-      collegeName,
-      dob,
+      type,
     };
     setIsLoading(true);
+    await axios
+      .post(`${baseUrl}/coor/sign-up`, user)
+      .then((result) => {
+        const res = result;
+        setIsLoading(false);
+        if (res.status === 200) {
+          navigate('/home');
+        } else if (res.status === 208 || res.status === 400) {
+          setErrorsMade(res.data.message);
+          setTimeout(() => {
+            setErrorsMade(null);
+          }, 3000);
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setErrorsMade(err.response.data.message);
+      });
   };
 
   return (
     <>
-      {isLoading && <Loader/>}
-      {errorMade && (
+      {/* {isLoading && <Loader />} */}
+      {/* {errorMade && (
         <ErrorModel
           title={errorMade.title}
           message={errorMade.message}
           onErrorsClick={onErrorMadeHandle}
         />
-      )}
+      )} */}
 
       <div className={styles.signup__content}>
         <div>
-          <img src="/images/techFEST'23.webp" alt="techFest'23" className={styles.signup__logo} />
+          <img src="techFEST'23.webp" alt="techFest'23" className={styles.signup__logo} />
         </div>
 
-        <form method='post' className={styles.signup__inputFields} action=''>
+        <form method="post" className={styles.signup__inputFields} action=''>
           {divTwo && (
             <div className={styles.signup__page2}>
-              {errorsMade && <p style={{ color: 'red' }}>{errorsMade}</p>}
               <h1 className={styles.signup__title}>Hi {stringArray[0]}!</h1>
+              {errorsMade && <p style={{ color: 'red' }}>{errorsMade}</p>}
               {{ fieldErr } && <p style={{ color: 'red' }}>{fieldErr}</p>}
-              <label htmlFor='phone' className={styles.signup__label}>
+              <label htmlFor={phone} className={styles.signup__label}>
                 Phone
+                {phoneErr && <p style={{ color: 'red' }}>{phoneErr}</p>}
               </label>
-              {phoneErr && <p style={{ color: 'red' }}>{phoneErr}</p>}
               <input
-                type='number'
-                id='phone'
-                name='phone'
-                placeholder='Enter your whatsapp number'
+                type="number"
+                id={phone}
+                name="phone"
+                placeholder="Enter your whatsapp number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
-                autoComplete='off'
+                autoComplete="off"
               />
               {branchErr && <p style={{ color: 'red' }}>{branchErr}</p>}
               <select
                 className={styles.signup__select}
-                sx={{height:'10px'}}
+                sx={{height:"10px"}}
                 onChange={(e) => setBranch(e.target.value)}
                 id='branch'
                 name='branch'
@@ -265,32 +267,23 @@ const Signup = () => {
                   Transportation Engineering
                 </option>
               </select>
-               <label htmlFor='collegeName' className={styles.signup__label}>
-                College Name
-              </label>
-              <input
-                type='text'
-                id='collegeName'
-                name='collegeName'
-                placeholder='Enter your college name'
-                value={collegeName}
-                onChange={(e) => setCollegeName(e.target.value)}
+              <select
+                className={styles.signup__select}
+                sx={{height:'10px'}}
+                onChange={(e) => setType(e.target.value)}
+                id='type'
+                name='type'
+                value={type}
                 required
-                autoComplete='off'
-              /> 
-              <label htmlFor='dob' className={styles.signup__label}>
-                Date of Birth
-              </label>
-              <input
-                type='date'
-                id='dob'
-                name='dob'
-                placeholder='dd-mm-yyyy'
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
-                required
-                autoComplete='off'
-              />
+              >
+                <option value="0">Coordinator Type</option>
+                <option value="Faculty">
+                  Faculty
+                </option>
+                <option value="Student">
+                  Student
+                </option>
+              </select>
 
               <button
                 className={styles.signup__button}
@@ -356,7 +349,7 @@ const Signup = () => {
               <label htmlFor='cpassword' className={styles.signup__label}>
                 Confirm Password
               </label>
-              {{ confirm_err } && <p style={{ color: 'red' }}>{confirm_err}</p>}
+              {{ confirmErr } && <p style={{ color: 'red' }}>{confirmErr}</p>}
               <input
                 value={cPassword}
                 placeholder='Confirm your password'

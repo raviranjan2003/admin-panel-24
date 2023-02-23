@@ -35,11 +35,8 @@ const Sidebar = () => {
         </div>
           <div className='techfestHeader item'><Link to="/home">Home</Link></div>
         <div className='item'><Link to="/domains" >Domains</Link></div>
-        {/* <div><Link to="/domainadd" >Add Domains</Link></div> */}
         <div className='item'><Link to="/events" >Events</Link></div>
-        {/* <div><Link to="/eventadd" >Add Events</Link></div> */}
         <div className='item'><Link to="/workshops" >Workshops</Link></div>
-        {/* <div><Link to="/workshopadd" >Add Workshops</Link></div> */}
         <div className='item'><Link to="/sponsers" >Sponsers</Link></div>
 
       </div>

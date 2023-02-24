@@ -15,7 +15,7 @@ import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
 
 const App = () => {
-  const { activeMenu } = useStateContext();
+  const { activeMenu, coordinatorLoggedIn } = useStateContext();
 
   return (
     <div>
@@ -60,11 +60,11 @@ const App = () => {
               <Routes>
                 {/* dashboard  */}
                 <Route path="/" element={(<Signup />)} />
-                <Route path="home" element={(<Home />)} />
+                {coordinatorLoggedIn && <Route path="home" element={(<Home />)} />}
                 <Route path="/sign-in" element={(<Signin />)} />
 
                 {/* pages  */}
-                <Route path="/domains" element={<Domains />} />
+                {coordinatorLoggedIn && <Route path="/domains" element={<Domains />} />}
                 <Route path="/events" element={<Events />} />
                 <Route path="/sponsers" element={<Sponsers />} />
                 <Route path="/workshops" element={<Workshops />} />

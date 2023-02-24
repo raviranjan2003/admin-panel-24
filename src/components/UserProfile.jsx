@@ -7,7 +7,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 import avatar from '../data/avatar.jpg';
 
 const UserProfile = () => {
-  const { logOutHandler } = useStateContext();
+  const { coordinatorLoggedIn } = useStateContext();
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -37,7 +37,7 @@ const UserProfile = () => {
         <Button
           color="white"
           bgColor="black"
-          text="Logout"
+          text={coordinatorLoggedIn ? 'Logout' : 'Login'}
           borderRadius="10px"
           width="full"
         />

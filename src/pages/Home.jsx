@@ -1,13 +1,13 @@
-import React from 'react';
-import DataTable , { createTheme } from 'react-data-table-component';
-import { BsCurrencyDollar } from 'react-icons/bs';
-import { GoPrimitiveDot } from 'react-icons/go';
-import { IoIosMore } from 'react-icons/io';
-import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
-import './Home.css';
-
-import { useStateContext } from '../contexts/ContextProvider';
-
+import React, { useEffect, useState } from "react";
+import DataTable from "react-data-table-component";
+import { BsCurrencyDollar } from "react-icons/bs";
+import { GoPrimitiveDot } from "react-icons/go";
+import { IoIosMore } from "react-icons/io";
+import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
+import "./Home.css";
+import axios from "axios";
+import { baseUrl } from "../API/api";
+let data = [];
 // const DropDown = ({ currentMode }) => (
 //   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
 //     <DropDownListComponent id="time" fields={{ text: 'Time', value: 'Id' }} style={{ border: 'none', color: (currentMode === 'Dark') && 'white' }} value="1" dataSource={dropdownData} popupHeight="220px" popupWidth="120px" />
@@ -15,78 +15,97 @@ import { useStateContext } from '../contexts/ContextProvider';
 // );
 
 const Home = (props) => {
-  const { currentColor, currentMode } = useStateContext();
-  const {name,tfId} = props;
+  // const { currentColor, currentMode } = useStateContext();
+  const { name, tfId } = props;
+  const [visitor, setVisitor] = useState(null);
+  const [coordinator, setCoordinator] = useState(null);
+  const [user, setUser] = useState(null);
+  useEffect(async () => {
+    await axios.get(`${baseUrl}/coordinator/get`).then((result) => {
+      const res = result?.data;
+      console.log("fe", res);
+      // alert(J);
+      setCoordinator(res);
+    });
+    await axios.get(`${baseUrl}/visitors/count`).then((result) => {
+      const res = result;
+      setVisitor(res.data.count);
+    });
 
-
-  createTheme('solarized', {
-    text: {
-      primary: '#ffffff',
-      secondary: '#ffffff',
-    },
-    background: {
-      default: '#006600',
-    },
-  }, 'dark');
+    await axios.get(`${baseUrl}/user/count`).then((result) => {
+      const res = result;
+      setUser(res.data.count);
+    });
+  }, []);
 
   const columns = [
     {
-      name: 'Sr No.',
-      selector: row => row.srNo,
+      name: "Sr No.",
+      selector: (row) => row.srNo,
+    },
+    // {
+    //   name: "Name",
+    //   selector: (row) => row.name,
+    // },
+    {
+      name: "Phone",
+      selector: (row) => row.phone,
     },
     {
-      name: 'Name',
-      selector: row => row.name,
+      name: "E-mail",
+      selector: (row) => row.email,
     },
-    {
-      name: 'Phone',
-      selector: row => row.phone,
-    },
-    {
-      name: 'E-mail',
-      selector: row => row.email,
-    },
-    {
-      name: 'Event',
-      selector: row => row.event,
-    },
+    // {
+    //   name: "Event",
+    //   selector: (row) => row.event,
+    // },
   ];
 
-  const data = [
-    {
-      id: 1,
-      srNo : 1,
-      name: 'Ashish',
-      phone: '+91XXXXXXX',
-      email: 'ashish@gmail.com',
-      event: 'Margadarshak'
-    },
-    {
-      id: 2,
-      srNo : 2,
-      name: 'Ashish',
-      phone: '+91XXXXXXX',
-      email: 'ashish@gmail.com',
-      event: 'Margadarshak'
-
-    },
-  ]
-
-
+  // const data = [
+  //   {
+  //     id: 1,
+  //     srNo: 1,
+  //     name: 'Ashish',
+  //     phone: '+91XXXXXXX',
+  //     email: 'ashish@gmail.com',
+  //     event: 'Margadarshak',
+  //   },
+  //   {
+  //     id: 2,
+  //     srNo: 2,
+  //     name: 'Ashish',
+  //     phone: '+91XXXXXXX',
+  //     email: 'ashish@gmail.com',
+  //     event: 'Margadarshak',
+  //   },
+  // ];
+  coordinator?.map((item=> {
+    const coor = {
+      id: item.coordinatorId,
+      srNo: item._id,
+      // name: item.coordinatorName,
+      phone: item.coordinatorPhone,
+      email: item.coordinatorEmail,
+    };
+    console.log("id", coor);
+    data.push(coor);
+  }));
+  console.log("dta", data);
+  console.log("Gg", coordinator);
 
   return (
-      <>
-      <div className='home'>
+    <>
+      <div className="home">
         <div className="heading">Namaste ! Super Admin</div>
         <div className="description">Your unique tF ID is t960</div>
         <div className="container">
           <div className="container1">
-            <div className="number">2000</div>
+            <div className="number">{user}</div>
             <div className="num-desc">Registerations</div>
           </div>
           <div className="container2">
-            <div className="number">40</div>
-            <div className="num-desc">Institutions</div>
+            <div className="number">{visitor}</div>
+            <div className="num-desc">Unique Visitors</div>
           </div>
           <div className="container3">
             <div className="number">1000</div>
@@ -95,23 +114,27 @@ const Home = (props) => {
         </div>
       </div>
 
-      <div style={{
-        "width": "auto",
-        "textAlign": "left",
-        "fontSize": "2.5em",
-        "margin":"0.5em"
-      }}>Users Registered</div>
-      <div style={{"border":"2px solid green", "padding":"1.2em", "borderRadius":'15px', "background":"#006600"}}>
-    <DataTable
-            columns={columns}
-            data={data}
-            pagination
-            theme="solarized"
-        />
+      <div
+        style={{
+          width: "auto",
+          textAlign: "left",
+          fontSize: "2.5em",
+          margin: "0.5em",
+        }}
+      >
+        Domain Coordinators
       </div>
-
-
-      </>
+      <div
+        style={{
+          border: "2px solid green",
+          padding: "1.2em",
+          borderRadius: "15px",
+          background: "#006600",
+        }}
+      >
+        <DataTable columns={columns} data={data} pagination theme="solarized" />
+      </div>
+    </>
   );
 };
 

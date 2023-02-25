@@ -50,7 +50,7 @@ const Signin = () => {
           const coordinatorData = {
             token: res.data.token,
             coordinatorId: res.data.coordinatorId,
-            coordinatorType: res.data.coordinatorType,
+            coordinatorRole: res.data.coordinatorRole,
           };
           loginHandler(coordinatorData);
           navigate('/home');

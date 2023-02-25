@@ -43,6 +43,7 @@ export const ContextProvider = ({ children }) => {
   const loginHandler = (coordinator) => {
     localStorage.setItem('token', coordinator.token);
     localStorage.setItem('coordinatorId', coordinator.coordinatorId);
+    localStorage.setItem('coordinatorRole', coordinator.coordinatorRole);
     const remainingMilliseconds = 7 * 24 * 60 * 60 * 1000;
     const expiry = new Date(new Date().getTime() + remainingMilliseconds);
     localStorage.setItem('expiry', expiry.toISOString());

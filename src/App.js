@@ -65,13 +65,13 @@ const App = () => {
 
                 {/* pages  */}
                 {coordinatorLoggedIn && <Route path="/domains" element={<Domains />} />}
-                <Route path="/events" element={<Events />} />
-                <Route path="/sponsers" element={<Sponsers />} />
-                <Route path="/workshops" element={<Workshops />} />
-                <Route path="/domainadd" element={<Domainadd />} />
-                <Route path="/eventadd" element={<Eventadd />} />
-                <Route path="/workshopadd" element={<Workshopadd />} />
-                <Route path="/sponseradd" element={<Sponseradd />} />
+                {coordinatorLoggedIn && <Route path="/events" element={<Events />} />}
+                {coordinatorLoggedIn && <Route path="/sponsers" element={<Sponsers />} />}
+                {coordinatorLoggedIn && <Route path="/workshops" element={<Workshops />} />}
+                {coordinatorLoggedIn && <Route path="/domainadd" element={<Domainadd />} />}
+                {coordinatorLoggedIn && <Route path="/eventadd" element={<Eventadd />} />}
+                {coordinatorLoggedIn && <Route path="/workshopadd" element={<Workshopadd />} />}
+                {coordinatorLoggedIn && <Route path="/sponseradd" element={<Sponseradd />} />}
 
                 {/* charts  */}
 

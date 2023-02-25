@@ -7,7 +7,7 @@ import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
 import "./Home.css";
 import axios from "axios";
 import { baseUrl } from "../API/api";
-let data = [];
+// let data = [];
 // const DropDown = ({ currentMode }) => (
 //   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
 //     <DropDownListComponent id="time" fields={{ text: 'Time', value: 'Id' }} style={{ border: 'none', color: (currentMode === 'Dark') && 'white' }} value="1" dataSource={dropdownData} popupHeight="220px" popupWidth="120px" />
@@ -18,18 +18,24 @@ const Home = (props) => {
   // const { currentColor, currentMode } = useStateContext();
   const { name, tfId } = props;
   const [visitor, setVisitor] = useState(null);
+  const [institution, setInstitution] = useState(null);
   const [coordinator, setCoordinator] = useState(null);
   const [user, setUser] = useState(null);
   useEffect(async () => {
     await axios.get(`${baseUrl}/coordinator/get`).then((result) => {
-      const res = result?.data;
-      console.log("fe", res);
       // alert(J);
+      const res = result;
+      alert(JSON.stringify(res.data))
       setCoordinator(res);
     });
     await axios.get(`${baseUrl}/visitors/count`).then((result) => {
       const res = result;
       setVisitor(res.data.count);
+    });
+
+    await axios.get(`${baseUrl}/user/count/institution`).then((result) => {
+      const res = result;
+      setInstitution(res.data.count);
     });
 
     await axios.get(`${baseUrl}/user/count`).then((result) => {
@@ -43,10 +49,10 @@ const Home = (props) => {
       name: "Sr No.",
       selector: (row) => row.srNo,
     },
-    // {
-    //   name: "Name",
-    //   selector: (row) => row.name,
-    // },
+    {
+      name: "Name",
+      selector: (row) => row.name,
+    },
     {
       name: "Phone",
       selector: (row) => row.phone,
@@ -55,39 +61,23 @@ const Home = (props) => {
       name: "E-mail",
       selector: (row) => row.email,
     },
-    // {
-    //   name: "Event",
-    //   selector: (row) => row.event,
-    // },
+    {
+      name: "Event",
+      selector: (row) => row.event,
+    },
   ];
-
-  // const data = [
-  //   {
-  //     id: 1,
-  //     srNo: 1,
-  //     name: 'Ashish',
-  //     phone: '+91XXXXXXX',
-  //     email: 'ashish@gmail.com',
-  //     event: 'Margadarshak',
-  //   },
-  //   {
-  //     id: 2,
-  //     srNo: 2,
-  //     name: 'Ashish',
-  //     phone: '+91XXXXXXX',
-  //     email: 'ashish@gmail.com',
-  //     event: 'Margadarshak',
-  //   },
-  // ];
-  coordinator?.map((item=> {
+  const data = [];
+  coordinator?.map(((item) => {
     const coor = {
       id: item.coordinatorId,
-      srNo: item._id,
-      // name: item.coordinatorName,
+      // srNo: item._id,
+      name: item.coordinatorName,
       phone: item.coordinatorPhone,
       email: item.coordinatorEmail,
+      // event: item.coordinatorEvent,
+      // console.log("id", coor),
+
     };
-    console.log("id", coor);
     data.push(coor);
   }));
   console.log("dta", data);
@@ -108,7 +98,7 @@ const Home = (props) => {
             <div className="num-desc">Unique Visitors</div>
           </div>
           <div className="container3">
-            <div className="number">1000</div>
+            <div className="number">{institution}</div>
             <div className="num-desc">SLIETians</div>
           </div>
         </div>

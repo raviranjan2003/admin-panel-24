@@ -43,10 +43,10 @@ const Home = (props) => {
       name: "Sr No.",
       selector: (row) => row.srNo,
     },
-    // {
-    //   name: "Name",
-    //   selector: (row) => row.name,
-    // },
+    {
+      name: "Name",
+      selector: (row) => row.name,
+    },
     {
       name: "Phone",
       selector: (row) => row.phone,
@@ -55,41 +55,43 @@ const Home = (props) => {
       name: "E-mail",
       selector: (row) => row.email,
     },
-    // {
-    //   name: "Event",
-    //   selector: (row) => row.event,
-    // },
+    {
+      name: "Event",
+      selector: (row) => row.event,
+    },
   ];
 
-  // const data = [
-  //   {
-  //     id: 1,
-  //     srNo: 1,
-  //     name: 'Ashish',
-  //     phone: '+91XXXXXXX',
-  //     email: 'ashish@gmail.com',
-  //     event: 'Margadarshak',
-  //   },
-  //   {
-  //     id: 2,
-  //     srNo: 2,
-  //     name: 'Ashish',
-  //     phone: '+91XXXXXXX',
-  //     email: 'ashish@gmail.com',
-  //     event: 'Margadarshak',
-  //   },
-  // ];
+  const data = [
+    // {
+    //   id: 1,
+    //   srNo: 1,
+    //   name: 'Ashish',
+    //   phone: '+91XXXXXXX',
+    //   email: 'ashish@gmail.com',
+    //   event: 'Margadarshak',
+    // },
+    // {
+    //   id: 2,
+    //   srNo: 2,
+    //   name: 'Ashish',
+    //   phone: '+91XXXXXXX',
+    //   email: 'ashish@gmail.com',
+    //   event: 'Margadarshak',
+    // },
+  ];
   coordinator?.map((item=> {
     const coor = {
       id: item.coordinatorId,
-      srNo: item._id,
-      // name: item.coordinatorName,
+      // srNo: item._id,
+      name: item.coordinatorName,
       phone: item.coordinatorPhone,
       email: item.coordinatorEmail,
-    };
-    console.log("id", coor);
-    data.push(coor);
-  }));
+      // event: item.coordinatorEvent,
+      // console.log("id", coor),
+     
+};
+ data.push(coor);
+}));
   console.log("dta", data);
   console.log("Gg", coordinator);
 

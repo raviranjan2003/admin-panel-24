@@ -46,6 +46,11 @@ const Sidebar = () => {
           <Link to="/sponsers">Sponsers</Link>
         </div>
         )}
+        {coordinatorLoggedIn && (
+        <div className="item logOut">
+          <Link to="/">Log Out</Link>
+        </div>
+        )}
       </div>
     </div>
   );

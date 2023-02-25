@@ -66,8 +66,26 @@ const Home = (props) => {
       selector: (row) => row.event,
     },
   ];
-  const data = [];
-  coordinator?.map(((item) => {
+
+  const data = [
+    // {
+    //   id: 1,
+    //   srNo: 1,
+    //   name: 'Ashish',
+    //   phone: '+91XXXXXXX',
+    //   email: 'ashish@gmail.com',
+    //   event: 'Margadarshak',
+    // },
+    // {
+    //   id: 2,
+    //   srNo: 2,
+    //   name: 'Ashish',
+    //   phone: '+91XXXXXXX',
+    //   email: 'ashish@gmail.com',
+    //   event: 'Margadarshak',
+    // },
+  ];
+  coordinator?.map((item=> {
     const coor = {
       id: item.coordinatorId,
       // srNo: item._id,
@@ -76,10 +94,10 @@ const Home = (props) => {
       email: item.coordinatorEmail,
       // event: item.coordinatorEvent,
       // console.log("id", coor),
-
-    };
-    data.push(coor);
-  }));
+     
+};
+ data.push(coor);
+}));
   console.log("dta", data);
   console.log("Gg", coordinator);
 

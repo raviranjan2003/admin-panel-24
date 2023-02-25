@@ -277,11 +277,11 @@ const Signup = () => {
                 required
               >
                 <option value="0">Coordinator Type</option>
-                <option value="Faculty">
-                  Faculty
+                <option value="Domain">
+                  Domain
                 </option>
-                <option value="Student">
-                  Student
+                <option value="Event">
+                  Event
                 </option>
               </select>
 

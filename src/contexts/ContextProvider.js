@@ -20,7 +20,9 @@ export const ContextProvider = ({ children }) => {
   const localToken = localStorage.getItem('token');
   // const localExpiryDate = localStorage.getItem('expiry');
   // const coordinatorId = localStorage.getItem('coordinatorId');
+  const coordinatorRole = localStorage.getItem('coordinatorRole');
   const [token, setToken] = useState(localToken);
+  const [role, setRole] = useState(coordinatorRole);
   // const [expiryDate, setExpiryDate] = useState(localExpiryDate);
   let coordinatorLoggedIn = !!token;
 
@@ -48,6 +50,7 @@ export const ContextProvider = ({ children }) => {
     const expiry = new Date(new Date().getTime() + remainingMilliseconds);
     localStorage.setItem('expiry', expiry.toISOString());
     setToken(coordinator.token);
+    setRole(coordinator.coordinatorRole);
     coordinatorLoggedIn = true;
     const remainingTime = calculateRemainingTime(expiry);
     resetLogoutTimer = setTimeout(logOutHandler, remainingTime);
@@ -64,7 +67,7 @@ export const ContextProvider = ({ children }) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{ activeMenu, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, localToken, token, setToken, calculateRemainingTime, logOutHandler, loginHandler, coordinatorLoggedIn }}>
+    <StateContext.Provider value={{ activeMenu, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, localToken, token, setToken, calculateRemainingTime, logOutHandler, loginHandler, coordinatorLoggedIn, role, setRole }}>
       {children}
     </StateContext.Provider>
   );

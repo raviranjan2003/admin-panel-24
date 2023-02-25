@@ -15,8 +15,7 @@ import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
 
 const App = () => {
-  const { activeMenu, coordinatorLoggedIn } = useStateContext();
-
+  const { activeMenu, coordinatorLoggedIn, role } = useStateContext();
   return (
     <div>
       <BrowserRouter>
@@ -60,7 +59,7 @@ const App = () => {
               <Routes>
                 {/* dashboard  */}
                 <Route path="/" element={(<Signup />)} />
-                {coordinatorLoggedIn && <Route path="home" element={(<Home />)} />}
+                {coordinatorLoggedIn && role == 892348 && <Route path="home" element={(<Home />)} />}
                 <Route path="/sign-in" element={(<Signin />)} />
 
                 {/* pages  */}

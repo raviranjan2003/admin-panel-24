@@ -32,12 +32,13 @@ img{
 }
 
 .logOut{
-    border: 2px solid blue;
-    background: linear-gradient(89.89deg, #003805 0.06%, #467814 102.53%);
+    background: black;
+    color: white;
+    border: none;
     padding: 0.3em;
 }
 
 .logOut:hover{
-    border: 2px solid yellow;
     color: white;
+    border-bottom: white;
 }

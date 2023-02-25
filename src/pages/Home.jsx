@@ -7,25 +7,26 @@ import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
 import "./Home.css";
 import axios from "axios";
 import { baseUrl } from "../API/api";
-// let data = [];
-// const DropDown = ({ currentMode }) => (
-//   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
-//     <DropDownListComponent id="time" fields={{ text: 'Time', value: 'Id' }} style={{ border: 'none', color: (currentMode === 'Dark') && 'white' }} value="1" dataSource={dropdownData} popupHeight="220px" popupWidth="120px" />
-//   </div>
-// );
 
 const Home = (props) => {
   // const { currentColor, currentMode } = useStateContext();
   const { name, tfId } = props;
   const [visitor, setVisitor] = useState(null);
-  const [institution, setInstitution] = useState(null);
   const [coordinator, setCoordinator] = useState(null);
   const [user, setUser] = useState(null);
+  const [institution, setInstitution] = useState(null);
+
+  const handleClick = async (email) => {
+    await axios.post(`${baseUrl}/coordinator/validate`, { email }).then((result) => {
+      if (result.status === 200) {
+        alert('Successfully Validated');
+      }
+    });
+  };
+
   useEffect(async () => {
     await axios.get(`${baseUrl}/coordinator/get`).then((result) => {
-      // alert(J);
-      const res = result;
-      alert(JSON.stringify(res.data))
+      const res = result?.data;
       setCoordinator(res);
     });
     await axios.get(`${baseUrl}/visitors/count`).then((result) => {
@@ -33,21 +34,21 @@ const Home = (props) => {
       setVisitor(res.data.count);
     });
 
-    await axios.get(`${baseUrl}/user/count/institution`).then((result) => {
-      const res = result;
-      setInstitution(res.data.count);
-    });
-
     await axios.get(`${baseUrl}/user/count`).then((result) => {
       const res = result;
       setUser(res.data.count);
     });
-  }, []);
+
+    await axios.get(`${baseUrl}/user/count/institution`).then((result) => {
+      const res = result;
+      setInstitution(res.data.count);
+    });
+  }, [handleClick]);
 
   const columns = [
     {
-      name: "Sr No.",
-      selector: (row) => row.srNo,
+      name: "Id",
+      selector: (row) => row.id,
     },
     {
       name: "Name",
@@ -62,44 +63,40 @@ const Home = (props) => {
       selector: (row) => row.email,
     },
     {
-      name: "Event",
-      selector: (row) => row.event,
+      name: "Type",
+      selector: (row) => row.type,
+      sortable: true,
     },
+    {
+      name: "Status",
+      selector: (row) => row.status.toString(),
+      sortable: true,
+    },
+    {
+      name: "Branch",
+      selector: (row) => row.branch,
+    },
+    {
+      name: "Validate",
+      cell: (row) => <button className="btn" onClick={() => handleClick(row.email)}>Validate</button>
+    }
   ];
 
-  const data = [
-    // {
-    //   id: 1,
-    //   srNo: 1,
-    //   name: 'Ashish',
-    //   phone: '+91XXXXXXX',
-    //   email: 'ashish@gmail.com',
-    //   event: 'Margadarshak',
-    // },
-    // {
-    //   id: 2,
-    //   srNo: 2,
-    //   name: 'Ashish',
-    //   phone: '+91XXXXXXX',
-    //   email: 'ashish@gmail.com',
-    //   event: 'Margadarshak',
-    // },
-  ];
-  coordinator?.map((item=> {
+  const data = [];
+  coordinator?.map(((item) => {
     const coor = {
       id: item.coordinatorId,
       // srNo: item._id,
       name: item.coordinatorName,
       phone: item.coordinatorPhone,
       email: item.coordinatorEmail,
+      type: item.coordinatorType,
+      status: item.coordinatorStatus,
+      branch: item.coordinatorBranch,
       // event: item.coordinatorEvent,
-      // console.log("id", coor),
-     
 };
  data.push(coor);
 }));
-  console.log("dta", data);
-  console.log("Gg", coordinator);
 
   return (
     <>
@@ -130,7 +127,7 @@ const Home = (props) => {
           margin: "0.5em",
         }}
       >
-        Domain Coordinators
+        Coordinators
       </div>
       <div
         style={{
@@ -140,7 +137,7 @@ const Home = (props) => {
           background: "#006600",
         }}
       >
-        <DataTable columns={columns} data={data} pagination theme="solarized" />
+        <DataTable columns={columns} data={data} fixedHeader fixedHeaderScrollHeight="450px" highlightOnHover pagination theme="solarized" />
       </div>
     </>
   );

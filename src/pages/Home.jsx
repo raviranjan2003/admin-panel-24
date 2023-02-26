@@ -4,6 +4,8 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import { GoPrimitiveDot } from "react-icons/go";
 import { IoIosMore } from "react-icons/io";
 import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 import axios from "axios";
 import { baseUrl } from "../API/api";
@@ -15,13 +17,35 @@ const Home = (props) => {
   const [coordinator, setCoordinator] = useState(null);
   const [user, setUser] = useState(null);
   const [institution, setInstitution] = useState(null);
+  const notify = (msg) => toast.success(msg, {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'light',
+  });
 
-  const handleClick = async (email) => {
-    await axios.post(`${baseUrl}/coordinator/validate`, { email }).then((result) => {
-      if (result.status === 200) {
-        alert('Successfully Validated');
-      }
-    });
+  const validateCoordinator = async (email) => {
+    await axios
+      .post(`${baseUrl}/coordinator/validate`, { email })
+      .then((result) => {
+        if (result.status === 200) {
+          notify('Coordinator validated!');
+        }
+      });
+  };
+
+  const deleteCoordinator = async (email) => {
+    await axios
+      .post(`${baseUrl}/coordinator/delete`, { email })
+      .then((result) => {
+        if (result.status === 200) {
+          notify('Coordinator deleted!');
+        }
+      });
   };
 
   useEffect(async () => {
@@ -43,7 +67,7 @@ const Home = (props) => {
       const res = result;
       setInstitution(res.data.count);
     });
-  }, [handleClick]);
+  }, [validateCoordinator, deleteCoordinator]);
 
   const columns = [
     {
@@ -78,12 +102,27 @@ const Home = (props) => {
     },
     {
       name: "Validate",
-      cell: (row) => <button className="btn" onClick={() => handleClick(row.email)}>Validate</button>
-    }
+      cell: (row) => (
+        <button className="btn" onClick={() => validateCoordinator(row.email)}>
+          Validate
+        </button>
+      ),
+    },
+    {
+      name: "Delete",
+      cell: (row) => (
+        <button
+          className="btn_delete"
+          onClick={() => deleteCoordinator(row.email)}
+        >
+          Delete
+        </button>
+      ),
+    },
   ];
 
   const data = [];
-  coordinator?.map(((item) => {
+  coordinator?.map((item) => {
     const coor = {
       id: item.coordinatorId,
       // srNo: item._id,
@@ -94,12 +133,25 @@ const Home = (props) => {
       status: item.coordinatorStatus,
       branch: item.coordinatorBranch,
       // event: item.coordinatorEvent,
-};
- data.push(coor);
-}));
+    };
+    data.push(coor);
+  });
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
       <div className="home">
         <div className="heading">Namaste ! Super Admin</div>
         <div className="description">Your unique tF ID is t960</div>
@@ -137,7 +189,15 @@ const Home = (props) => {
           background: "#006600",
         }}
       >
-        <DataTable columns={columns} data={data} fixedHeader fixedHeaderScrollHeight="450px" highlightOnHover pagination theme="solarized" />
+        <DataTable
+          columns={columns}
+          data={data}
+          fixedHeader
+          fixedHeaderScrollHeight="450px"
+          highlightOnHover
+          pagination
+          theme="solarized"
+        />
       </div>
     </>
   );

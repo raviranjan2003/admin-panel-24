@@ -9,10 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 import axios from "axios";
 import { baseUrl } from "../API/api";
+import Loader from "../components/Loader/Loader";
 
 const Home = (props) => {
   // const { currentColor, currentMode } = useStateContext();
-  const { name, tfId } = props;
+  // const { name, tfId } = props;
+  const [isLoading, setIsLoading] = useState(false);
   const [visitor, setVisitor] = useState(null);
   const [coordinator, setCoordinator] = useState(null);
   const [user, setUser] = useState(null);
@@ -28,10 +30,12 @@ const Home = (props) => {
     theme: 'light',
   });
 
-  const validateCoordinator = async (email) => {
+  const validateCoordinator = async (email, name) => {
+    setIsLoading(true);
     await axios
-      .post(`${baseUrl}/coordinator/validate`, { email })
+      .post(`${baseUrl}/coordinator/validate`, { email, name })
       .then((result) => {
+        setIsLoading(false);
         if (result.status === 200) {
           notify('Coordinator validated!');
         }
@@ -39,9 +43,11 @@ const Home = (props) => {
   };
 
   const deleteCoordinator = async (email) => {
+    setIsLoading(true);
     await axios
       .post(`${baseUrl}/coordinator/delete`, { email })
       .then((result) => {
+        setIsLoading(false);
         if (result.status === 200) {
           notify('Coordinator deleted!');
         }
@@ -67,6 +73,10 @@ const Home = (props) => {
       const res = result;
       setInstitution(res.data.count);
     });
+    // await axios.get(`${baseUrl}/user/getusers`).then((result) => {
+    //   const res = result;
+    //   alert(JSON.stringify(res.data));
+    // });
   }, [validateCoordinator, deleteCoordinator]);
 
   const columns = [
@@ -93,20 +103,25 @@ const Home = (props) => {
     },
     {
       name: "Status",
-      selector: (row) => row.status.toString(),
+      selector: (row) => {
+        if (row.status.toString() === "true") {
+          return (
+            <button className="btn" onClick={() => notify("Already validated!")}>
+          VERIFIED
+        </button>
+          )
+        } else {
+          return (
+            <button className="btn_pending" onClick={() => validateCoordinator(row.email, row.name)}>
+          PENDING
+        </button>
+          )
+        }},
       sortable: true,
     },
     {
       name: "Branch",
       selector: (row) => row.branch,
-    },
-    {
-      name: "Validate",
-      cell: (row) => (
-        <button className="btn" onClick={() => validateCoordinator(row.email)}>
-          Validate
-        </button>
-      ),
     },
     {
       name: "Delete",
@@ -151,6 +166,7 @@ const Home = (props) => {
         pauseOnHover
         theme="light"
       />
+      {isLoading && <Loader />}
 
       <div className="home">
         <div className="heading">Namaste ! Super Admin</div>

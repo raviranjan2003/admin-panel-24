@@ -10,7 +10,7 @@ import logo from './logo.png';
 import { useStateContext } from '../contexts/ContextProvider';
 
 const Sidebar = () => {
-  const { coordinatorLoggedIn } = useStateContext();
+  const { coordinatorLoggedIn, logOutHandler, role } = useStateContext();
 
   return (
     <div className="containerSidebar">
@@ -21,9 +21,9 @@ const Sidebar = () => {
           </Link>
         </div>
 
-        {coordinatorLoggedIn && (
+        {coordinatorLoggedIn && role == 892348 && (
         <div className="item">
-          <Link to="/home">Home</Link>
+          <Link to="/home">Admin</Link>
         </div>
         )}
         {coordinatorLoggedIn && (
@@ -51,11 +51,20 @@ const Sidebar = () => {
           <Link to="/sponsers">Sponsers</Link>
         </div>
         )}
-        {coordinatorLoggedIn && (
-        <div className="item logOut">
-          <Link to="/">Log Out</Link>
-        </div>
-        )}
+        {
+        coordinatorLoggedIn ?
+          (
+            <div className="item logOut" onClick={logOutHandler}>
+              <Link to="/">Log Out</Link>
+            </div>
+          )
+          :
+          (
+            <div className="item logOut">
+              <Link to="/sign-in">Log In</Link>
+            </div>
+          )
+        }
       </div>
     </div>
   );

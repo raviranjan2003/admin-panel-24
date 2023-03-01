@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './Signin.module.css';
 import { baseUrl } from '../../API/api';
 import { useStateContext } from '../../contexts/ContextProvider';
+import Loader from '../Loader/Loader.jsx';
 
 const Signin = () => {
   const { loginHandler } = useStateContext();
@@ -50,7 +51,7 @@ const Signin = () => {
           const coordinatorData = {
             token: res.data.token,
             coordinatorId: res.data.coordinatorId,
-            coordinatorType: res.data.coordinatorType,
+            coordinatorRole: res.data.coordinatorRole,
           };
           loginHandler(coordinatorData);
           navigate('/home');
@@ -92,6 +93,7 @@ const Signin = () => {
 
   return (
     <div className={styles.signin__content} style={{ height: '100vh' }}>
+      {isLoading && <Loader />}
       <div>
         <img src="techFEST'23.webp" alt="techFest'23" className={styles.signin__logo} />
       </div>

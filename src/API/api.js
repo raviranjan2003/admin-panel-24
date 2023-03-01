@@ -7,8 +7,7 @@ export const localUrlIns = axios.create({
   baseURL: baseUrl,
   'withCredentials':true,
   headers: {
-    'Content-Type': 'application/json',
-    'Accept':'application/json',
+    'Content-Type': 'multipart/form-data',
     "Access-Control-Allow-Credentials": true,
     "Access-Control-Allow-Origin": "*",
   },

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar, Footer, Sidebar } from './components';
 import { Domains, Events, Sponsers, Workshops } from './pages';
 import Home from './pages/Home';
+import Users from './pages/Users';
 import Domainadd from './pages/Domainadd';
 import Eventadd from './pages/Eventadd';
 import Workshopadd from './pages/Workshopadd';

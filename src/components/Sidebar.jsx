@@ -29,6 +29,11 @@ const Sidebar = () => {
         )}
         {coordinatorLoggedIn && (
         <div className="item">
+          <Link to="/users">Users</Link>
+        </div>
+        )}
+        {coordinatorLoggedIn && (
+        <div className="item">
           <Link to="/domains">Domains</Link>
         </div>
         )}

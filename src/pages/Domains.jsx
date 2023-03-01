@@ -171,6 +171,24 @@ const Domains = () => {
         <DataTable columns={columns} data={data} fixedHeader
           fixedHeaderScrollHeight="450px" pagination theme="solarized" />
       </div>
+
+
+      {/* <div style={{"border":"2px solid green", "padding":"1.2em", "borderRadius":'15px', "background":"#8578e3", "fontSize":"2em"}}>
+      <DataTableExtensions
+      columns={columns}
+      data={data}
+    >
+    <DataTable
+            noHeader
+            defaultSortField="id"
+            defaultSortAsc={false}
+            pagination
+            highlightOnHover
+            theme="solarized"
+
+        />
+        </DataTableExtensions>
+      </div> */}
     </>
   );
 };

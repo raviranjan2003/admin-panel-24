@@ -19,6 +19,10 @@ export const links = [
     title: 'Fields',
     links: [
       {
+        name: 'Users',
+        icon: <RiContactsLine />,
+      },
+      {
         name: 'Domains',
         icon: <RiContactsLine />,
       },

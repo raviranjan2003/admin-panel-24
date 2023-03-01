@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { baseUrl } from '../../API/api.js';
-import styles from './Signup.module.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "../../API/api.js";
+import styles from "./Signup.module.css";
+import Loader from "../Loader/Loader.jsx";
 
 const Signup = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [cPassword, setCPassword] = useState('');
-  const [phone, setPhone] = useState('');
-  const [type, setType] = useState('0');
-  const [branch, setBranch] = useState('0');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [cPassword, setCPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [type, setType] = useState("0");
+  const [branch, setBranch] = useState("0");
   const [confirmErr, setConfirmErr] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorsMade, setErrorsMade] = useState(null);
@@ -22,11 +23,17 @@ const Signup = () => {
   const [phoneErr, setPhoneErr] = useState(null);
   const [divOne, setDivOne] = useState(true);
   const [divTwo, setDivTwo] = useState(false);
+  const [toggle, setToggle] = useState(null);
+  const [domain, setDomain] = useState('');
   // const [errorMade, setErrorMade] = useState();
 
   // const onErrorMadeHandle = () => {
   //   setErrorMade(null);
   // };
+
+  const showHide = (event) => {
+    setToggle(event.target.value);
+  };
 
   const stringArray = name.split(/(\s+)/);
   const navigate = useNavigate();
@@ -34,7 +41,7 @@ const Signup = () => {
   const handleConfirm = (value) => {
     setCPassword(value);
     if (!(value === password)) {
-      setConfirmErr('Password should match');
+      setConfirmErr("Password should match");
     } else {
       setConfirmErr(null);
       return true;
@@ -43,22 +50,27 @@ const Signup = () => {
   };
 
   const showDivTwo = () => {
-    if (email.trim().length === 0 || password.trim().length === 0 || name.trim().length === 0 || cPassword.trim().length === 0) {
-      setFieldErr('Field should not be empty');
+    if (
+      email.trim().length === 0 ||
+      password.trim().length === 0 ||
+      name.trim().length === 0 ||
+      cPassword.trim().length === 0
+    ) {
+      setFieldErr("Field should not be empty");
       setTimeout(() => {
         setFieldErr(null);
       }, 3000);
       return;
     }
-    if (!email.trim().includes('@')) {
-      setMailErr('Invalid mail!');
+    if (!email.trim().includes("@")) {
+      setMailErr("Invalid mail!");
       setTimeout(() => {
         setMailErr(null);
       }, 3000);
       return;
     }
     if (password.length < 5) {
-      setPasswordErr('Atleast five characteres!');
+      setPasswordErr("Atleast five characteres!");
       setTimeout(() => {
         setPasswordErr(null);
       }, 3000);
@@ -75,36 +87,50 @@ const Signup = () => {
 
   const PostData = async (e) => {
     e.preventDefault();
-    if (email.trim().length === 0 || password.trim().length === 0 || name.trim().length === 0 || cPassword.trim().length === 0 || phone.trim().length === 0 || branch.valueOf === 0) {
-      setFieldErr('Field should not be empty');
+    if (
+      email.trim().length === 0 ||
+      password.trim().length === 0 ||
+      name.trim().length === 0 ||
+      cPassword.trim().length === 0 ||
+      phone.trim().length === 0 ||
+      branch.valueOf === 0
+    ) {
+      setFieldErr("Field should not be empty");
       setTimeout(() => {
         setFieldErr(null);
       }, 3000);
       return;
     }
-    if (!email.trim().includes('@')) {
-      setMailErr('Invalid mail!');
+    if (!email.trim().includes("@")) {
+      setMailErr("Invalid mail!");
       setTimeout(() => {
         setMailErr(null);
       }, 3000);
       return;
     }
     if (branch.valueOf === 0) {
-      setBranchErr('Please choose your branch');
+      setBranchErr("Please choose your branch");
       setTimeout(() => {
         setBranchErr(null);
       }, 3000);
     }
 
     if (password.length < 5) {
-      setPasswordErr('Atleast five characteres!');
+      setPasswordErr("Atleast five characteres!");
       setTimeout(() => {
         setPasswordErr(null);
       }, 3000);
       return;
     }
-    if (phone.length < 10 && phone.length > 10) {
-      setPhoneErr('Invalid phone number!');
+    if (phone.length < 10) {
+      setPhoneErr("Invalid phone number!");
+      setTimeout(() => {
+        setPhoneErr(null);
+      }, 3000);
+      return;
+    }
+    if (phone.length > 10) {
+      setPhoneErr("Invalid phone number!");
       setTimeout(() => {
         setPhoneErr(null);
       }, 3000);
@@ -118,6 +144,7 @@ const Signup = () => {
       phone,
       branch,
       type,
+      domain,
     };
     setIsLoading(true);
     await axios
@@ -126,7 +153,7 @@ const Signup = () => {
         const res = result;
         setIsLoading(false);
         if (res.status === 200) {
-          navigate('/home');
+          navigate("/home");
         } else if (res.status === 208 || res.status === 400) {
           setErrorsMade(res.data.message);
           setTimeout(() => {
@@ -142,7 +169,7 @@ const Signup = () => {
 
   return (
     <>
-      {/* {isLoading && <Loader />} */}
+      {isLoading && <Loader />}
       {/* {errorMade && (
         <ErrorModel
           title={errorMade.title}
@@ -152,19 +179,21 @@ const Signup = () => {
       )} */}
 
       <div className={styles.signup__content}>
-        <div>
+        {/* <div>
           <img src="techFEST'23.webp" alt="techFest'23" className={styles.signup__logo} />
-        </div>
+        </div> */}
 
-        <form method="post" className={styles.signup__inputFields} action=''>
+        <form method="post" className={styles.signup__inputFields} action="">
           {divTwo && (
             <div className={styles.signup__page2}>
               <h1 className={styles.signup__title}>Hi {stringArray[0]}!</h1>
-              {errorsMade && <p style={{ color: 'red' }}>{errorsMade}</p>}
-              {{ fieldErr } && <p style={{ color: 'red' }}>{fieldErr}</p>}
+              {errorsMade && <p style={{ color: "red" }}>{errorsMade}</p>}
+              {{ fieldErr } && <p style={{ color: "red" }}>{fieldErr}</p>}
               <label htmlFor={phone} className={styles.signup__label}>
                 Phone
-                {phoneErr && <p style={{ color: 'red' }}>{phoneErr}</p>}
+                {phoneErr && (
+                  <p style={{ color: "red", fontSize: "1rem" }}>{phoneErr}</p>
+                )}
               </label>
               <input
                 type="number"
@@ -176,119 +205,142 @@ const Signup = () => {
                 required
                 autoComplete="off"
               />
-              {branchErr && <p style={{ color: 'red' }}>{branchErr}</p>}
+              {branchErr && <p style={{ color: "red" }}>{branchErr}</p>}
               <select
                 className={styles.signup__select}
-                sx={{height:"10px"}}
+                sx={{ height: "10px" }}
                 onChange={(e) => setBranch(e.target.value)}
-                id='branch'
-                name='branch'
+                id="branch"
+                name="branch"
                 value={branch}
                 required
               >
-                <option value='0'>Branch Enrolled</option>
-                <option value='Aeronautical Engineering'>
+                <option value="0">Branch Enrolled</option>
+                <option value="Aeronautical Engineering">
                   Aeronautical Engineering
                 </option>
-                <option value='Aerospace Engineering'>
+                <option value="Aerospace Engineering">
                   Aerospace Engineering
                 </option>
-                <option value='Automobile Engineering'>
+                <option value="Automobile Engineering">
                   Automobile Engineering
                 </option>
-                <option value='Biomedical Engineering'>
+                <option value="Biomedical Engineering">
                   Biomedical Engineering
                 </option>
-                <option value='Biotechnology Engineering'>
+                <option value="Biotechnology Engineering">
                   Biotechnology Engineering
                 </option>
-                <option value='Ceramic Engineering'>Ceramic Engineering</option>
-                <option value='Chemical Engineering'>
+                <option value="Ceramic Engineering">Ceramic Engineering</option>
+                <option value="Chemical Engineering">
                   Chemical Engineering
                 </option>
-                <option value='Civil Engineering'>Civil Engineering</option>
-                <option value='Communications Engineering'>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Communications Engineering">
                   Communications Engineering
                 </option>
-                <option value='Computer Science Engineering'>
+                <option value="Computer Science Engineering">
                   Computer Science Engineering
                 </option>
-                <option value='Construction Engineering'>
+                <option value="Construction Engineering">
                   Construction Engineering
                 </option>
-                <option value='Electrical Engineering'>
+                <option value="Electrical Engineering">
                   Electrical Engineering
                 </option>
-                <option value='Electronics & Communication Engineering'>
+                <option value="Electronics & Communication Engineering">
                   Electronics & Communication Engineering
                 </option>
-                <option value='Electronics Engineering'>
+                <option value="Electronics Engineering">
                   Electronics Engineering
                 </option>
-                <option value='Environmental Engineering'>
+                <option value="Environmental Engineering">
                   Environmental Engineering
                 </option>
-                <option value='Food Engineering and Technology'>
+                <option value="Food Engineering and Technology">
                   Food Engineering and Technology
                 </option>
-                <option value='Industrial Engineering'>
+                <option value="Industrial Engineering">
                   Industrial Engineering
                 </option>
-                <option value='Marine Engineering'>Marine Engineering</option>
-                <option value='Mechanical Engineering'>
+                <option value="Marine Engineering">Marine Engineering</option>
+                <option value="Mechanical Engineering">
                   Mechanical Engineering
                 </option>
-                <option value='Mechatronics Engineering'>
+                <option value="Mechatronics Engineering">
                   Mechatronics Engineering
                 </option>
-                <option value='Metallurgical Engineering'>
+                <option value="Metallurgical Engineering">
                   Metallurgical Engineering
                 </option>
-                <option value='Mining Engineering'>Mining Engineering</option>
-                <option value='Petroleum Engineering'>
+                <option value="Mining Engineering">Mining Engineering</option>
+                <option value="Petroleum Engineering">
                   Petroleum Engineering
                 </option>
-                <option value='Power Engineering'>Power Engineering</option>
-                <option value='Production Engineering'>
+                <option value="Power Engineering">Power Engineering</option>
+                <option value="Production Engineering">
                   Production Engineering
                 </option>
-                <option value='Robotics Engineering'>
+                <option value="Robotics Engineering">
                   Robotics Engineering
                 </option>
-                <option value='Structural Engineering'>
+                <option value="Structural Engineering">
                   Structural Engineering
                 </option>
-                <option value='Telecommunication Engineering'>
+                <option value="Telecommunication Engineering">
                   Telecommunication Engineering
                 </option>
-                <option value='Textile Engineering'>Textile Engineering</option>
-                <option value='Tool Engineering'>Tool Engineering</option>
-                <option value='Transportation Engineering'>
+                <option value="Textile Engineering">Textile Engineering</option>
+                <option value="Tool Engineering">Tool Engineering</option>
+                <option value="Transportation Engineering">
                   Transportation Engineering
                 </option>
               </select>
               <select
                 className={styles.signup__select}
-                sx={{height:'10px'}}
-                onChange={(e) => setType(e.target.value)}
-                id='type'
-                name='type'
+                sx={{ height: "10px" }}
+                onChange={(e) => {
+                  setType(e.target.value);
+                  showHide(e);
+                }}
+                id="type"
+                name="type"
                 value={type}
                 required
               >
                 <option value="0">Coordinator Type</option>
-                <option value="Domain">
-                  Domain
-                </option>
-                <option value="Event">
-                  Event
-                </option>
+                <option value="Domain">Domain</option>
+                <option value="Event">Event</option>
               </select>
+              {toggle === 'Domain' && (
+                <select
+                  className={styles.signup__select}
+                  sx={{ height: "10px" }}
+                  onChange={(e) => {
+                    setDomain(e.target.value);
+                  }}
+                  id="domain"
+                  name="domain"
+                  value={domain}
+                  required
+                >
+                  <option value="">Choose Domain</option>
+                  <option value="Aarambh">Aarambh</option>
+                  <option value="Chemfor">Chemfor</option>
+                  <option value="Electrica">Electrica</option>
+                  <option value="Genesis">Genesis</option>
+                  <option value="Karyarachna">Karyarachna</option>
+                  <option value="Kermis">Kermis</option>
+                  <option value="Mechanica">Mechanica</option>
+                  <option value="Plexus">Plexus</option>
+                  <option value="Robozar">Robozar</option>
+                </select>
+              )}
 
               <button
                 className={styles.signup__button}
-                value='signUp'
-                type='button'
+                value="signUp"
+                type="button"
                 onClick={PostData}
                 disabled={isLoading}
               >
@@ -306,71 +358,71 @@ const Signup = () => {
           {divOne && (
             <div className={styles.signup__page1}>
               <h1 className={styles.signup__title}>Welcome!</h1>
-              {{ fieldErr } && <p style={{ color: 'red' }}>{fieldErr}</p>}
-              <label htmlFor='name' className={styles.signup__label}>
+              {{ fieldErr } && <p style={{ color: "red" }}>{fieldErr}</p>}
+              <label htmlFor="name" className={styles.signup__label}>
                 Name
               </label>
               <input
-                type='text'
-                id='name'
-                name='name'
-                placeholder='Enter your name'
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                autoComplete='off'
+                autoComplete="off"
               />
-              <label htmlFor='email' className={styles.signup__label}>
+              <label htmlFor="email" className={styles.signup__label}>
                 E-mail
               </label>
-              {mailErr && <p style={{ color: 'red' }}>{mailErr}</p>}
+              {mailErr && <p style={{ color: "red" }}>{mailErr}</p>}
               <input
-                type='email'
-                id='email'
-                name='email'
-                placeholder='Enter your email'
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                autoComplete='off'
+                autoComplete="off"
               />
-              <label htmlFor='password' className={styles.signup__label}>
+              <label htmlFor="password" className={styles.signup__label}>
                 Password
               </label>
-              {{ passwordErr } && <p style={{ color: 'red' }}>{passwordErr}</p>}
+              {{ passwordErr } && <p style={{ color: "red" }}>{passwordErr}</p>}
               <input
-                placeholder='Enter your Password'
+                placeholder="Enter your Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                type='password'
+                type="password"
                 required
-                autoComplete='off'
+                autoComplete="off"
               />
-              <label htmlFor='cpassword' className={styles.signup__label}>
+              <label htmlFor="cpassword" className={styles.signup__label}>
                 Confirm Password
               </label>
-              {{ confirmErr } && <p style={{ color: 'red' }}>{confirmErr}</p>}
+              {{ confirmErr } && <p style={{ color: "red" }}>{confirmErr}</p>}
               <input
                 value={cPassword}
-                placeholder='Confirm your password'
-                variant='standard'
+                placeholder="Confirm your password"
+                variant="standard"
                 onChange={(e) => handleConfirm(e.target.value)}
-                type='password'
-                autoComplete='off'
+                type="password"
+                autoComplete="off"
               />
               <button
                 className={styles.signup__button}
-                value='next'
-                type='button'
+                value="next"
+                type="button"
                 onClick={showDivTwo}
                 disabled={isLoading}
-                autoComplete='off'
+                autoComplete="off"
               >
                 Next
               </button>
               <p className={styles.signup__text}>
-                Already have an account?{' '}
-                <Link to={'/sign-in'}>
+                Already have an account?{" "}
+                <Link to={"/sign-in"}>
                   <span className={styles.signin__link}>Sign In</span>
                 </Link>
               </p>

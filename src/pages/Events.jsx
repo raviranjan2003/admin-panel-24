@@ -100,6 +100,8 @@ const Events = () => {
           columns={columns}
           data={data}
           pagination
+          fixedHeader
+          fixedHeaderScrollHeight="450px"
           theme="solarized"
         />
       </div>

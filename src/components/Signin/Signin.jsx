@@ -94,9 +94,9 @@ const Signin = () => {
   return (
     <div className={styles.signin__content} style={{ height: '100vh' }}>
       {isLoading && <Loader />}
-      <div>
+      {/* <div>
         <img src="techFEST'23.webp" alt="techFest'23" className={styles.signin__logo} />
-      </div>
+      </div> */}
       <div className={styles.signin__page}>
         {errorsMade && <p style={{ color: 'red' }}>{errorsMade}</p>}
         <form

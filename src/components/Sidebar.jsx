@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import { SiShopware } from "react-icons/si";
 // import { MdOutlineCancel } from "react-icons/md";
 // import { TooltipComponent } from "@syncfusion/ej2-react-popups";
@@ -10,6 +10,7 @@ import logo from './logo.png';
 import { useStateContext } from '../contexts/ContextProvider';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const { coordinatorLoggedIn, logOutHandler, role } = useStateContext();
 
   return (

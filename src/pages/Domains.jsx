@@ -168,7 +168,8 @@ const Domains = () => {
           fontSize: "2em",
         }}
       >
-        <DataTable columns={columns} data={data} pagination theme="solarized" />
+        <DataTable columns={columns} data={data} fixedHeader
+          fixedHeaderScrollHeight="450px" pagination theme="solarized" />
       </div>
     </>
   );

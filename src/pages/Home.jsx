@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
+import DataTable, {createTheme} from "react-data-table-component";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { GoPrimitiveDot } from "react-icons/go";
 import { IoIosMore } from "react-icons/io";
@@ -10,10 +10,22 @@ import "./Home.css";
 import axios from "axios";
 import { baseUrl } from "../API/api";
 import Loader from "../components/Loader/Loader";
+import {useStateContext} from '../contexts/ContextProvider.js'
+
+createTheme('solarized', {
+  text: {
+    primary: '#ffffff',
+    secondary: '#ffffff',
+  },
+  background: {
+    default: '#006600',
+  },
+}, 'dark');
 
 const Home = (props) => {
   // const { currentColor, currentMode } = useStateContext();
   // const { name, tfId } = props;
+  const { token } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [visitor, setVisitor] = useState(null);
   const [coordinator, setCoordinator] = useState(null);
@@ -33,7 +45,15 @@ const Home = (props) => {
   const validateCoordinator = async (email, name) => {
     setIsLoading(true);
     await axios
-      .post(`${baseUrl}/coordinator/validate`, { email, name })
+      .post(`${baseUrl}/coordinator/validate`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+        data: {
+          email,
+          name,
+        },
+      })
       .then((result) => {
         setIsLoading(false);
         if (result.status === 200) {
@@ -102,6 +122,11 @@ const Home = (props) => {
       sortable: true,
     },
     {
+      name: "Domain",
+      selector: (row) => row.domain,
+      sortable: true,
+    },
+    {
       name: "Status",
       selector: (row) => {
         if (row.status.toString() === "true") {
@@ -138,18 +163,21 @@ const Home = (props) => {
 
   const data = [];
   coordinator?.map((item) => {
-    const coor = {
-      id: item.coordinatorId,
-      // srNo: item._id,
-      name: item.coordinatorName,
-      phone: item.coordinatorPhone,
-      email: item.coordinatorEmail,
-      type: item.coordinatorType,
-      status: item.coordinatorStatus,
-      branch: item.coordinatorBranch,
-      // event: item.coordinatorEvent,
-    };
-    data.push(coor);
+    if (item.coordinatorId !== '#TF23-b116ca') {
+      const coor = {
+        id: item.coordinatorId,
+        // srNo: item._id,
+        name: item.coordinatorName,
+        phone: item.coordinatorPhone,
+        email: item.coordinatorEmail,
+        type: item.coordinatorType,
+        status: item.coordinatorStatus,
+        branch: item.coordinatorBranch,
+        domain: item.coordinatorDomain,
+        // event: item.coordinatorEvent,
+      };
+      data.push(coor);
+    }
   });
 
   return (

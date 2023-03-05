@@ -21,6 +21,7 @@ const Signup = () => {
   const [mailErr, setMailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
   const [phoneErr, setPhoneErr] = useState(null);
+  const [typeErr, setTypeErr] = useState(null);
   const [divOne, setDivOne] = useState(true);
   const [divTwo, setDivTwo] = useState(false);
   const [toggle, setToggle] = useState(null);
@@ -108,13 +109,23 @@ const Signup = () => {
       }, 3000);
       return;
     }
-    if (branch.valueOf === 0) {
-      setBranchErr("Please choose your branch");
+    // if (branch.valueOf === 0) {
+    //   setBranchErr("Please choose your branch");
+    // // console.log("branch",typeof(branch));
+    if (branch === '0') {
+      setBranchErr('Please choose your branch');
       setTimeout(() => {
         setBranchErr(null);
       }, 3000);
+      return;
     }
-
+    if (type === '0') {
+      setTypeErr('Please choose your role');
+      setTimeout(() => {
+        setTypeErr(null);
+      }, 3000);
+      return;
+    }
     if (password.length < 5) {
       setPasswordErr("Atleast five characteres!");
       setTimeout(() => {
@@ -146,6 +157,7 @@ const Signup = () => {
       type,
       domain,
     };
+    console.log("user",user)
     setIsLoading(true);
     await axios
       .post(`${baseUrl}/coor/sign-up`, user)
@@ -296,6 +308,7 @@ const Signup = () => {
                   Transportation Engineering
                 </option>
               </select>
+              {typeErr && <p style={{ color: 'red' }}>{typeErr}</p>}
               <select
                 className={styles.signup__select}
                 sx={{ height: "10px" }}

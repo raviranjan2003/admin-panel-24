@@ -3,22 +3,90 @@ import { Link, useNavigate } from "react-router-dom";
 import Domainadd from "../pages/Domainadd";
 import DataTable, { createTheme } from "react-data-table-component";
 import { useStateContext } from "../contexts/ContextProvider";
+import { downloadCSV } from "../contexts/Csv";
+import { downloadPdf } from "../contexts/exportAsPDF";
+// import Button from '../shared/Button';
+const Dummydata = [
+  {
+    id: 1,
+    domainName: "Plexus",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 2,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 3,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 4,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 5,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 6,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 7,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 8,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 9,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 10,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+  {
+    id: 11,
+    domainName: "Chemfor",
+    domainCoordinator: "Ashish",
+    facultyAdvisor: "Ashish",
+  },
+];
 
 const Domains = () => {
   const { coordinatorLoggedIn, role } = useStateContext();
-  createTheme(
-    "solarized",
-    {
-      text: {
-        primary: "#eaf200",
-        secondary: "#eaf200",
-      },
-      background: {
-        default: "#8578e3",
-      },
+  
+  createTheme('solarized', {
+    text: {
+      primary: '#ffffff',
+      secondary: '#ffffff',
     },
-    "dark"
-  );
+    background: {
+      default: '#006600',
+    },
+  }, 'dark');
 
   const columns = [
     {
@@ -30,7 +98,7 @@ const Domains = () => {
       selector: (row) => row.domainName,
     },
     {
-      name: "Domain Co-ordinator",
+      name: "Domain Coordinator",
       selector: (row) => row.domainCoordinator,
     },
     {
@@ -38,76 +106,12 @@ const Domains = () => {
       selector: (row) => row.facultyAdvisor,
     },
   ];
-
-  const data = [
-    {
-      id: 1,
-      domainName: "Plexus",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 2,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 3,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 4,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 5,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 6,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 7,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 8,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 9,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 10,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-    {
-      id: 11,
-      domainName: "Chemfor",
-      domainCoordinator: "Ashish",
-      facultyAdvisor: "Ashish",
-    },
-  ];
-
+  const headers = [["Id", "Domain Name","Student Coordintor","Faculity Cooridator"]];
+  const data = Dummydata.map(elt=> [elt.id, elt.domainName,elt.domainCoordinator,elt.facultyAdvisor]);
+ 
+  const Export = ({ onExport }) => <button onClick={e => onExport(e.target.value)}>Export</button>;
+  const actionsMemo = React.useMemo(() => <button style={{marginRight:"50px"}} onClick={() => downloadCSV(Dummydata,"Domain")}>CSV</button>, []);
+  const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(headers,data,"Domains")}>PDD</button>, []);
   return (
     <>
       <div
@@ -164,14 +168,26 @@ const Domains = () => {
           border: "2px solid green",
           padding: "1.2em",
           borderRadius: "15px",
-          background: "#8578e3",
+          background: "#006600",
           fontSize: "2em",
         }}
       >
-        <DataTable columns={columns} data={data} fixedHeader
-          fixedHeaderScrollHeight="450px" pagination theme="solarized" />
+        <DataTable columns={columns} data={Dummydata} pagination theme="solarized" 
+        actions={
+          [actionsMemo,
+          actionsMemo2]
+        }
+        />
+        
       </div>
-
+      {/* [
+          {
+            icon: () => <button>Export</button>,
+            tooltip: "export to pdf",
+            onClick: () => downloadPdf(),
+            isFreeAction: true
+          }
+        ] */}
 
       {/* <div style={{"border":"2px solid green", "padding":"1.2em", "borderRadius":'15px', "background":"#8578e3", "fontSize":"2em"}}>
       <DataTableExtensions

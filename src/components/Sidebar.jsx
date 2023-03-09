@@ -27,7 +27,7 @@ const Sidebar = () => {
           <Link to="/home">Admin</Link>
         </div>
         )}
-        {coordinatorLoggedIn && (
+        {coordinatorLoggedIn && role == 892348 && (
         <div className="item">
           <Link to="/users">Users</Link>
         </div>
@@ -42,12 +42,12 @@ const Sidebar = () => {
           <Link to="/events">Events</Link>
         </div>
         )}
-        {coordinatorLoggedIn && (
+        {coordinatorLoggedIn && role == 892348 && (
         <div className="item">
           <Link to="/workshops">Workshops</Link>
         </div>
         )}
-        {coordinatorLoggedIn && (
+        {coordinatorLoggedIn && role == 892348 && (
         <div className="item">
           <Link to="/sponsers">Sponsers</Link>
         </div>

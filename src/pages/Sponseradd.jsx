@@ -2,6 +2,7 @@ import React from 'react'
 import './Sponseradd.css'
 
 const Sponseradd = () => {
+  
     return (
         <div className='sponserAdd'>
           <div className='sponserItems'>

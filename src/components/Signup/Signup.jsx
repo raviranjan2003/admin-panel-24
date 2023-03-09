@@ -146,6 +146,7 @@ const Signup = () => {
       type,
       domain,
     };
+    alert(user);
     setIsLoading(true);
     await axios
       .post(`${baseUrl}/coor/sign-up`, user)
@@ -311,6 +312,7 @@ const Signup = () => {
                 <option value="0">Coordinator Type</option>
                 <option value="Domain">Domain</option>
                 <option value="Event">Event</option>
+                <option value="Faculty">Faculty</option>
               </select>
               {toggle === 'Domain' && (
                 <select
@@ -318,6 +320,7 @@ const Signup = () => {
                   sx={{ height: "10px" }}
                   onChange={(e) => {
                     setDomain(e.target.value);
+                    console.log(domain);
                   }}
                   id="domain"
                   name="domain"

@@ -66,12 +66,13 @@ const App = () => {
                 {/* pages  */}
                 {coordinatorLoggedIn && <Route path="/domains" element={<Domains />} />}
                 {coordinatorLoggedIn && <Route path="/events" element={<Events />} />}
-                {coordinatorLoggedIn && <Route path="/sponsers" element={<Sponsers />} />}
-                {coordinatorLoggedIn && <Route path="/workshops" element={<Workshops />} />}
-                {coordinatorLoggedIn && <Route path="/domainadd" element={<Domainadd />} />}
+                {coordinatorLoggedIn && role == 892348 && <Route path="/sponsers" element={<Sponsers />} />}
+                {coordinatorLoggedIn && role == 892348 && <Route path="/workshops" element={<Workshops />} />}
+                {coordinatorLoggedIn && role == 892348 && <Route path="/domainadd" element={<Domainadd />} />}
                 {coordinatorLoggedIn && <Route path="/eventadd" element={<Eventadd />} />}
-                {coordinatorLoggedIn && <Route path="/workshopadd" element={<Workshopadd />} />}
-                {coordinatorLoggedIn && <Route path="/sponseradd" element={<Sponseradd />} />}
+                {coordinatorLoggedIn && role == 892348 && <Route path="/workshopadd" element={<Workshopadd />} />}
+                {coordinatorLoggedIn && role == 892348 && <Route path="/sponseradd" element={<Sponseradd />} />}
+                {coordinatorLoggedIn && role == 892348 && <Route path="/users" element={<Users />} />}
 
                 {/* charts  */}
 

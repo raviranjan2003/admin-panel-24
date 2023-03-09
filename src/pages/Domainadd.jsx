@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import "./Domainadd.css";
-import axios from "axios";
-import { baseUrl } from "../API/api";
+import React, { useEffect, useState } from 'react';
+import './Domainadd.css';
+import axios from 'axios';
+import { baseUrl } from '../API/api';
 
 const Domainadd = () => {
   const [domainName, setDomainName] = useState(null);
@@ -9,7 +9,7 @@ const Domainadd = () => {
   const [domainPicture, setDomainPicture] = useState('');
   const [coordinators, setCoordinators] = useState(null);
   const [domainCoor1, setDomainCoor1] = useState(null);
-  // const [domainCoor2, setDomainCoor2] = useState(null);
+  const [domainCoor2, setDomainCoor2] = useState(null);
   const [facultyAdvisor, setFacultyAdvisor] = useState(null);
 
   useEffect(async () => {
@@ -21,20 +21,18 @@ const Domainadd = () => {
       })
       .catch((err) => {
         console.log(err);
-        return;
       });
   }, []);
 
   const PostData = async () => {
     const formData = new FormData();
-    formData.append("domainName", domainName);
-    formData.append("domainInfo", domainInfo);
-    formData.append("domainPicture", domainPicture);
-    formData.append("domainCoor1", domainCoor1);
-    // formData.append("domainCoor2", domainCoor2);
-    formData.append("facultyAdvisor", facultyAdvisor);
+    formData.append('domainName', domainName);
+    formData.append('domainInfo', domainInfo);
+    formData.append('domainPicture', domainPicture);
+    formData.append('domainCoor1', domainCoor1);
+    formData.append("domainCoor2", domainCoor2);
+    formData.append('facultyAdvisor', facultyAdvisor);
     // alert(JSON.stringify(formData));
-    console.log(formData.get('domainName'));
     await axios.post(`${baseUrl}/domain/create`, formData).then((result) => {
       const res = result;
       console.log(res);
@@ -46,7 +44,7 @@ const Domainadd = () => {
       <form method="post">
         <div className="domainItems">
           <label>
-            Name :{" "}
+            Name :{' '}
             <input
               name="firstName"
               onChange={(e) => setDomainName(e.target.value)}
@@ -55,7 +53,7 @@ const Domainadd = () => {
           <div className="photoUpload">
             Domain Picture:
             <input
-              style={{ border: "none" }}
+              style={{ border: 'none' }}
               type="file"
               onChange={(e) => setDomainPicture(e.target.files[0])}
               accept="/Image/*"
@@ -64,9 +62,9 @@ const Domainadd = () => {
         </div>
         <div
           style={{
-            width: "auto",
-            justifyContent: "right",
-            textAlign: "center",
+            width: 'auto',
+            justifyContent: 'right',
+            textAlign: 'center',
           }}
         >
           Domain Description (max 50 words)
@@ -80,45 +78,40 @@ const Domainadd = () => {
         </div>
 
         <div className="container">
-          {/* <div>
-          <div className="container-head">Domain Co-ordinator - 1</div>
-          <div className="domainBox">
-            <select
-              // className={styles.signup__select}
-              sx={{ height: "10px" }}
-              onChange={(e) => setDomainCoor2(e.target.value)}
-              // id='branch'
-              name="role"
-              // value={branch}
-              required
-            >
-              {coordinators?.map((item) => {
-                console.log(item);
-                return (
-                  <option value={item._id}>{item.coordinatorEmail}</option>
-                );
-              })}
-            </select>
-          </div>
-        </div> */}
-
           <div>
-            <div className="container-head">Domain Co-ordinator - 2 </div>
+            <div className="container-head">Domain Co-ordinator - 1</div>
             <div className="domainBox">
               <select
                 // className={styles.signup__select}
-                sx={{ height: "10px" }}
+                sx={{ height: '10px' }}
                 onChange={(e) => setDomainCoor1(e.target.value)}
                 // id='branch'
                 name="role"
                 // value={branch}
                 required
               >
-                {coordinators?.map((item) => {
-                  return (
-                    <option value={item._id}>{item.coordinatorEmail}</option>
-                  );
-                })}
+                {coordinators?.map((item) => (
+                  <option value={item._id}>{item.coordinatorEmail}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <div className="container-head">Domain Co-ordinator - 2 </div>
+            <div className="domainBox">
+              <select
+                // className={styles.signup__select}
+                sx={{ height: '10px' }}
+                onChange={(e) => setDomainCoor1(e.target.value)}
+                // id='branch'
+                name="role"
+                // value={branch}
+                required
+              >
+                {coordinators?.map((item) => (
+                  <option value={item._id}>{item.coordinatorEmail}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -128,18 +121,16 @@ const Domainadd = () => {
             <div className="domainBox">
               <select
                 // className={styles.signup__select}
-                sx={{ height: "10px" }}
+                sx={{ height: '10px' }}
                 onChange={(e) => setFacultyAdvisor(e.target.value)}
                 // id='branch'
                 name="role"
                 // value={branch}
                 required
               >
-                {coordinators?.map((item) => {
-                  return (
-                    <option value={item._id}>{item.coordinatorEmail}</option>
-                  );
-                })}
+                {coordinators?.map((item) => (
+                  <option value={item._id}>{item.coordinatorEmail}</option>
+                ))}
               </select>
             </div>
           </div>

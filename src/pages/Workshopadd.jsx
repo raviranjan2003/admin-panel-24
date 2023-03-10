@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './Workshopadd.css';
 import axios from 'axios';
 import { baseUrl } from '../API/api';
+import Loader from '../components/Loader/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Workshopadd = () => {
   const [coordinators, setCoordinators] = useState(null);
@@ -13,16 +16,30 @@ const Workshopadd = () => {
   const [workshopVenue, setWorkshopVenue] = useState(null);
   const [workshopDate, setWorkshopDate] = useState(null);
   const [workshopTime, setWorkshopTime] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const notify = (msg) => toast.success(msg, {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'light',
+  });
+
 
   useEffect(async () => {
+    setIsLoading(true);
     await axios
       .get(`${baseUrl}/coordinator/get`)
       .then((result) => {
+        setIsLoading(false);
         const res = result;
         setCoordinators(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        notify(err);
       });
   }, []);
 
@@ -37,14 +54,30 @@ const Workshopadd = () => {
     formData.append('workshopDate', workshopDate);
     formData.append('workshopTime', workshopTime);
     // alert(JSON.stringify(formData));
+    setIsLoading(true);
     await axios.post(`${baseUrl}/workshop/create`, formData).then((result) => {
+      setIsLoading(false);
       const res = result;
-      console.log(res);
+      notify(res.data.message);
     });
   };
 
   return (
     <div className="workshopAdd">
+      {isLoading && <Loader />}
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
       <div className="workshopItems">
         <label>
           Name :{' '}
@@ -83,7 +116,7 @@ const Workshopadd = () => {
             <select
               // className={styles.signup__select}
               sx={{ height: '10px' }}
-              onChange={(e) => setDomainCoor2(e.target.value)}
+              onChange={(e) => setDomainCoor1(e.target.value)}
               // id='branch'
               name="role"
               // value={branch}
@@ -103,7 +136,7 @@ const Workshopadd = () => {
             <label>
               Date :{' '}
               <input
-                type="text"
+                type="date"
                 onChange={(e) => setWorkshopDate(e.target.value)}
                 name="date"
               />
@@ -113,7 +146,7 @@ const Workshopadd = () => {
             <label>
               Time :{' '}
               <input
-                type="text"
+                type="time"
                 onChange={(e) => setWorkshopTime(e.target.value)}
                 name="time"
               />

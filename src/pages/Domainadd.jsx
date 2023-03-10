@@ -30,7 +30,7 @@ const Domainadd = () => {
     formData.append('domainInfo', domainInfo);
     formData.append('domainPicture', domainPicture);
     formData.append('domainCoor1', domainCoor1);
-    formData.append("domainCoor2", domainCoor2);
+    formData.append('domainCoor2', domainCoor2);
     formData.append('facultyAdvisor', facultyAdvisor);
     // alert(JSON.stringify(formData));
     await axios.post(`${baseUrl}/domain/create`, formData).then((result) => {
@@ -103,7 +103,7 @@ const Domainadd = () => {
               <select
                 // className={styles.signup__select}
                 sx={{ height: '10px' }}
-                onChange={(e) => setDomainCoor1(e.target.value)}
+                onChange={(e) => setDomainCoor2(e.target.value)}
                 // id='branch'
                 name="role"
                 // value={branch}

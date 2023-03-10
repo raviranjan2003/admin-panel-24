@@ -1,9 +1,18 @@
-import React from 'react'
-import { Link, useNavigate } from "react-router-dom";
+import React,{useEffect, useState} from 'react'
+import { Link } from "react-router-dom";
 import DataTable, { createTheme } from 'react-data-table-component';
-import Eventadd from '../pages/Eventadd' 
-const Events = () => {
+import Eventadd from '../pages/Eventadd';
+import { baseUrl } from "../API/api";
 
+const Events = () => {
+  // const [domain_events,SetDomain_event]=useState("");
+  // useEffect(async () => {
+  //   await axios.get(`${baseUrl}/event/getAll`).then((result) => {
+  //     const res = result?.data;
+  //     SetDomain_event(res);
+  //   });
+    
+  // }, [domain_events]);
   createTheme('solarized', {
     text: {
       primary: '#ffffff',

@@ -109,9 +109,9 @@ const Domains = () => {
   const headers = [["Id", "Domain Name","Student Coordintor","Faculity Cooridator"]];
   const data = Dummydata.map(elt=> [elt.id, elt.domainName,elt.domainCoordinator,elt.facultyAdvisor]);
  
-  const Export = ({ onExport }) => <button onClick={e => onExport(e.target.value)}>Export</button>;
-  const actionsMemo = React.useMemo(() => <button style={{marginRight:"50px"}} onClick={() => downloadCSV(Dummydata,"Domain")}>CSV</button>, []);
-  const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(headers,data,"Domains")}>PDD</button>, []);
+  
+  const actionsMemo = React.useMemo(() => <button style={{marginRight:"50px"}} onClick={() => downloadCSV(data,"Domains")}>CSV</button>, []);
+  const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(headers,data,"Domains")}>PDF</button>, []);
   return (
     <>
       <div

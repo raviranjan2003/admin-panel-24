@@ -2,6 +2,8 @@ import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import Workshopadd from '../pages/Workshopadd'
 import DataTable , { createTheme } from 'react-data-table-component';
+import { downloadCSV } from '../contexts/Csv';
+import { downloadPdf } from '../contexts/exportAsPDF';
 
 const Sponsers = () => {
   createTheme('solarized', {
@@ -26,7 +28,7 @@ const Sponsers = () => {
     },
     {
         name: 'Website Link',
-        selector: row => row.websiteLink,
+        selector: row => row.sponserName,
     },
   {
     name: 'Contact Person',
@@ -51,7 +53,10 @@ const data = [
     
 },
 ]
-
+const headers = [["Id", "Sponser Name","Website Link","Contact Person"]];
+const Dummydata = data.map(elt=> [elt.id, elt.sponserName,elt.sponserName,elt.contactPerson]);
+const actionsMemo = React.useMemo(() => <button style={{marginRight:"50px"}} onClick={() => downloadCSV(Dummydata,"Sponsors")}>CSV</button>, []);
+  const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(headers,Dummydata,"Sponsors")}>PDF</button>, []);
   return (
     <>
     <div className="heading" style={{
@@ -85,6 +90,10 @@ const data = [
             data={data}
             pagination
             theme="solarized"
+            actions={
+              [actionsMemo,
+              actionsMemo2]
+            }
         />
       </div>
     

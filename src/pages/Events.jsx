@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import DataTable, { createTheme } from 'react-data-table-component';
 import Eventadd from '../pages/Eventadd';
 import { baseUrl } from "../API/api";
+import { downloadPdf } from '../contexts/exportAsPDF';
+import { downloadCSV } from '../contexts/Csv';
 
 const Events = () => {
   // const [domain_events,SetDomain_event]=useState("");
@@ -46,7 +48,7 @@ const Events = () => {
     },
   ];
 
-  const data = [
+  const Dummydata = [
     {
       id: 1,
       eventName: 'Margadarshak',
@@ -64,7 +66,12 @@ const Events = () => {
 
     },
   ]
-
+  const headers = [["Id", "Event Name","Event Co-ordinator","Date and Time","Venue"]];
+  const data = Dummydata.map(elt=> [elt.id, elt.eventName,elt.eventCoordinator,elt.dateAndTime,elt.venue]);
+ 
+  
+  const actionsMemo = React.useMemo(() => <button style={{marginRight:"50px"}} onClick={() => downloadCSV(Dummydata,"Events")}>CSV</button>, []);
+  const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(headers,data,"Events")}>PDF</button>, []);
   return (
 
     <>
@@ -107,11 +114,15 @@ const Events = () => {
       <div style={{ "border": "2px solid green", "padding": "1.2em", "borderRadius": '15px', "background": "#006600" }}>
         <DataTable
           columns={columns}
-          data={data}
+          data={Dummydata}
           pagination
           fixedHeader
           fixedHeaderScrollHeight="450px"
           theme="solarized"
+          actions={
+            [actionsMemo,
+            actionsMemo2]
+          }
         />
       </div>
     </>

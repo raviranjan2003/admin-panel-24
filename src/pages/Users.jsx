@@ -7,6 +7,8 @@ import DataTable, { createTheme } from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import Loader from "../components/Loader/Loader";
+import { downloadPdf } from "../contexts/exportAsPDF";
+import { downloadCSV } from "../contexts/Csv";
 
 const Users = () => {
   const [users, setUsers] = useState(null);
@@ -64,7 +66,28 @@ const Users = () => {
     };
     data.push(coor);
   });
+  const headers = [["Id", "Name", "Email", "Phone"]];
+  const Dummydata = data.map((elt) => [elt.id, elt.name, elt.email, elt.phone]);
 
+  // const actionsMemo = React.useMemo(
+  //   () => (
+  //     <button
+  //       style={{ marginRight: "50px" }}
+  //       onClick={() => downloadCSV(data, "Users")}
+  //     >
+  //       CSV
+  //     </button>
+  //   ),
+  //   []
+  // );
+  const actionsMemo2 = React.useMemo(
+    () => (
+      <button onClick={() => downloadPdf(headers, Dummydata, "Users")}>
+        PDF
+      </button>
+    ),
+    []
+  );
   return (
     <>
       {isLoading && <Loader />}
@@ -111,9 +134,14 @@ const Users = () => {
           background: "#006600",
         }}
       >
-        <DataTable columns={columns} data={data} pagination theme="solarized" fixedHeader
-          fixedHeaderScrollHeight="450px"
-          highlightOnHover/>
+        <DataTable
+          columns={columns}
+          data={data}
+          pagination
+          theme="solarized"
+          actions={actionsMemo2}
+          highlightOnHover
+        />
       </div>
     </>
   );

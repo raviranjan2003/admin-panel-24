@@ -179,6 +179,7 @@ const Events = () => {
             getEvent();
           }}
         >
+          <option value="0">Select</option>
           <option value="aarambh">Aarambh</option>
           <option value="plexus">Plexus</option>
           <option value="chemfor">Chemfor</option>

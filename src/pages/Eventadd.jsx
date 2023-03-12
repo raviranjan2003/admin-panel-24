@@ -9,25 +9,29 @@ import "react-toastify/dist/ReactToastify.css";
 const Eventadd = () => {
   const [startDate, setStartDate] = useState("");
   const [eventName, setEventName] = useState("");
-  const [eventPhoto, setEventPhoto] = useState(null);
   const [eventDescription, setEventDescription] = useState("");
   const [studentCoordinator1, setStudentCoordinator1] = useState("");
   const [studentCoordinator2, setStudentCoordinator2] = useState("");
   const [eventMode, setEventMode] = useState("");
-  const [domainId, setDomainId] = useState("");
+  const [domainName, setDomainName] = useState("");
   const [driveLink, setDriveLink] = useState("");
   const [eventParticipationType, setEventParticipationType] = useState("");
   const [eventVenue, setEventVenue] = useState("");
   const [ePrizeWorth, setEPrizeWorth] = useState("");
   const [whatsappLink, setWhatsappLink] = useState("");
   const [coordinators, setCoordinators] = useState(null);
-  const [domains, setDomains] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  function initCoordinator() {
-    axios
+  useEffect(() => {
+    getCoordinators();
+  }, []);
+
+  const getCoordinators = async () => {
+    setIsLoading(true);
+    await axios
       .get(`${baseUrl}/coordinator/get`)
       .then((result) => {
+        setIsLoading(false);
         const res = result.data;
         setCoordinators(res);
       })
@@ -36,31 +40,19 @@ const Eventadd = () => {
         return;
       });
   }
-  useEffect(() => {
-    axios
-      .get(`${baseUrl}/domain/getAllDomains`)
-      .then((result) => {
-        const res = result.data;
-        setDomains(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        return;
-      });
-  }, []);
 
   const postData = async () => {
     const studentCoordinator = [studentCoordinator1, studentCoordinator2];
+    console.log('this', studentCoordinator);
     setIsLoading(true);
     await axios.post(`${baseUrl}/event/create`, {
       eventName: eventName,
       eventDescription: eventDescription,
-      eventPhoto: eventPhoto,
       studentCoordinator: studentCoordinator,
       eventMode: eventMode,
       whatsappLink: whatsappLink,
       eventParticipationType: eventParticipationType,
-      domainId: domainId,
+      domainName: domainName,
       driveLink: driveLink,
       eventVenue: eventVenue,
       startDate: startDate,
@@ -92,7 +84,7 @@ const Eventadd = () => {
           <select
             // className={styles.signup__select}
             sx={{ height: "10px" }}
-            onChange={(e) => setDomainId(e.target.value)}
+            onChange={(e) => setDomainName(e.target.value)}
             // id='branch'
             name="role"
             // value={branch}
@@ -134,15 +126,6 @@ const Eventadd = () => {
             onChange={(e) => setWhatsappLink(e.target.value)}
           />
         </label>
-        <div className="photoUpload">
-          Event Picture:
-          <input
-            style={{ border: "none", paddingLeft: "4em" }}
-            type="file"
-            onChange={(e) => setEventPhoto(e.target.value)}
-            accept="/Image/*"
-          />
-        </div>
       </div>
       <div
         style={{ width: "auto", justifyContent: "right", textAlign: "center" }}
@@ -165,8 +148,8 @@ const Eventadd = () => {
             <select
               // className={styles.signup__select}
               sx={{ height: "10px" }}
-              onMouseOver={initCoordinator}
-              onChange={(e) => setStudentCoordinator2(e.target.value)}
+              // onMouseOver={initCoordinator}
+              onChange={(e) => setStudentCoordinator1(e.target.value)}
               // id='branch'
               name="role"
               // value={branch}
@@ -190,7 +173,7 @@ const Eventadd = () => {
             <select
               // className={styles.signup__select}
               sx={{ height: "10px" }}
-              onMouseOver={initCoordinator}
+              // onMouseOver={initCoordinator}
               onChange={(e) => setStudentCoordinator2(e.target.value)}
               // id='branch'
               name="role"
@@ -230,12 +213,9 @@ const Eventadd = () => {
               <label>
                 Event Mode :
                 <select
-                  // className={styles.signup__select}
                   sx={{ height: "10px" }}
                   onChange={(e) => setEventMode(e.target.value)}
-                  // id='branch'
                   name="role"
-                  // value={branch}
                   required
                 >
                   <option value="0">Select</option>
@@ -249,12 +229,9 @@ const Eventadd = () => {
               <label>
                 Event Participation Type :
                 <select
-                  // className={styles.signup__select}
                   sx={{ height: "10px" }}
                   onChange={(e) => setEventParticipationType(e.target.value)}
-                  // id='branch'
                   name="role"
-                  // value={branch}
                   required
                 >
                   <option value="0">Select</option>

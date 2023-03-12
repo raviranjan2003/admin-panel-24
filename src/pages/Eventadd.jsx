@@ -16,8 +16,10 @@ const Eventadd = () => {
   const [eventMode, setEventMode] = useState("");
   const [domainId, setDomainId] = useState("");
   const [driveLink, setDriveLink] = useState("");
+  const [eventParticipationType, setEventParticipationType] = useState('')
   const [eventVenue, setEventVenue] = useState("");
   const [ePrizeWorth, setEPrizeWorth] = useState("");
+  const [whatsappLink, setWhatsappLink] = useState('');
   const [coordinators, setCoordinators] = useState(null);
   const [domains, setDomains] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,41 +49,29 @@ const Eventadd = () => {
 
   const postData = async () => {
     const studentCoordinator = [studentCoordinator1, studentCoordinator2];
-    console.log("coooor", studentCoordinator);
-    console.log("covfdxddvooor", eventPhoto);
-    console.log("coooodfr", eventName);
-    console.log("coooofsdfdszr", eventDescription);
     let formData = {
       eventName: eventName,
       eventDescription: eventDescription,
       eventPhoto: eventPhoto,
       studentCoordinator: studentCoordinator,
       eventMode: eventMode,
+      whatsappLink: whatsappLink,
       domainId: domainId,
       driveLink: driveLink,
       eventVenue: eventVenue,
       startDate: startDate,
       ePrizeWorth: Number(ePrizeWorth),
-    }; /*
-    formData.append("eventName", eventName);
-    formData.append("eventDescription", eventDescription);
-    formData.append("eventPhoto", eventPhoto);
-    formData.append("studentCoordinator", studentCoordinator);
-    formData.append("eventMode", eventMode);
-    formData.append("domainId", domainId);
-    formData.append("driveLink", driveLink);
-    formData.append("eventVenue", eventVenue);
-    formData.append("startDate", startDate);
-    formData.append("ePrizeWorth", Number(ePrizeWorth));*/
+    };
 
     setIsLoading(true);
-    console.log("form", formData);
     await axios.post(`${baseUrl}/event/create`, {
       eventName: eventName,
       eventDescription: eventDescription,
       eventPhoto: eventPhoto,
       studentCoordinator: studentCoordinator,
       eventMode: eventMode,
+      whatsappLink: whatsappLink,
+      eventParticipationType: eventParticipationType,
       domainId: domainId,
       driveLink: driveLink,
       eventVenue: eventVenue,
@@ -91,7 +81,6 @@ const Eventadd = () => {
       setIsLoading(false);
       const res = result;
       console.log("res", res);
-      // notify(res.data.message);
     });
   };
   return (
@@ -123,10 +112,19 @@ const Eventadd = () => {
             required
           >
             <option value="0">Select</option>
-            {domains?.map((item) => {
+            {/* {domains?.map((item) => {
               // console.log(item)
               return <option value={item._id}>{item.domainName}</option>;
-            })}
+            })} */}
+            <option value="aarambh">Aarambh</option>
+            <option value="plexus">Plexus</option>
+            <option value="chemfor">Chemfor</option>
+            <option value="electrica">Electrica</option>
+            <option value="genesis">Genesis</option>
+            <option value="karyarachana">Karyarachana</option>
+            <option value="kermis">Kermis</option>
+            <option value="mechanica">Mechanica</option>
+            <option value="robozar">Robozar</option>
           </select>
         </label>
         <label>
@@ -139,6 +137,10 @@ const Eventadd = () => {
         <label>
           Event Drive Link :{" "}
           <input name="drive" onChange={(e) => setDriveLink(e.target.value)} />
+        </label>
+        <label>
+          Event Whatsapp Link :{" "}
+          <input name="whatsapp" onChange={(e) => setWhatsappLink(e.target.value)} />
         </label>
         <div className="photoUpload">
           Event Picture:
@@ -179,7 +181,9 @@ const Eventadd = () => {
             >
               {coordinators?.map((item) => {
                 // console.log(item)
-                return <option value={item._id}>{item.coordinatorName}</option>;
+                if(item.coodinatorRole === 3924875) {
+                  return <option value={item._id}>{item.coordinatorName}</option>;
+                }
               })}
             </select>
           </div>
@@ -199,7 +203,9 @@ const Eventadd = () => {
             >
               {coordinators?.map((item) => {
                 // console.log(item)
-                return <option value={item._id}>{item.coordinatorName}</option>;
+                if(item.coodinatorRole === 3924875) {
+                  return <option value={item._id}>{item.coordinatorName}</option>;
+                }
               })}
             </select>
           </div>
@@ -224,7 +230,7 @@ const Eventadd = () => {
             </div>
             <div className="eventItems">
               <label>
-                Mode :
+                Event Mode :
                 <select
                   // className={styles.signup__select}
                   sx={{ height: "10px" }}
@@ -237,6 +243,25 @@ const Eventadd = () => {
                   <option value="0">Select</option>
                   <option value="Online">Online</option>
                   <option value="Offline">Offline</option>
+                  <option value="Hybrid">Hybrid</option>
+                </select>
+              </label>
+            </div>
+            <div className="eventItems">
+              <label>
+                Event Participation Type :
+                <select
+                  // className={styles.signup__select}
+                  sx={{ height: "10px" }}
+                  onChange={(e) => setEventParticipationType(e.target.value)}
+                  // id='branch'
+                  name="role"
+                  // value={branch}
+                  required
+                >
+                  <option value="0">Select</option>
+                  <option value="Individual">Individual</option>
+                  <option value="Team">Team</option>
                   <option value="Hybrid">Hybrid</option>
                 </select>
               </label>

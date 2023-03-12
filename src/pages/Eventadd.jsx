@@ -109,6 +109,7 @@ const Eventadd = () => {
         pauseOnHover
         theme="light"
       />
+      <div className="heading">Add Event</div>
       <div className="eventItems">
         <label>
           Domain Name :

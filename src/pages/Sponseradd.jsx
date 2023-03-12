@@ -33,6 +33,17 @@ const Sponseradd = () => {
 
   return (
     <div className="sponserAdd">
+    <div
+        className="container"
+        style={{
+          width: "auto",
+          textAlign: "center",
+          fontSize: "2.5em",
+          margin: "0.5em",
+        }}
+      >
+        Users
+      </div>
       <div className="sponserItems">
         <label>
           Name

@@ -77,6 +77,17 @@ const Workshopadd = () => {
         pauseOnHover
         theme="light"
       />
+      <div
+        className="container"
+        style={{
+          width: "auto",
+          textAlign: "center",
+          fontSize: "2.5em",
+          margin: "0.5em",
+        }}
+      >
+        Add Workshops
+      </div>
 
       <div className="workshopItems">
         <label>

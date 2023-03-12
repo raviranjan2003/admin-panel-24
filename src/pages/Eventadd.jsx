@@ -21,6 +21,16 @@ const Eventadd = () => {
   const [whatsappLink, setWhatsappLink] = useState("");
   const [coordinators, setCoordinators] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const notify = (msg) => toast.success(msg, {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'light',
+  });
 
   useEffect(() => {
     getCoordinators();
@@ -43,7 +53,6 @@ const Eventadd = () => {
 
   const postData = async () => {
     const studentCoordinator = [studentCoordinator1, studentCoordinator2];
-    console.log('this', studentCoordinator);
     setIsLoading(true);
     await axios.post(`${baseUrl}/event/create`, {
       eventName: eventName,
@@ -60,6 +69,7 @@ const Eventadd = () => {
     }).then((result) => {
       setIsLoading(false);
       const res = result;
+      notify(res.data.message);
     });
   };
   return (

@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import DataTable, { createTheme } from 'react-data-table-component';
-import { BsCurrencyDollar } from 'react-icons/bs';
-import { GoPrimitiveDot } from 'react-icons/go';
-import { IoIosMore } from 'react-icons/io';
-import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './Home.css';
-import axios from 'axios';
-import { baseUrl } from '../API/api';
-import Loader from '../components/Loader/Loader';
-import { useStateContext } from '../contexts/ContextProvider.js';
+import React, { useEffect, useState } from "react";
+import DataTable, { createTheme } from "react-data-table-component";
+import { BsCurrencyDollar } from "react-icons/bs";
+import { GoPrimitiveDot } from "react-icons/go";
+import { IoIosMore } from "react-icons/io";
+import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./Home.css";
+import axios from "axios";
+import { baseUrl } from "../API/api";
+import Loader from "../components/Loader/Loader";
+import { useStateContext } from "../contexts/ContextProvider.js";
 
-createTheme('solarized', {
-  text: {
-    primary: '#ffffff',
-    secondary: '#ffffff',
+createTheme(
+  "solarized",
+  {
+    text: {
+      primary: "#ffffff",
+      secondary: "#ffffff",
+    },
+    background: {
+      default: "#006600",
+    },
   },
-  background: {
-    default: '#006600',
-  },
-}, 'dark');
+  "dark"
+);
 
 const Home = (props) => {
   // const { currentColor, currentMode } = useStateContext();
@@ -31,46 +35,49 @@ const Home = (props) => {
   const [coordinator, setCoordinator] = useState(null);
   const [user, setUser] = useState(null);
   const [institution, setInstitution] = useState(null);
-  const notify = (msg) => toast.success(msg, {
-    position: 'top-center',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
-  });
+  const notify = (msg) =>
+    toast.success(msg, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   const validateCoordinator = async (email, name) => {
     setIsLoading(true);
     await axios
-      .post(`${baseUrl}/coordinator/validate`, {
-        email,
-        name,
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      .post(
+        `${baseUrl}/coordinator/validate`,
+        {
+          email,
+          name,
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((result) => {
         setIsLoading(false);
         if (result.status === 200) {
-          notify('Coordinator validated!');
+          notify("Coordinator validated!");
         }
       });
   };
 
   const deleteCoordinator = async (id) => {
     setIsLoading(true);
-    await axios
-      .post(`${baseUrl}/coordinator/delete`, { id })
-      .then((result) => {
-        setIsLoading(false);
-        if (result.status === 200) {
-          notify('Coordinator deleted!');
-        }
-      });
+    await axios.post(`${baseUrl}/coordinator/delete`, { id }).then((result) => {
+      setIsLoading(false);
+      if (result.status === 200) {
+        notify("Coordinator deleted!");
+      }
+    });
   };
 
   useEffect(async () => {
@@ -96,43 +103,49 @@ const Home = (props) => {
 
   const columns = [
     {
-      name: 'Id',
+      name: "Id",
       selector: (row) => row.id,
     },
     {
-      name: 'Name',
+      name: "Name",
       selector: (row) => row.name,
     },
     {
-      name: 'Phone',
+      name: "Phone",
       selector: (row) => row.phone,
     },
     {
-      name: 'E-mail',
+      name: "E-mail",
       selector: (row) => row.email,
     },
     {
-      name: 'Type',
+      name: "Type",
       selector: (row) => row.type,
       sortable: true,
     },
     {
-      name: 'Domain',
+      name: "Domain",
       selector: (row) => row.domain,
       sortable: true,
     },
     {
-      name: 'Status',
+      name: "Status",
       selector: (row) => {
-        if (row.status.toString() === 'true') {
+        if (row.status.toString() === "true") {
           return (
-            <button className="btn" onClick={() => notify('Already validated!')}>
+            <button
+              className="btn"
+              onClick={() => notify("Already validated!")}
+            >
               VERIFIED
             </button>
           );
         }
         return (
-          <button className="btn_pending" onClick={() => validateCoordinator(row.email, row.name)}>
+          <button
+            className="btn_pending"
+            onClick={() => validateCoordinator(row.email, row.name)}
+          >
             PENDING
           </button>
         );
@@ -140,11 +153,11 @@ const Home = (props) => {
       sortable: true,
     },
     {
-      name: 'Branch',
+      name: "Branch",
       selector: (row) => row.branch,
     },
     {
-      name: 'Delete',
+      name: "Delete",
       cell: (row) => (
         <button
           className="btn_delete"
@@ -158,7 +171,7 @@ const Home = (props) => {
 
   const data = [];
   coordinator?.map((item) => {
-    if (item.coordinatorId !== '#TF23-018b85') {
+    if (item.coordinatorId !== "#TF23-018b85") {
       const coor = {
         id: item.coordinatorId,
         // srNo: item._id,
@@ -212,20 +225,20 @@ const Home = (props) => {
 
       <div
         style={{
-          width: 'auto',
-          textAlign: 'left',
-          fontSize: '2.5em',
-          margin: '0.5em',
+          width: "auto",
+          textAlign: "left",
+          fontSize: "2.5em",
+          margin: "0.5em",
         }}
       >
         Coordinators
       </div>
       <div
         style={{
-          border: '2px solid green',
-          padding: '1.2em',
-          borderRadius: '15px',
-          background: '#006600',
+          border: "2px solid green",
+          padding: "1.2em",
+          borderRadius: "15px",
+          background: "#006600",
         }}
       >
         <DataTable

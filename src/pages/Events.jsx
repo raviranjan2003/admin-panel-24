@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import DataTable, { createTheme } from 'react-data-table-component';
 import Eventadd from '../pages/Eventadd';
 import { baseUrl } from "../API/api";
+import { useStateContext } from '../contexts/ContextProvider';
 import { downloadPdf } from '../contexts/exportAsPDF';
 import { downloadCSV } from '../contexts/Csv';
 
 const Events = () => {
+  const { coordinatorLoggedIn, role } = useStateContext();
   // const [domain_events,SetDomain_event]=useState("");
   // useEffect(async () => {
   //   await axios.get(`${baseUrl}/event/getAll`).then((result) => {
@@ -95,12 +97,12 @@ const Events = () => {
         "margin": "0.1em"
       }}><div>EVENTS</div>
       </div>
-      <div style={{"fontSize": "18px","border":"2px solid blue", "display": "table",
+      {coordinatorLoggedIn && role == 948759 && <div style={{"fontSize": "18px","border":"2px solid blue", "display": "table",
     "margin": "0 auto", "padding":"5px","borderRadius":"8px"}}><Link to="/eventadd">
     <button type="button">
          Add New Event
     </button>
-</Link></div>
+</Link></div>}
       <div style={{ "margin": "7px" }}>
         <label for="events">Choose Events : </label>
         <select id="events" name="events">

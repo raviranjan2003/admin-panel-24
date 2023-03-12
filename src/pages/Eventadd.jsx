@@ -68,7 +68,6 @@ const Eventadd = () => {
     }).then((result) => {
       setIsLoading(false);
       const res = result;
-      console.log("res", res);
     });
   };
   return (

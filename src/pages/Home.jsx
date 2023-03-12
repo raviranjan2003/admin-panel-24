@@ -171,7 +171,6 @@ const Home = (props) => {
         domain: item.coordinatorDomain,
         // event: item.coordinatorEvent,
       };
-      console.log('data', item.coordinatorDomain);
       data.push(coor);
     }
   });

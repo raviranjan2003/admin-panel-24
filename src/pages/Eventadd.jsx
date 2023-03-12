@@ -155,6 +155,7 @@ const Eventadd = () => {
               // value={branch}
               required
             >
+            <option value="">Select</option>
               {coordinators?.map((item) => {
                 if (item.coordinatorRole == 3924875) {
                   return (
@@ -180,6 +181,7 @@ const Eventadd = () => {
               // value={branch}
               required
             >
+            <option value="">Select</option>
               {coordinators?.map((item) => {
                 if (item.coordinatorRole == 3924875) {
                   return (

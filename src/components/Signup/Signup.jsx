@@ -265,6 +265,9 @@ const Signup = () => {
                 <option value="Food Engineering and Technology">
                   Food Engineering and Technology
                 </option>
+                <option value="Instrumentation and Control Engineering">
+                Instrumentation and Control Engineering
+                </option>
                 <option value="Industrial Engineering">
                   Industrial Engineering
                 </option>

@@ -8,11 +8,12 @@ import './Sidebar.css';
 import logo from './logo.png';
 // import { links } from "../data/dummy";
 import { useStateContext } from '../contexts/ContextProvider';
+import { useState } from 'react';
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const { coordinatorLoggedIn, logOutHandler, role } = useStateContext();
-
+  const { coordinatorLoggedIn, logOutHandler, role, domain } = useStateContext();
+  const [dom, setDom] = useState(domain);
   return (
     <div className="containerSidebar">
       <div className="sidebarItems">
@@ -37,7 +38,13 @@ const Sidebar = () => {
           <Link to="/domains">Domains</Link>
         </div>
         )}
-        {coordinatorLoggedIn && (
+
+        {coordinatorLoggedIn && (role == 948759 || role == 3924875) && (
+        <div className="item">
+        <Link to={`/events/domain/${domain}`}>Events</Link>
+        </div>
+        )}
+        {coordinatorLoggedIn && role == 892348 && (
         <div className="item">
           <Link to="/events">Events</Link>
         </div>

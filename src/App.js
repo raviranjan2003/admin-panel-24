@@ -14,6 +14,7 @@ import Sponseradd from './pages/Sponseradd';
 import Signup from './components/Signup/Signup.jsx';
 import Signin from './components/Signin/Signin.jsx';
 import './App.css';
+import Eventdomain from './pages/Eventdomain';
 
 import { useStateContext } from './contexts/ContextProvider';
 
@@ -76,6 +77,7 @@ const App = () => {
                 {coordinatorLoggedIn && role == 892348 && <Route path="/workshopadd" element={<Workshopadd />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/sponseradd" element={<Sponseradd />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/users" element={<Users />} />}
+                {coordinatorLoggedIn && (role == 948759 || role == 3924875) && <Route path="/events/domain/:domain" element={<Eventdomain />} />}
 
                 {/* charts  */}
 

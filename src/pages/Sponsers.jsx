@@ -59,25 +59,6 @@ const actionsMemo = React.useMemo(() => <button style={{marginRight:"50px"}} onC
   const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(headers,Dummydata,"Sponsors")}>PDF</button>, []);
   return (
     <>
-    <div className="heading" style={{
-        "width": "auto",
-        "textAlign": "center",
-        "fontSize": "2.5em",
-        "margin": "0.2em",
-        "marginBottom": "0em"
-      }}>Namaste ! Super Admin</div>
-      <div className="description" style={{
-        "width": "auto",
-        "textAlign": "center",
-        "fontSize": "0.75em",
-        "marginBottom":"3.5em"
-      }}>Your unique tF ID is t960</div>
-      <div className='container' style={{
-        "width": "auto",
-        "textAlign": "center",
-        "fontSize": "2.5em",
-        "margin":"0.5em"
-      }}>Sponsers</div>
       <div style={{"fontSize": "18px","border":"2px solid blue", "display": "table",
     "margin": "5px auto", "padding":"5px","borderRadius":"8px"}}><Link to="/sponseradd">
     <button type="button">

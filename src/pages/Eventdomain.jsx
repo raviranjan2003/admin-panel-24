@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import DataTable, { createTheme } from "react-data-table-component";
 import { baseUrl } from "../API/api";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -13,6 +13,7 @@ import { useEffect } from "react";
 const Events = () => {
   const { coordinatorLoggedIn, role, domain } = useStateContext();
   const [domainName, setDomainName] = useState('aarambh');
+  const paramsDomain = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState([]);
   const notify = (msg) =>
@@ -27,16 +28,26 @@ const Events = () => {
       theme: "light",
     });
 
-  const getEvent = async (domain) => {
-      console.log(domain)
+  // const getEvent = async (domain) => {
+    useEffect( async () => {
       await axios
-      .post(`${baseUrl}/event/geteventbydomainname`, { domainName: domain })
+      .post(`${baseUrl}/event/geteventbydomainname`, { domainName: paramsDomain.domain })
       .then((result) => {
         const res = result;
         setEventDetails(res.data.event);
       });
-  };
+    }, [])
+  // };
 
+  const deleteEvent = async (id) => {
+    setIsLoading(true);
+    await axios.post(`${baseUrl}/event/delete`, { id }).then((result) => {
+      setIsLoading(false);
+      if (result.status === 200) {
+        notify(result.data.message);
+      }
+    });
+  };
 
   createTheme(
     "solarized",
@@ -72,6 +83,24 @@ const Events = () => {
     {
       name: "Date",
       selector: (row) => row.date.slice(0, 10),
+    },
+    {
+      name: "Edit",
+      selector: (row) => {
+        return (
+          <Link to={`/eventedit/${row.id}`}>
+            <button className="btn">Edit</button>
+          </Link>
+        );
+      },
+    },
+    {
+      name: "Delete Event",
+      selector: (row) => (
+        <button className="btn_delete" onClick={() => deleteEvent(row.id)}>
+          Delete
+        </button>
+      ),
     },
   ];
 
@@ -165,34 +194,7 @@ const Events = () => {
           </Link>
         </div>
       )}
-      <div style={{ margin: "7px" }}>
-        <label for="domains">Choose Domains : </label>
-        <select
-          id="domains"
-          name="domains"
-          onChange={(e) => {
-            setDomainName(e.target.value);
-            getEvent(e.target.value);
-          }}
-        >
-          <option value="0">Select</option>
-          {(domain == "Aarambh" || domain == "Admin")  && <option value="aarambh">Aarambh</option>}
-          {(domain == "Plexus" || domain == 'Admin')&& <option value="plexus">Plexus</option>}
-          {(domain == "Chemfor" || domain == 'Admin') && <option value="chemfor">Chemfor</option>}
-          {(domain == "Electrica" || domain == 'Admin') && (
-            <option value="electrica">Electrica</option>
-          )}
-          {(domain == "Genesis" || domain == 'Admin') && <option value="genesis">Genesis</option>}
-          {(domain == "Karyarachana" || domain == 'Admin') && (
-            <option value="karyarachana">Karyarachana</option>
-          )}
-          {(domain == "Kermis" || domain == 'Admin') && <option value="kermis">Kermis</option>}
-          {(domain == "Mechanica" || domain == 'Admin') && (
-            <option value="mechanica">Mechanica</option>
-          )}
-          {(domain == "Robozar" || domain == 'Admin') && <option value="robozar">Robozar</option>}
-        </select>
-      </div>
+        <br />
 
       <div
         style={{

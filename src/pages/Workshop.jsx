@@ -65,7 +65,7 @@ const Workshops = () => {
   ];
 
   const data = [];
-  user.map((user) => {
+  user?.map((user) => {
     const work = {
       id: user._id,
       userName: user.name,
@@ -140,8 +140,13 @@ const Workshops = () => {
       >
         {workshop && workshop.workshopName}
         <p>Domain : {workshop && workshop.domainName}</p>
-        <h1>User Registered</h1>
       </div>
+        <h1 style={{
+          width: "auto",
+          textAlign: "center",
+          fontSize: "2.5em",
+          margin: "0.5em",
+        }}>User Registered</h1>
 
       <div
         style={{

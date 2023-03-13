@@ -240,21 +240,21 @@ const Events = () => {
           }}
         >
           <option value="0">Select</option>
-          {domain == "Aarambh" && <option value="aarambh">Aarambh</option>}
-          {domain == "Plexus" && <option value="plexus">Plexus</option>}
-          {domain == "Chemfor" && <option value="chemfor">Chemfor</option>}
-          {domain == "Electrica" && (
+          {(domain == "Aarambh" || domain == "Admin")  && <option value="aarambh">Aarambh</option>}
+          {(domain == "Plexus" || domain == 'Admin')&& <option value="plexus">Plexus</option>}
+          {(domain == "Chemfor" || domain == 'Admin') && <option value="chemfor">Chemfor</option>}
+          {(domain == "Electrica" || domain == 'Admin') && (
             <option value="electrica">Electrica</option>
           )}
-          {domain == "Genesis" && <option value="genesis">Genesis</option>}
-          {domain == "Karyarachana" && (
+          {(domain == "Genesis" || domain == 'Admin') && <option value="genesis">Genesis</option>}
+          {(domain == "Karyarachana" || domain == 'Admin') && (
             <option value="karyarachana">Karyarachana</option>
           )}
-          {domain == "Kermis" && <option value="kermis">Kermis</option>}
-          {domain == "Mechanica" && (
+          {(domain == "Kermis" || domain == 'Admin') && <option value="kermis">Kermis</option>}
+          {(domain == "Mechanica" || domain == 'Admin') && (
             <option value="mechanica">Mechanica</option>
           )}
-          {domain == "Robozar" && <option value="robozar">Robozar</option>}
+          {(domain == "Robozar" || domain == 'Admin') && <option value="robozar">Robozar</option>}
         </select>
       </div>
 

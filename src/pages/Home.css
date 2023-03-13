@@ -17,6 +17,20 @@
     margin: 0.5em;
 }
 
+.btn_delete {
+    background-color: #c42c2c; /* Green */
+    border: none;
+    color: white;
+    padding: 0.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.8rem;
+    margin: 0.5em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 .container{
     display: flex;
     flex-direction: row;

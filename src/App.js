@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Users from './pages/Users';
 import Domainadd from './pages/Domainadd';
 import Eventadd from './pages/Eventadd';
+import Eventedit from './pages/Eventedit.jsx';
 import Workshopadd from './pages/Workshopadd';
 import Sponseradd from './pages/Sponseradd';
 import Signup from './components/Signup/Signup.jsx';
@@ -69,7 +70,8 @@ const App = () => {
                 {coordinatorLoggedIn && role == 892348 && <Route path="/sponsers" element={<Sponsers />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/workshops" element={<Workshops />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/domainadd" element={<Domainadd />} />}
-                {coordinatorLoggedIn && <Route path="/eventadd" element={<Eventadd />} />}
+                {coordinatorLoggedIn && role == 948759 &&<Route path="/eventadd" element={<Eventadd />} />}
+                {coordinatorLoggedIn && role == 948759  && <Route path="/eventedit/:id" element={<Eventedit />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/workshopadd" element={<Workshopadd />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/sponseradd" element={<Sponseradd />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/users" element={<Users />} />}

@@ -1,36 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import DataTable, { createTheme } from "react-data-table-component";
-import Eventadd from "../pages/Eventadd";
 import { baseUrl } from "../API/api";
 import { useStateContext } from "../contexts/ContextProvider";
 import { downloadPdf } from "../contexts/exportAsPDF";
 import { downloadCSV } from "../contexts/Csv";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import Loader from "../components/Loader/Loader";
 
 const Events = () => {
   const { coordinatorLoggedIn, role } = useStateContext();
   const [domainName, setDomainName] = useState("aarambh");
-  const [eventDetails, setEventDetails] = useState([])
+  const [isLoading, setIsLoading] = useState(false);
+  const [eventDetails, setEventDetails] = useState([]);
+  const notify = (msg) =>
+    toast.success(msg, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
-  const getEvent = async() => {
+  const getEvent = async (domain) => {
     await axios
-      .post(`${baseUrl}/event/getEventByDomainName`, {domainName})
+      .post(`${baseUrl}/event/getEventByDomainName`, { domainName: domain })
       .then((result) => {
         const res = result;
         setEventDetails(res.data.event);
-      })
-  }
-
+      });
+  };
 
   const getCoor = async (userId) => {
     await axios
-      .post(`${baseUrl}/user/getuserbyobjid`, {_id: userId})
+      .post(`${baseUrl}/coor/getcoordinatorbyid`, { _id: userId })
       .then((result) => {
         const res = result;
-        return res.data.user.name;
-      })
-  }
+        return res.data.coordinator.coordinatorName;
+      });
+  };
+
+  const deleteEvent = async (id) => {
+    setIsLoading(true);
+    await axios.post(`${baseUrl}/event/delete`, { id }).then((result) => {
+      setIsLoading(false);
+      if (result.status === 200) {
+        notify(result.data.message);
+      }
+    });
+  };
 
   createTheme(
     "solarized",
@@ -57,7 +79,7 @@ const Events = () => {
     },
     {
       name: "Student Coordinator 1",
-      selector: (row) => (row.std1),
+      selector: (row) => row.std1,
     },
     {
       name: "Student Coordinator 2",
@@ -71,6 +93,25 @@ const Events = () => {
       name: "Date",
       selector: (row) => row.date.slice(0, 10),
     },
+    {
+      name: "Edit",
+      selector: (row) => {
+        return (
+          <Link to={`/eventedit/${row.id}`}>
+            <button className="btn">Edit</button>
+          </Link>
+        );
+      },
+    },
+    {
+      name: "Edit",
+      selector: (row) => (
+        <button 
+          className="btn_delete"
+          onClick={() => deleteEvent(row.id)}
+        >Delete</button>
+      ),
+    },
   ];
 
   const eventData = [];
@@ -83,13 +124,20 @@ const Events = () => {
       prize: item.ePrizeWorth,
       date: item.startDate,
       std1: item.studentCoordinator[0],
-      std2: item.studentCoordinator[1]
-    }
+      std2: item.studentCoordinator[1],
+    };
     eventData.push(event);
   });
 
   const headers = [
-    ["Id", "Event Name", "Student Coordinator 1","Student Coordinator 2", "Date", "Venue"],
+    [
+      "Id",
+      "Event Name",
+      "Student Coordinator 1",
+      "Student Coordinator 2",
+      "Date",
+      "Venue",
+    ],
   ];
   const data = eventData.map((elt) => [
     elt.id,
@@ -97,7 +145,7 @@ const Events = () => {
     elt.std1,
     elt.std2,
     elt.venue,
-    elt.date
+    elt.date,
   ]);
 
   const actionsMemo = React.useMemo(
@@ -119,6 +167,19 @@ const Events = () => {
   );
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {isLoading && <Loader />}
       <div
         className="heading"
         style={{
@@ -176,7 +237,7 @@ const Events = () => {
           name="domains"
           onChange={(e) => {
             setDomainName(e.target.value);
-            getEvent();
+            getEvent(e.target.value);
           }}
         >
           <option value="0">Select</option>

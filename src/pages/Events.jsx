@@ -10,8 +10,8 @@ import { toast, ToastContainer } from "react-toastify";
 import Loader from "../components/Loader/Loader";
 
 const Events = () => {
-  const { coordinatorLoggedIn, role } = useStateContext();
-  const [domainName, setDomainName] = useState("aarambh");
+  const { coordinatorLoggedIn, role, domain } = useStateContext();
+  const [domainName, setDomainName] = useState('aarambh');
   const [isLoading, setIsLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState([]);
   const notify = (msg) =>
@@ -104,12 +104,11 @@ const Events = () => {
       },
     },
     {
-      name: "Edit",
+      name: "Delete Event",
       selector: (row) => (
-        <button 
-          className="btn_delete"
-          onClick={() => deleteEvent(row.id)}
-        >Delete</button>
+        <button className="btn_delete" onClick={() => deleteEvent(row.id)}>
+          Delete
+        </button>
       ),
     },
   ];
@@ -241,15 +240,21 @@ const Events = () => {
           }}
         >
           <option value="0">Select</option>
-          <option value="aarambh">Aarambh</option>
-          <option value="plexus">Plexus</option>
-          <option value="chemfor">Chemfor</option>
-          <option value="electrica">Electrica</option>
-          <option value="genesis">Genesis</option>
-          <option value="karyarachana">Karyarachana</option>
-          <option value="kermis">Kermis</option>
-          <option value="mechanica">Mechanica</option>
-          <option value="robozar">Robozar</option>
+          {domain == "Aarambh" && <option value="aarambh">Aarambh</option>}
+          {domain == "Plexus" && <option value="plexus">Plexus</option>}
+          {domain == "Chemfor" && <option value="chemfor">Chemfor</option>}
+          {domain == "Electrica" && (
+            <option value="electrica">Electrica</option>
+          )}
+          {domain == "Genesis" && <option value="genesis">Genesis</option>}
+          {domain == "Karyarachana" && (
+            <option value="karyarachana">Karyarachana</option>
+          )}
+          {domain == "Kermis" && <option value="kermis">Kermis</option>}
+          {domain == "Mechanica" && (
+            <option value="mechanica">Mechanica</option>
+          )}
+          {domain == "Robozar" && <option value="robozar">Robozar</option>}
         </select>
       </div>
 

@@ -10,6 +10,7 @@ const initialState = {
   token: '',
   isCoordinatorLoggedIn: false,
   coordinatorRole: '',
+  coordinatorDomain: '',
   login: () => {},
   logout: () => {},
 };
@@ -21,8 +22,10 @@ export const ContextProvider = ({ children }) => {
   // const localExpiryDate = localStorage.getItem('expiry');
   // const coordinatorId = localStorage.getItem('coordinatorId');
   const coordinatorRole = localStorage.getItem('coordinatorRole');
+  const coordinatorDomain = localStorage.getItem('coodinatorDomain');
   const [token, setToken] = useState(localToken);
   const [role, setRole] = useState(coordinatorRole);
+  const [domain, setDomain] = useState(coordinatorDomain);
   // const [expiryDate, setExpiryDate] = useState(localExpiryDate);
   let coordinatorLoggedIn = !!token;
 
@@ -38,6 +41,7 @@ export const ContextProvider = ({ children }) => {
     localStorage.removeItem('coordinatorId');
     localStorage.removeItem('coordinatorRole');
     localStorage.removeItem('expiry');
+    localStorage.removeItem('coordinatorDomain');
     if (resetLogoutTimer) {
       clearTimeout(resetLogoutTimer);
     }
@@ -46,11 +50,13 @@ export const ContextProvider = ({ children }) => {
     localStorage.setItem('token', coordinator.token);
     localStorage.setItem('coordinatorId', coordinator.coordinatorId);
     localStorage.setItem('coordinatorRole', coordinator.coordinatorRole);
+    localStorage.setItem('coordinatorDomain', coordinator.coordinatorDomain);
     const remainingMilliseconds = 7 * 24 * 60 * 60 * 1000;
     const expiry = new Date(new Date().getTime() + remainingMilliseconds);
     localStorage.setItem('expiry', expiry.toISOString());
     setToken(coordinator.token);
     setRole(coordinator.coordinatorRole);
+    setDomain(coordinator.coordinatorDomain);
     coordinatorLoggedIn = true;
     const remainingTime = calculateRemainingTime(expiry);
     resetLogoutTimer = setTimeout(logOutHandler, remainingTime);
@@ -67,7 +73,7 @@ export const ContextProvider = ({ children }) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{ activeMenu, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, localToken, token, setToken, calculateRemainingTime, logOutHandler, loginHandler, coordinatorLoggedIn, role, setRole }}>
+    <StateContext.Provider value={{ activeMenu, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, localToken, token, setToken, calculateRemainingTime, logOutHandler, loginHandler, coordinatorLoggedIn, role, setRole, coordinatorDomain, setDomain, domain }}>
       {children}
     </StateContext.Provider>
   );

@@ -48,10 +48,12 @@ const Signin = () => {
           return;
         }
         if (res.status === 200) {
+          // alert(JSON.stringify(res.data))
           const coordinatorData = {
             token: res.data.token,
             coordinatorId: res.data.coordinatorId,
             coordinatorRole: res.data.coordinatorRole,
+            coordinatorDomain: res.data.coordinatorDomain,
           };
           loginHandler(coordinatorData);
           navigate('/home');

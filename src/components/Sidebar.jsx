@@ -55,7 +55,10 @@ const Sidebar = () => {
         {
         coordinatorLoggedIn ?
           (
-            <div className="item logOut" onClick={logOutHandler}>
+            <div className="item logOut" onClick= {() => {
+              logOutHandler();
+              window.location.reload(false);
+            }}>
               <Link to="/">Log Out</Link>
             </div>
           )

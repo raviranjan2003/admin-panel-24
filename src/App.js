@@ -9,6 +9,7 @@ import Domainadd from './pages/Domainadd';
 import Eventadd from './pages/Eventadd';
 import Eventedit from './pages/Eventedit.jsx';
 import Workshopadd from './pages/Workshopadd';
+import Workshop from './pages/Workshop';
 import Sponseradd from './pages/Sponseradd';
 import Signup from './components/Signup/Signup.jsx';
 import Signin from './components/Signin/Signin.jsx';
@@ -63,7 +64,7 @@ const App = () => {
                 <Route path="/" element={(<Signup />)} />
                 {coordinatorLoggedIn && role == 892348 && <Route path="home" element={(<Home />)} />}
                 <Route path="/sign-in" element={(<Signin />)} />
-
+                <Route path="/workshop/:id" element={<Workshop />} />
                 {/* pages  */}
                 {coordinatorLoggedIn && <Route path="/domains" element={<Domains />} />}
                 {coordinatorLoggedIn && <Route path="/events" element={<Events />} />}

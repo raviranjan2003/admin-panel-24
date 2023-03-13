@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './Workshopadd.css';
-import axios from 'axios';
-import { baseUrl } from '../API/api';
-import Loader from '../components/Loader/Loader';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState } from "react";
+import "./Workshopadd.css";
+import axios from "axios";
+import { baseUrl } from "../API/api";
+import Loader from "../components/Loader/Loader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Workshopadd = () => {
   const [coordinators, setCoordinators] = useState(null);
@@ -13,21 +13,23 @@ const Workshopadd = () => {
   const [workshopPhoto, setWorkshopPhoto] = useState(null);
   const [domainCoor1, setDomainCoor1] = useState(null);
   const [domainCoor2, setDomainCoor2] = useState(null);
+  const [domainName, setDomainName] = useState();
   const [workshopVenue, setWorkshopVenue] = useState(null);
   const [workshopDate, setWorkshopDate] = useState(null);
+  const [whatsappLink, setWhatsappLink] = useState("");
   const [workshopTime, setWorkshopTime] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const notify = (msg) => toast.success(msg, {
-    position: 'top-center',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
-  });
-
+  const notify = (msg) =>
+    toast.success(msg, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   useEffect(async () => {
     setIsLoading(true);
@@ -45,15 +47,16 @@ const Workshopadd = () => {
 
   const PostData = async () => {
     const formData = new FormData();
-    formData.append('workshopName', workshopName);
-    formData.append('workshopDescription', workshopDescription);
-    formData.append('workshopPhoto', workshopPhoto);
-    formData.append('domainCoor1', domainCoor1);
+    formData.append("workshopName", workshopName);
+    formData.append("workshopDescription", workshopDescription);
+    formData.append("workshopPhoto", workshopPhoto);
+    formData.append("domainCoor1", domainCoor1);
     // formData.append("domainCoor2", domainCoor2);
-    formData.append('workshopVenue', workshopVenue);
-    formData.append('workshopDate', workshopDate);
-    formData.append('workshopTime', workshopTime);
-    // alert(JSON.stringify(formData));
+    formData.append('domainName', domainName)
+    formData.append("whatsappLink", whatsappLink);
+    formData.append("workshopVenue", workshopVenue);
+    formData.append("workshopDate", workshopDate);
+    formData.append("workshopTime", workshopTime);
     setIsLoading(true);
     await axios.post(`${baseUrl}/workshop/create`, formData).then((result) => {
       setIsLoading(false);
@@ -91,17 +94,36 @@ const Workshopadd = () => {
 
       <div className="workshopItems">
         <label>
-          Name :{' '}
+          Name :{" "}
           <input
             type="text"
             onChange={(e) => setWorkshopName(e.target.value)}
             name="name"
           />
         </label>
+        <label for="domains">Choose Domains : </label>
+        <select
+          id="domains"
+          name="domains"
+          onChange={(e) => {
+            setDomainName(e.target.value);
+          }}
+        >
+          <option value="0">Select</option>
+          <option value="aarambh">Aarambh</option>
+          <option value="plexus">Plexus</option>
+          <option value="chemfor">Chemfor</option>
+          <option value="electrica">Electrica</option>
+          <option value="genesis">Genesis</option>
+          <option value="karyarachana">Karyarachana</option>
+          <option value="kermis">Kermis</option>
+          <option value="mechanica">Mechanica</option>
+          <option value="robozar">Robozar</option>
+        </select>
         <div className="photoUpload">
           Workshop Picture:
           <input
-            style={{ border: 'none' }}
+            style={{ border: "none" }}
             type="file"
             onChange={(e) => setWorkshopPhoto(e.target.files[0])}
             accept="/Image/*"
@@ -109,7 +131,7 @@ const Workshopadd = () => {
         </div>
       </div>
       <div
-        style={{ width: 'auto', justifyContent: 'right', textAlign: 'center' }}
+        style={{ width: "auto", justifyContent: "right", textAlign: "center" }}
       >
         Workshop Description (max 50 words)
         <br />
@@ -120,13 +142,25 @@ const Workshopadd = () => {
           rows="3"
         />
       </div>
+      <div
+        style={{ width: "auto", justifyContent: "right", textAlign: "center" }}
+      >
+        Whatsapp Link
+        <br />
+        <input
+          name="description"
+          onChange={(e) => setWhatsappLink(e.target.value)}
+          cols="30"
+          rows="3"
+        />
+      </div>
       <div className="container">
         <div>
           <div className="container-head">Domain Co-ordinator - 1</div>
           <div className="domainBox">
             <select
               // className={styles.signup__select}
-              sx={{ height: '10px' }}
+              sx={{ height: "10px" }}
               onChange={(e) => setDomainCoor1(e.target.value)}
               // id='branch'
               name="role"
@@ -141,11 +175,11 @@ const Workshopadd = () => {
         </div>
       </div>
       <div>
-        <div className="container-head" style={{ marginBottom: '1.8em' }} />
+        <div className="container-head" style={{ marginBottom: "1.8em" }} />
         <div className="workshopBox">
           <div className="workshopItems">
             <label>
-              Date :{' '}
+              Date :{" "}
               <input
                 type="date"
                 onChange={(e) => setWorkshopDate(e.target.value)}
@@ -155,7 +189,7 @@ const Workshopadd = () => {
           </div>
           <div className="workshopItems">
             <label>
-              Time :{' '}
+              Time :{" "}
               <input
                 type="time"
                 onChange={(e) => setWorkshopTime(e.target.value)}
@@ -165,7 +199,7 @@ const Workshopadd = () => {
           </div>
           <div className="workshopItems">
             <label>
-              Venue :{' '}
+              Venue :{" "}
               <input
                 name="venue"
                 onChange={(e) => setWorkshopVenue(e.target.value)}

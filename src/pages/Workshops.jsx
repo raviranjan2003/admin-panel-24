@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import Workshopadd from '../pages/Workshopadd'
 import DataTable , { createTheme } from 'react-data-table-component';
+import { baseUrl } from '../API/api';
 import { downloadCSV } from '../contexts/Csv';
 import { downloadPdf } from '../contexts/exportAsPDF';
+import axios from 'axios';
 
 const Workshops = () => {
+  const [workshops, setWorkshops] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(async () => {
+    // setIsLoading(true);
+    await axios.get(`${baseUrl}/workshop/workshops`).then((result) => {
+      // setIsLoading(false);
+      const res = result?.data.workshops;
+      setWorkshops(res);
+    });
+  }, []);
 
   createTheme('solarized', {
     text: {
@@ -28,38 +41,52 @@ const Workshops = () => {
         selector: row => row.workshopName,
     },
     {
-        name: 'Event Co-ordinator',
-        selector: row => row.eventCoordinator,
-    },
-    {
-      name: 'Date and Time',
-      selector: row => row.dateAndTime,
+      name: 'Date',
+      selector: row => row.date,
   },
+    {
+      name: 'Time',
+      selector: row => row.time,
+  },
+  {
+    name: 'Domain',
+    selector: row => row.domain,
+},
   {
     name: 'Venue',
     selector: row => row.venue,
 },
+{
+  name: "View",
+  cell: (row) => (
+    <button
+      className="btn"
+      onClick={
+        () => {
+            navigate(`/workshop/${row.id}`);
+        }
+      }
+    >
+      View
+    </button>
+  ),
+},
 ];
 
-const data = [
-  {
-      id: 1,
-      workshopName: 'Margadarshak',
-      eventCoordinator: 'Ashish',
-      dateAndTime: 'March 17, 2023 11:00 AM',
-      venue: 'MPH, 1st Floor'
-      
-  },
-  {
-    id: 2,
-    workshopName: 'Margadarshak',
-    eventCoordinator: 'Ashish',
-    dateAndTime: 'March 17, 2023 11:00 AM',
-    venue: 'MPH, 1st Floor'
-    
-},
-]
-const headers = [["Id", "Workshop Name","Event Co-ordinator","Date and Time","Venue"]];
+const data = [];
+workshops?.map((workshop) => {
+  const work = {
+    id: workshop._id,
+    workshopName: workshop.workshopName,
+    venue: workshop.workshopVenue,
+    time: workshop.workshopTime,
+    date: workshop.workshopDate,
+    domain: workshop.domainName
+  }
+  data.push(work);
+});
+
+const headers = [["Id", "Workshop Name","Domain","Date", "Time","Venue"]];
 const Dummydata = data.map(elt=> [elt.id, elt.workshopName,elt.eventCoordinator,elt.dateAndTime,elt.venue]);
 
 

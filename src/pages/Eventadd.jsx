@@ -21,16 +21,17 @@ const Eventadd = () => {
   const [whatsappLink, setWhatsappLink] = useState("");
   const [coordinators, setCoordinators] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const notify = (msg) => toast.success(msg, {
-    position: 'top-center',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
-  });
+  const notify = (msg) =>
+    toast.success(msg, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   useEffect(() => {
     getCoordinators();
@@ -49,10 +50,16 @@ const Eventadd = () => {
         console.log(err);
         return;
       });
-  }
+  };
 
   const postData = async () => {
-    const studentCoordinator = [studentCoordinator1, studentCoordinator2];
+    let studentCoordinator = [];
+    if (studentCoordinator1) {
+      studentCoordinator.push(studentCoordinator1);
+    }
+    if (studentCoordinator2) {
+      studentCoordinator.push(studentCoordinator2);
+    }
     setIsLoading(true);
     await axios.post(`${baseUrl}/event/create`, {
       eventName: eventName,
@@ -165,7 +172,7 @@ const Eventadd = () => {
               // value={branch}
               required
             >
-            <option value="">Select</option>
+              <option value="">Select</option>
               {coordinators?.map((item) => {
                 if (item.coordinatorRole == 3924875) {
                   return (
@@ -191,7 +198,7 @@ const Eventadd = () => {
               // value={branch}
               required
             >
-            <option value="">Select</option>
+              <option value="">Select</option>
               {coordinators?.map((item) => {
                 if (item.coordinatorRole == 3924875) {
                   return (

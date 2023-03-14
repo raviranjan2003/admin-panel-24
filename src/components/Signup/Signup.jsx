@@ -322,6 +322,7 @@ const Signup = () => {
                 <option value="Event">Event</option>
                 <option value="Faculty">Faculty</option>
               </select>
+              {/* {(toggle === 'Domain' || toggle === 'Event' ) && ( */}
               {toggle === 'Domain' && (
                 <select
                   className={styles.signup__select}

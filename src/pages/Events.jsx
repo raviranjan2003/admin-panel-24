@@ -10,11 +10,21 @@ import { toast, ToastContainer } from "react-toastify";
 import Loader from "../components/Loader/Loader";
 import { useEffect } from "react";
 
+
 const Events = () => {
   const { coordinatorLoggedIn, role, domain } = useStateContext();
   const [domainName, setDomainName] = useState('aarambh');
   const [isLoading, setIsLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState([]);
+  const getEvent = async (domain) => {
+    console.log(domain)
+    await axios
+    .post(`${baseUrl}/event/geteventbydomainname`, { domainName: domain })
+    .then((result) => {
+      const res = result;
+      setEventDetails(res.data.event);
+    });
+  };
   const notify = (msg) =>
     toast.success(msg, {
       position: "top-center",
@@ -26,17 +36,8 @@ const Events = () => {
       progress: undefined,
       theme: "light",
     });
-
-  const getEvent = async (domain) => {
-      console.log(domain)
-      await axios
-      .post(`${baseUrl}/event/geteventbydomainname`, { domainName: domain })
-      .then((result) => {
-        const res = result;
-        setEventDetails(res.data.event);
-      });
-  };
-
+    
+  
 
   createTheme(
     "solarized",
@@ -84,7 +85,7 @@ const Events = () => {
       prize: item.ePrizeWorth,
       date: item.startDate,
       std1: item.studentCoordinator[0].coordinatorName,
-      std2: item.studentCoordinator[1].coordinatorName,
+      std2: item.studentCoordinator[1]?.coordinatorName,
     };
     eventData.push(event);
   });
@@ -98,14 +99,14 @@ const Events = () => {
       "Venue",
     ],
   ];
-  const data = eventData.map((elt) => [
+  const data = eventData?.map((elt) => [
     elt.eventName,
     elt.std1,
     elt.std2,
     elt.venue,
     elt.date,
   ]);
-
+console.log("data",data)
   const actionsMemo = React.useMemo(
     () => (
       <button
@@ -119,7 +120,9 @@ const Events = () => {
   );
   const actionsMemo2 = React.useMemo(
     () => (
-      <button onClick={() => downloadPdf(headers, data, "Events")}>PDF</button>
+      <button onClick={() =>setTimeout(() => {
+        downloadPdf(headers, data, `${domainName} Events`)
+      }, 5000)}>PDF</button>
     ),
     []
   );
@@ -171,7 +174,6 @@ const Events = () => {
           name="domains"
           onChange={(e) => {
             setDomainName(e.target.value);
-            getEvent(e.target.value);
           }}
         >
           <option value="0">Select</option>

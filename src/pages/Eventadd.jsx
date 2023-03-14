@@ -15,7 +15,7 @@ const Eventadd = () => {
   const [studentCoordinator1, setStudentCoordinator1] = useState("");
   const [studentCoordinator2, setStudentCoordinator2] = useState("");
   const [eventMode, setEventMode] = useState("");
-  const [domainName, setDomainName] = useState("");
+  // const [domainName, setDomainName] = useState(domain);
   const [driveLink, setDriveLink] = useState("");
   const [eventParticipationType, setEventParticipationType] = useState("");
   const [eventVenue, setEventVenue] = useState("");
@@ -63,6 +63,22 @@ const Eventadd = () => {
       studentCoordinator.push(studentCoordinator2);
     }
     setIsLoading(true);
+    if(
+      eventName === "" ||
+      eventDescription === "" ||
+      eventMode === "" ||
+      eventParticipationType === "" ||
+      eventVenue === "" ||
+      startDate === "" ||
+      ePrizeWorth === "" ||
+      whatsappLink === "" ||
+      driveLink === ""
+    ){
+      setIsLoading(false);
+      notify("Please fill all the fields");
+      return;
+    }
+    
     await axios.post(`${baseUrl}/event/create`, {
       eventName: eventName,
       eventDescription: eventDescription,
@@ -70,7 +86,7 @@ const Eventadd = () => {
       eventMode: eventMode,
       whatsappLink: whatsappLink,
       eventParticipationType: eventParticipationType,
-      domainName: domainName,
+      domainName: `${domain}`,
       driveLink: driveLink,
       eventVenue: eventVenue,
       startDate: startDate,
@@ -98,50 +114,26 @@ const Eventadd = () => {
         theme="light"
       />
       <div className="eventAddItems">
-        <label>
-          Domain Name :
-          <select
-            // className={styles.signup__select}
-            sx={{ height: "10px" }}
-            onChange={(e) => setDomainName(e.target.value)}
-            // id='branch'
-            name="role"
-            // value={branch}
-            required
-          >
-            <option value="0">Select</option>
-            {
-              /* {domains?.map((item) => {
-              // console.log(item)
-              return <option value={item._id}>{item.domainName}</option>;
-            })} */
-            }
-            <option value="aarambh">Aarambh</option>
-            <option value="plexus">Plexus</option>
-            <option value="chemfor">Chemfor</option>
-            <option value="electrica">Electrica</option>
-            <option value="genesis">Genesis</option>
-            <option value="karyarachana">Karyarachana</option>
-            <option value="kermis">Kermis</option>
-            <option value="mechanica">Mechanica</option>
-            <option value="robozar">Robozar</option>
-          </select>
-        </label>
+      <div className="heading">Add Event</div>
+      <div className="eventItems">
+      Domain Name: {domain}
         <label>
           Event Name :{" "}
           <input
+            required
             name="eventName"
             onChange={(e) => setEventName(e.target.value)}
           />
         </label>
         <label>
           Event Drive Link :{" "}
-          <input name="drive" onChange={(e) => setDriveLink(e.target.value)} />
+          <input required name="drive" onChange={(e) => setDriveLink(e.target.value)} />
         </label>
         <label>
           Event Whatsapp Link :{" "}
           <input
             name="whatsapp"
+            required
             onChange={(e) => setWhatsappLink(e.target.value)}
           />
         </label>
@@ -152,6 +144,7 @@ const Eventadd = () => {
         Event Description (max 50 words)
         <br />
         <textarea
+          required
           name="description"
           cols="40"
           rows="5"
@@ -198,7 +191,6 @@ const Eventadd = () => {
               // id='branch'
               name="role"
               // value={branch}
-              required
             >
               <option value="">Select</option>
               {coordinators?.map((item) => {
@@ -225,6 +217,7 @@ const Eventadd = () => {
                 Date :{" "}
                 <input
                   type="date"
+                  required
                   name="date"
                   onChange={(e) => setStartDate(e.target.value)}
                 />
@@ -267,6 +260,7 @@ const Eventadd = () => {
                 Venue :{" "}
                 <input
                   name="venue"
+                  required
                   onChange={(e) => setEventVenue(e.target.value)}
                 />
               </label>
@@ -277,6 +271,7 @@ const Eventadd = () => {
                 <input
                   name="prize"
                   onChange={(e) => setEPrizeWorth(e.target.value)}
+                  required
                 />
               </label>
             </div>

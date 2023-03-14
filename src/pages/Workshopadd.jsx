@@ -18,6 +18,9 @@ const Workshopadd = () => {
   const [workshopDate, setWorkshopDate] = useState(null);
   const [whatsappLink, setWhatsappLink] = useState("");
   const [workshopTime, setWorkshopTime] = useState(null);
+  const [profName, setProfName] = useState(null);
+  const [profDes, setProfDes] = useState(null);
+  const [workshopMode, setWorkshopMode] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const notify = (msg) =>
     toast.success(msg, {
@@ -57,6 +60,10 @@ const Workshopadd = () => {
     formData.append("workshopVenue", workshopVenue);
     formData.append("workshopDate", workshopDate);
     formData.append("workshopTime", workshopTime);
+    formData.append("workshopMode", workshopMode);
+    formData.append("profName", profName);
+    formData.append("profDesignation", profDes);
+    console.log("pr",profName)
     setIsLoading(true);
     await axios.post(`${baseUrl}/workshop/create`, formData).then((result) => {
       setIsLoading(false);
@@ -142,6 +149,7 @@ const Workshopadd = () => {
           rows="3"
         />
       </div>
+      <div style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
       <div
         style={{ width: "auto", justifyContent: "right", textAlign: "center" }}
       >
@@ -153,6 +161,31 @@ const Workshopadd = () => {
           cols="30"
           rows="3"
         />
+      </div>
+      <div
+        style={{ width: "auto", justifyContent: "right", textAlign: "center" }}
+      >
+          Professor Name
+        <br />
+        <input
+          name="description"
+          onChange={(e) => setProfName(e.target.value)}
+          cols="30"
+          rows="3"
+        />
+      </div>
+      <div
+        style={{ width: "auto", justifyContent: "right", textAlign: "center" }}
+      >
+          Professor Designation
+        <br />
+        <input
+          name="description"
+          onChange={(e) => setProfDes(e.target.value)}
+          cols="30"
+          rows="3"
+        />
+      </div>
       </div>
       <div className="container">
         <div>
@@ -205,6 +238,22 @@ const Workshopadd = () => {
                 onChange={(e) => setWorkshopVenue(e.target.value)}
               />
             </label>
+          </div>
+          <div className="workshopItems">
+          <label>
+                Event Mode :
+                <select
+                  sx={{ height: "10px" }}
+                  onChange={(e) => setWorkshopMode(e.target.value)}
+                  name="role"
+                  required
+                >
+                  <option value="0">Select</option>
+                  <option value="Online">Online</option>
+                  <option value="Offline">Offline</option>
+                  <option value="Hybrid">Hybrid</option>
+                </select>
+              </label>
           </div>
         </div>
       </div>

@@ -107,7 +107,7 @@ const Workshopadd = () => {
             name="name"
           />
         </label>
-        <label for="domains">Choose Domains : </label>
+        <label for="domains">Choose Domains : 
         <select
           id="domains"
           name="domains"
@@ -126,6 +126,7 @@ const Workshopadd = () => {
           <option value="mechanica">Mechanica</option>
           <option value="robozar">Robozar</option>
         </select>
+        </label>
         <div className="photoUpload">
           Workshop Picture:
           <input
@@ -137,7 +138,7 @@ const Workshopadd = () => {
         </div>
       </div>
       <div
-        style={{ width: "auto", justifyContent: "right", textAlign: "center" }}
+        style={{width: 'auto', justifyContent: 'left', textAlign: 'left' }}
       >
         Workshop Description (max 50 words)
         <br />
@@ -148,7 +149,7 @@ const Workshopadd = () => {
           rows="3"
         />
       </div>
-      <div style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
       <div
         style={{ width: "auto", justifyContent: "right", textAlign: "center" }}
       >
@@ -186,10 +187,10 @@ const Workshopadd = () => {
         />
       </div>
       </div>
-      <div className="container">
+      <div className="containerWorkshopAdd">
         <div>
-          <div className="container-head">Domain Co-ordinator - 1</div>
-          <div className="domainBox">
+          <div className="container-head-WorkshopAdd">Domain Co-ordinator - 1</div>
+          <div className="workshopBox">
             <select
               // className={styles.signup__select}
               sx={{ height: "10px" }}

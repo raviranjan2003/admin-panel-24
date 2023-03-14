@@ -16,7 +16,7 @@ const initialState = {
 };
 
 export const ContextProvider = ({ children }) => {
-  const [activeMenu, setActiveMenu] = useState(true);
+  const [activeMenu, setActiveMenu] = useState(false);
   const [isClicked, setIsClicked] = useState(initialState);
   const localToken = localStorage.getItem('token');
   // const localExpiryDate = localStorage.getItem('expiry');

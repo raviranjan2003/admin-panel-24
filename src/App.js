@@ -39,7 +39,8 @@ const App = () => {
             </TooltipComponent>
           </div> */}
           {activeMenu ? (
-            <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
+            <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white " style={{background: "rgb(0,14,14)",
+            background: "linear-gradient(90deg, rgba(0,14,14,1) 100%, rgba(22,217,0,1) 100%)", zIndex:"10"}}>
               <Sidebar />
             </div>
           ) : (
@@ -83,7 +84,7 @@ const App = () => {
 
               </Routes>
             </div>
-            <Footer />
+            {coordinatorLoggedIn && role == 892348 && (<Footer />)}
           </div>
         </div>
       </BrowserRouter>

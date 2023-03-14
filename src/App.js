@@ -17,6 +17,8 @@ import './App.css';
 import Eventdomain from './pages/Eventdomain';
 
 import { useStateContext } from './contexts/ContextProvider';
+import Profile from './pages/Profile';
+import ProfileUpdate from './pages/ProfileUpdate';
 
 const App = () => {
   const { activeMenu, coordinatorLoggedIn, role } = useStateContext();
@@ -66,6 +68,8 @@ const App = () => {
                 {coordinatorLoggedIn && role == 892348 && <Route path="home" element={(<Home />)} />}
                 <Route path="/sign-in" element={(<Signin />)} />
                 <Route path="/workshop/:id" element={<Workshop />} />
+                <Route path='/profile' element={<Profile/>}/>
+                <Route path='/profileupdate' element={<ProfileUpdate/>}/>
                 {/* pages  */}
                 {coordinatorLoggedIn && <Route path="/domains" element={<Domains />} />}
                 {coordinatorLoggedIn && <Route path="/events" element={<Events />} />}
@@ -78,7 +82,6 @@ const App = () => {
                 {coordinatorLoggedIn && role == 892348 && <Route path="/sponseradd" element={<Sponseradd />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/users" element={<Users />} />}
                 {coordinatorLoggedIn && (role == 948759 || role == 3924875) && <Route path="/events/domain/:domain" element={<Eventdomain />} />}
-
                 {/* charts  */}
 
               </Routes>

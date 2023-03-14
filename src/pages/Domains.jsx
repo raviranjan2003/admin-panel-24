@@ -81,7 +81,7 @@ const Domains = () => {
       secondary: '#ffffff',
     },
     background: {
-      default: '#006600',
+      default: 'rgb(22,10,10)',
     },
   }, 'dark');
 
@@ -144,10 +144,10 @@ const Domains = () => {
       <div
         style={{
           border: "2px solid green",
-          padding: "1.2em",
+          padding: "0.75em",
           borderRadius: "15px",
-          background: "#006600",
-          fontSize: "2em",
+          background: "rgb(22,10,10)",
+          fontSize: "40px",
         }}
       >
         <DataTable columns={columns} data={Dummydata} pagination theme="solarized" 

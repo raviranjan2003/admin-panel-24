@@ -9,7 +9,7 @@ img{
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 50%;
+    margin-top: 25%;
 }
 
 
@@ -21,12 +21,13 @@ img{
 }
 
 .item{
+    color: white;
     border-bottom: 2px solid red;
     border-radius: 5px;
 }
 
 .item:hover{
-    color: green;
+    color: whitesmoke;
     border-bottom: 2px solid blue;
     border-radius: 5px;
 }

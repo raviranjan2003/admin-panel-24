@@ -35,7 +35,7 @@ const Workshops = () => {
         secondary: "#ffffff",
       },
       background: {
-        default: "#006600",
+        default: 'rgb(22,10,10)',
       },
     },
     "dark"
@@ -128,9 +128,10 @@ const Workshops = () => {
       <div
         style={{
           border: "2px solid green",
-          padding: "1.2em",
-          borderRadius: "15px",
-          background: "#006600",
+        padding: "0.75em",
+        borderRadius: "15px",
+        background: "rgb(22,10,10)",
+        fontSize: "40px",
         }}
       >
         <DataTable

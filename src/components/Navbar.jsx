@@ -6,7 +6,10 @@ import avatar from '../data/avatar.jpg';
 import { Button, UserProfile } from '.';
 import { useStateContext } from '../contexts/ContextProvider';
 
-const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
+const NavButton = ({ title, customFunc, icon, color, dotColor }) => {
+  const { coordinatorLoggedIn, logOutHandler, role } = useStateContext();
+  return(
+    <div>
   <TooltipComponent content={title} position="BottomCenter">
     <button
       type="button"
@@ -21,7 +24,9 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
       {icon}
     </button>
   </TooltipComponent>
-);
+  </div>
+  );
+  };
 
 const Navbar = () => {
   const { activeMenu, setActiveMenu, handleClick, isClicked } = useStateContext();

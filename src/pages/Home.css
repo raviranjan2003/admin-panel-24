@@ -2,7 +2,7 @@
     margin: 1em;
 }
 
-.heading{
+.headingHome{
     width: auto;
     text-align: center;
     font-size: 3em;
@@ -10,28 +10,14 @@
     margin-bottom: 0em;
 }
 
-.description{
+.descriptionHome{
     width: auto;
     text-align: center;
     font-size: 0.75em;
     margin: 0.5em;
 }
 
-.btn_delete {
-    background-color: #c42c2c; /* Green */
-    border: none;
-    color: white;
-    padding: 0.5em;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 0.8rem;
-    margin: 0.5em;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.container{
+.containerHome{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -41,7 +27,7 @@
 .container1,.container2,.container3{
     padding: 1em;
     border: 0.1em solid black;
-    border-radius: 10%;
+    border-radius: 10px;
 }
 .number{
     width: auto;

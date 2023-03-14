@@ -47,7 +47,7 @@ const Events = () => {
         secondary: "#ffffff",
       },
       background: {
-        default: "#006600",
+        default: 'rgb(22,10,10)',
       },
     },
     "dark"
@@ -142,12 +142,11 @@ console.log("data",data)
       />
       {isLoading && <Loader />}
       <div
-        className="container"
         style={{
-          width: "auto",
-          textAlign: "center",
-          fontSize: "2.5em",
-          margin: "0.1em",
+          "width": "auto",
+        "textAlign": "center",
+        "fontSize": "2.5em",
+        "margin": "0.5em"
         }}
       >
         <div>EVENTS</div>
@@ -158,7 +157,7 @@ console.log("data",data)
             fontSize: "18px",
             border: "2px solid blue",
             display: "table",
-            margin: "0 auto",
+            margin: "7px auto",
             padding: "5px",
             borderRadius: "8px",
           }}
@@ -199,9 +198,11 @@ console.log("data",data)
       <div
         style={{
           border: "2px solid green",
-          padding: "1.2em",
+          padding: "0.75em",
           borderRadius: "15px",
           background: "#006600",
+          background: "rgb(22,10,10)",
+          fontSize: "40px",
         }}
       >
         <DataTable

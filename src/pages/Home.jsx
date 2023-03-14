@@ -20,7 +20,7 @@ createTheme(
       secondary: "#ffffff",
     },
     background: {
-      default: "#006600",
+      default: "rgb(22,10,10)",
     },
   },
   "dark"
@@ -213,9 +213,9 @@ const Home = (props) => {
       {isLoading && <Loader />}
 
       <div className="home">
-        <div className="heading">Namaste {coor && coor.coordinatorName}!</div>
-        <div className="description">Your unique tF ID is {coor && coor.coordinatorId}</div>
-        <div className="container">
+        <div className="headingHome">Namaste {coor && coor.coordinatorName}!</div>
+        <div className="descriptionHome">Your unique tF ID is {coor && coor.coordinatorId}</div>
+        <div className="containerHome">
           <div className="container1">
             <div className="number">{user}</div>
             <div className="num-desc">Registerations</div>
@@ -244,9 +244,9 @@ const Home = (props) => {
       <div
         style={{
           border: "2px solid green",
-          padding: "1.2em",
-          borderRadius: "15px",
-          background: "#006600",
+          padding: "0.75em",
+          background: "rgb(22,10,10)",
+          fontSize: "40px",
         }}
       >
         <DataTable

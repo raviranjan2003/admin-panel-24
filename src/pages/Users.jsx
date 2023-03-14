@@ -31,7 +31,7 @@ const Users = () => {
         secondary: "#ffffff",
       },
       background: {
-        default: "#006600",
+        default: 'rgb(22,10,10)',
       },
     },
     "dark"
@@ -129,9 +129,10 @@ const Users = () => {
       <div
         style={{
           border: "2px solid green",
-          padding: "1.2em",
+          padding: "0.75em",
           borderRadius: "15px",
-          background: "#006600",
+          background: "rgb(22,10,10)",
+          fontSize: "40px",
         }}
       >
         <DataTable

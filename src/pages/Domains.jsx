@@ -116,29 +116,6 @@ const Domains = () => {
   return (
     <>
       <div
-        className="heading"
-        style={{
-          width: "auto",
-          textAlign: "center",
-          fontSize: "2.5em",
-          margin: "0.2em",
-          marginBottom: "0em",
-        }}
-      >
-        Namaste ! Super Admin
-      </div>
-      <div
-        className="description"
-        style={{
-          width: "auto",
-          textAlign: "center",
-          fontSize: "0.75em",
-          marginBottom: "3.5em",
-        }}
-      >
-        Your unique tF ID is t960
-      </div>
-      <div
         style={{
           width: "auto",
           textAlign: "center",

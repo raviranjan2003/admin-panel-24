@@ -5,8 +5,10 @@ import { baseUrl } from "../API/api";
 import Loader from "../components/Loader/Loader";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useStateContext } from "../contexts/ContextProvider";
 
 const Eventadd = () => {
+  const { domain } = useStateContext();
   const [startDate, setStartDate] = useState("");
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");

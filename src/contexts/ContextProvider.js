@@ -22,7 +22,7 @@ export const ContextProvider = ({ children }) => {
   // const localExpiryDate = localStorage.getItem('expiry');
   // const coordinatorId = localStorage.getItem('coordinatorId');
   const coordinatorRole = localStorage.getItem('coordinatorRole');
-  const coordinatorDomain = localStorage.getItem('coodinatorDomain');
+  const coordinatorDomain = localStorage.getItem('coordinatorDomain');
   const [token, setToken] = useState(localToken);
   const [role, setRole] = useState(coordinatorRole);
   const [domain, setDomain] = useState(coordinatorDomain);

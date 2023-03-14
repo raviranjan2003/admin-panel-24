@@ -33,6 +33,7 @@ const Home = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [visitor, setVisitor] = useState(null);
   const [coordinator, setCoordinator] = useState(null);
+  const [coor, setCoor] = useState(null)
   const [user, setUser] = useState(null);
   const [institution, setInstitution] = useState(null);
   const notify = (msg) =>
@@ -101,6 +102,13 @@ const Home = (props) => {
     });
   }, [validateCoordinator, deleteCoordinator]);
 
+
+  useEffect(async () => {
+    await axios.post(`${baseUrl}/coordinator/getById`, {id: '6402bbb96b7c2169545d25a0'}).then((result) => {
+      const res = result;
+      setCoor(res.data.coordinator);
+    });
+  })
   const columns = [
     {
       name: "Id",
@@ -205,8 +213,8 @@ const Home = (props) => {
       {isLoading && <Loader />}
 
       <div className="home">
-        <div className="heading">Namaste ! Super Admin</div>
-        <div className="description">Your unique tF ID is t960</div>
+        <div className="heading">Namaste {coor && coor.coordinatorName}!</div>
+        <div className="description">Your unique tF ID is {coor && coor.coordinatorId}</div>
         <div className="container">
           <div className="container1">
             <div className="number">{user}</div>

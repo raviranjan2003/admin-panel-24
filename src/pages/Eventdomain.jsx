@@ -113,7 +113,7 @@ const Events = () => {
       prize: item.ePrizeWorth,
       date: item.startDate,
       std1: item.studentCoordinator[0].coordinatorName,
-      std2: item.studentCoordinator[1].coordinatorName,
+      std2: item.studentCoordinator[1]?.coordinatorName,
     };
     eventData.push(event);
   });

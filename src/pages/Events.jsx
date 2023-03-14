@@ -77,22 +77,19 @@ const Events = () => {
   ];
 
   const eventData = [];
-  useEffect(() => {
-    console.log("eseessss",domainName)
-      getEvent(domainName)
-    eventDetails?.map((item) => {
-      const event = {
-        eventName: item.eventName,
-        venue: item.venue,
-        prize: item.ePrizeWorth,
-        date: item.startDate,
-        std1: item.studentCoordinator[0].coordinatorName,
-        std2: item.studentCoordinator[1].coordinatorName,
-      };
-      eventData.push(event);
-    });
-      }, [domainName]);
-console.log("ebtsds",eventData);
+
+  eventDetails?.map((item) => {
+    const event = {
+      eventName: item.eventName,
+      venue: item.venue,
+      prize: item.ePrizeWorth,
+      date: item.startDate,
+      std1: item.studentCoordinator[0].coordinatorName,
+      std2: item.studentCoordinator[1]?.coordinatorName,
+    };
+    eventData.push(event);
+  });
+
   const headers = [
     [
       "Event Name",

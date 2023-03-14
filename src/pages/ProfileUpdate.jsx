@@ -27,7 +27,7 @@ function ProfileUpdate() {
             coordinatorEmail:email
         };
         console.log("emaiisfsdgl",user)
-        axios.post(`http://localhost:4000/coordinator/update`,user).then((res)=>{
+        axios.post(`${baseUrl}/coordinator/update`,user).then((res)=>{
             console.log("resul",res)
             if(res.status===201){
                 navigate("/profile")

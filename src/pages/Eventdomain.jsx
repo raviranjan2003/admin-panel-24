@@ -108,6 +108,7 @@ const Events = () => {
 
   eventDetails?.map((item) => {
     const event = {
+      id: item._id,
       eventName: item.eventName,
       venue: item.venue,
       prize: item.ePrizeWorth,

@@ -63,7 +63,6 @@ const Workshopadd = () => {
     formData.append("workshopMode", workshopMode);
     formData.append("profName", profName);
     formData.append("profDesignation", profDes);
-    console.log("pr",profName)
     setIsLoading(true);
     await axios.post(`${baseUrl}/workshop/create`, formData).then((result) => {
       setIsLoading(false);

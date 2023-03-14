@@ -10,6 +10,7 @@ import Eventadd from './pages/Eventadd';
 import Eventedit from './pages/Eventedit.jsx';
 import Workshopadd from './pages/Workshopadd';
 import Workshop from './pages/Workshop';
+import Eventusers from './pages/Eventusers';
 import Sponseradd from './pages/Sponseradd';
 import Signup from './components/Signup/Signup.jsx';
 import Signin from './components/Signin/Signin.jsx';
@@ -69,13 +70,14 @@ const App = () => {
                 {coordinatorLoggedIn && role == 892348 && <Route path="home" element={(<Home />)} />}
                 <Route path="/sign-in" element={(<Signin />)} />
                 <Route path="/workshop/:id" element={<Workshop />} />
+                <Route path="/event/:id" element={<Eventusers />} />
                 <Route path='/profile' element={<Profile/>}/>
                 <Route path='/profileupdate' element={<ProfileUpdate/>}/>
                 {/* pages  */}
                 {coordinatorLoggedIn && <Route path="/domains" element={<Domains />} />}
                 {coordinatorLoggedIn && <Route path="/events" element={<Events />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/sponsers" element={<Sponsers />} />}
-                {coordinatorLoggedIn && role == 892348 && <Route path="/workshops" element={<Workshops />} />}
+                {coordinatorLoggedIn && (role == 892348 || role == 948759) && <Route path="/workshops" element={<Workshops />} />}
                 {coordinatorLoggedIn && role == 892348 && <Route path="/domainadd" element={<Domainadd />} />}
                 {coordinatorLoggedIn && role == 948759 &&<Route path="/eventadd" element={<Eventadd />} />}
                 {coordinatorLoggedIn && role == 948759  && <Route path="/eventedit/:id" element={<Eventedit />} />}

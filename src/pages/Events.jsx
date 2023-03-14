@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DataTable, { createTheme } from "react-data-table-component";
 import { baseUrl } from "../API/api";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -12,15 +12,17 @@ import { useEffect } from "react";
 
 
 const Events = () => {
+  const navigate = useNavigate();
   const { coordinatorLoggedIn, role, domain } = useStateContext();
   const [domainName, setDomainName] = useState('aarambh');
   const [isLoading, setIsLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState([]);
   const getEvent = async (domainN) => {
-    // setIsLoading(true);
+    setIsLoading(true);
     await axios
     .post(`${baseUrl}/event/geteventbydomain`, { domainName: domainN })
     .then((result) => {
+      setIsLoading(false);
       const res = result;
       setEventDetails(res.data.event);
     });
@@ -55,6 +57,10 @@ const Events = () => {
 
   const columns = [
     {
+      name: 'Id',
+      selector: row => row.id,
+    },
+    {
       name: "Event Name",
       selector: (row) => row.eventName,
     },
@@ -74,12 +80,28 @@ const Events = () => {
       name: "Date",
       selector: (row) => row.date.slice(0, 10),
     },
+    {
+      name: "View",
+      cell: (row) => (
+        <button
+          className="btn"
+          onClick={
+            () => {
+                navigate(`/event/${row.id}`);
+            }
+          }
+        >
+          View
+        </button>
+      ),
+    },
   ];
 
   const eventData = [];
 
   eventDetails?.map((item) => {
     const event = {
+      id: item._id,
       eventName: item.eventName,
       venue: item.venue,
       prize: item.ePrizeWorth,
@@ -92,6 +114,7 @@ const Events = () => {
 
   const headers = [
     [
+      "Id",
       "Event Name",
       "Student Coordinator 1",
       "Student Coordinator 2",
@@ -100,6 +123,7 @@ const Events = () => {
     ],
   ];
   const data = eventData?.map((elt) => [
+    elt.id,
     elt.eventName,
     elt.std1,
     elt.std2,

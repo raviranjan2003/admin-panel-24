@@ -6,15 +6,19 @@ import { baseUrl } from '../API/api';
 import { downloadCSV } from '../contexts/Csv';
 import { downloadPdf } from '../contexts/exportAsPDF';
 import axios from 'axios';
+import Loader from '../components/Loader/Loader';
+import { useStateContext } from '../contexts/ContextProvider';
 
 const Workshops = () => {
   const [workshops, setWorkshops] = useState(null);
   const navigate = useNavigate();
+  const [isLoading ,setIsLoading ] = useState(false);
+  const { coordinatorLoggedIn, role } = useStateContext();
 
   useEffect(async () => {
-    // setIsLoading(true);
+    setIsLoading(true);
     await axios.get(`${baseUrl}/workshop/workshops`).then((result) => {
-      // setIsLoading(false);
+      setIsLoading(false);
       const res = result?.data.workshops;
       setWorkshops(res);
     });
@@ -94,6 +98,7 @@ const actionsMemo = React.useMemo(() => <button style={{marginRight:"50px"}} onC
 const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(headers,Dummydata,"Workshops")}>PDF</button>, []);
   return (
     <>
+    {isLoading && <Loader />}
     <div className="heading" style={{
         "width": "auto",
         "textAlign": "center",
@@ -113,12 +118,12 @@ const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(head
         "fontSize": "2.5em",
         "margin":"0.5em"
       }}>WORKSHOPS</div>
-      <div style={{"fontSize": "18px","border":"2px solid blue", "display": "table",
+      {coordinatorLoggedIn && (role == 892348) && <div style={{"fontSize": "18px","border":"2px solid blue", "display": "table",
     "margin": "5px auto", "padding":"5px","borderRadius":"8px"}}><Link to="/workshopadd">
     <button type="button">
          Add New Workshop
     </button>
-</Link></div>
+</Link></div>}
       <div style={{ border: "2px solid green",
         padding: "0.75em",
         borderRadius: "15px",

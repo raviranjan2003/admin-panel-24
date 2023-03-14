@@ -51,7 +51,7 @@ const Sidebar = () => {
           <Link to="/events">Events</Link>
         </div>
         )}
-        {coordinatorLoggedIn && role == 892348 && (
+        {coordinatorLoggedIn && (role == 892348 || role == 948759) && (
         <div className="item">
           <Link to="/workshops">Workshops</Link>
         </div>
@@ -68,7 +68,7 @@ const Sidebar = () => {
               logOutHandler();
               window.location.reload(false);
             }}>
-              <Link to="/">Log Out</Link>
+              <Link to="/sign-in">Log Out</Link>
             </div>
           )
           :

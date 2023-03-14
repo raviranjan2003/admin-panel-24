@@ -99,7 +99,6 @@ const Eventadd = () => {
   };
   return (
     <div className="eventAdd">
-      <div className="eventHeader">Add Event</div>
       {isLoading && <Loader />}
       <ToastContainer
         position="top-center"
@@ -113,7 +112,6 @@ const Eventadd = () => {
         pauseOnHover
         theme="light"
       />
-      <div className="eventAddItems">
       <div className="heading">Add Event</div>
       <div className="eventItems">
       Domain Name: {domain}
@@ -139,7 +137,7 @@ const Eventadd = () => {
         </label>
       </div>
       <div
-        style={{ width: "auto", justifyContent: "left", textAlign: "left" }}
+        style={{ width: "auto", justifyContent: "right", textAlign: "center" }}
       >
         Event Description (max 50 words)
         <br />
@@ -153,10 +151,10 @@ const Eventadd = () => {
         </textarea>
       </div>
 
-      <div className="containerEventAdd2">
+      <div className="container">
         <div>
-          <div className="container-head-EventAdd">Event Co-ordinator - 1</div>
-          <div className="eventAddBox">
+          <div className="container-head">Event Co-ordinator - 1</div>
+          <div className="eventBox">
             <select
               // className={styles.signup__select}
               sx={{ height: "10px" }}
@@ -181,8 +179,8 @@ const Eventadd = () => {
         </div>
 
         <div>
-          <div className="container-head-EventAdd">Event Co-ordinator - 2</div>
-          <div className="eventAddBox">
+          <div className="container-head">Event Co-ordinator - 2</div>
+          <div className="eventBox">
             <select
               // className={styles.signup__select}
               sx={{ height: "10px" }}
@@ -207,12 +205,12 @@ const Eventadd = () => {
 
         <div>
           <div
-            className="container-head-EventAdd"
+            className="container-head"
             style={{ marginBottom: "1.8em" }}
           >
           </div>
-          <div className="eventAddBox">
-            <div className="eventAddItems">
+          <div className="eventBox">
+            <div className="eventItems">
               <label>
                 Date :{" "}
                 <input
@@ -223,7 +221,7 @@ const Eventadd = () => {
                 />
               </label>
             </div>
-            <div className="eventAddItems">
+            <div className="eventItems">
               <label>
                 Event Mode :
                 <select
@@ -239,7 +237,7 @@ const Eventadd = () => {
                 </select>
               </label>
             </div>
-            <div className="eventAddItems">
+            <div className="eventItems">
               <label>
                 Event Participation Type :
                 <select
@@ -255,7 +253,7 @@ const Eventadd = () => {
                 </select>
               </label>
             </div>
-            <div className="eventAddItems">
+            <div className="eventItems">
               <label>
                 Venue :{" "}
                 <input
@@ -265,7 +263,7 @@ const Eventadd = () => {
                 />
               </label>
             </div>
-            <div className="eventAddItems">
+            <div className="eventItems">
               <label>
                 Prize Worth :{" "}
                 <input

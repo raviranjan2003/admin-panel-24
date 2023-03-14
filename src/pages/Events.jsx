@@ -16,10 +16,10 @@ const Events = () => {
   const [domainName, setDomainName] = useState('aarambh');
   const [isLoading, setIsLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState([]);
-  const getEvent = async (domain) => {
-    console.log(domain)
+  const getEvent = async (domainN) => {
+    // setIsLoading(true);
     await axios
-    .post(`${baseUrl}/event/geteventbydomainname`, { domainName: domain })
+    .post(`${baseUrl}/event/geteventbydomain`, { domainName: domainN })
     .then((result) => {
       const res = result;
       setEventDetails(res.data.event);
@@ -106,7 +106,6 @@ const Events = () => {
     elt.venue,
     elt.date,
   ]);
-console.log("data",data)
   const actionsMemo = React.useMemo(
     () => (
       <button
@@ -174,6 +173,7 @@ console.log("data",data)
           name="domains"
           onChange={(e) => {
             setDomainName(e.target.value);
+            getEvent(e.target.value);
           }}
         >
           <option value="0">Select</option>

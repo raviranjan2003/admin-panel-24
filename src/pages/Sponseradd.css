@@ -2,10 +2,18 @@
     margin: 2em;
 }
 
+.sponserHeader{
+    width: auto;
+    text-align: center;
+    font-size: 3em;
+    margin: 0.5em;
+    margin-bottom: 1em;
+}
+
 input{
     border-bottom: 2px solid red;
-    border-bottom-left-radius: 10%;
-    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 textarea{
@@ -19,7 +27,7 @@ div{
 
 .container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content:space-around;
 }
 
@@ -39,8 +47,9 @@ div{
 
 .sponserBox{
     border: 2px solid green;
-    padding: 0.7em;
-    border-radius: 10%;
+    padding: 1em;
+    border-radius: 10px;
+    width: 30%;
 }
 
 .container-head{

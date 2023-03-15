@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import DataTable, { createTheme } from "react-data-table-component";
 import { baseUrl } from "../API/api";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -12,6 +12,7 @@ import { useEffect } from "react";
 
 const Events = () => {
   const { coordinatorLoggedIn, role, domain } = useStateContext();
+  const navigate = useNavigate();
   const [domainName, setDomainName] = useState('aarambh');
   const paramsDomain = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -30,9 +31,11 @@ const Events = () => {
 
   // const getEvent = async (domain) => {
     useEffect( async () => {
+      setIsLoading(true);
       await axios
-      .post(`${baseUrl}/event/geteventbydomainname`, { domainName: paramsDomain.domain })
+      .post(`${baseUrl}/event/geteventbydomain`, { domainName: paramsDomain.domain })
       .then((result) => {
+        setIsLoading(false);
         const res = result;
         setEventDetails(res.data.event);
       });
@@ -57,7 +60,7 @@ const Events = () => {
         secondary: "#ffffff",
       },
       background: {
-        default: "#006600",
+        default: "rgb(22,10,10)",
       },
     },
     "dark"
@@ -93,6 +96,21 @@ const Events = () => {
           </Link>
         );
       },
+    },
+    {
+      name: "View",
+      cell: (row) => (
+        <button
+          className="btn"
+          onClick={
+            () => {
+                navigate(`/event/${row.id}`);
+            }
+          }
+        >
+          View
+        </button>
+      ),
     },
     {
       name: "Delete Event",
@@ -200,9 +218,10 @@ const Events = () => {
       <div
         style={{
           border: "2px solid green",
-          padding: "1.2em",
-          borderRadius: "15px",
-          background: "#006600",
+        padding: "0.75em",
+        borderRadius: "15px",
+        background: "rgb(22,10,10)",
+        fontSize: "40px",
         }}
       >
         <DataTable

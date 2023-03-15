@@ -41,6 +41,7 @@ const Domainadd = () => {
 
   return (
     <div className="domainAdd">
+      <div className="domainHeader">Add Domain</div>
       <form method="post">
         <div className="domainItems">
           <label>
@@ -64,7 +65,7 @@ const Domainadd = () => {
           style={{
             width: 'auto',
             justifyContent: 'right',
-            textAlign: 'center',
+            textAlign: 'left',
           }}
         >
           Domain Description (max 50 words)
@@ -77,9 +78,9 @@ const Domainadd = () => {
           />
         </div>
 
-        <div className="container">
+        <div className="containerDomainAdd">
           <div>
-            <div className="container-head">Domain Co-ordinator - 1</div>
+            <div className="container-head-DomainAdd">Domain Co-ordinator - 1</div>
             <div className="domainBox">
               <select
                 // className={styles.signup__select}

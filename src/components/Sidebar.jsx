@@ -15,7 +15,9 @@ const Sidebar = () => {
   const { coordinatorLoggedIn, logOutHandler, role, domain } = useStateContext();
   const [dom, setDom] = useState(domain);
   return (
-    <div className="containerSidebar">
+    <div className="containerSidebar" style={(coordinatorLoggedIn && role == 892348) ? {} : {background: 'rgb(5, 79, 17)',
+    background: 'linear-gradient(135deg,rgba(5, 79, 17, 0.99) 9%,rgba(0, 0, 0, 1) 50%,rgba(5, 62, 15, 1) 93%)', height:'600px', marginTop:
+    "40px"}}>
       <div className="sidebarItems">
         <div className="logo">
           <Link to="/">
@@ -49,7 +51,7 @@ const Sidebar = () => {
           <Link to="/events">Events</Link>
         </div>
         )}
-        {coordinatorLoggedIn && role == 892348 && (
+        {coordinatorLoggedIn && (role == 892348 || role == 948759) && (
         <div className="item">
           <Link to="/workshops">Workshops</Link>
         </div>
@@ -66,14 +68,15 @@ const Sidebar = () => {
               logOutHandler();
               window.location.reload(false);
             }}>
-              <Link to="/">Log Out</Link>
+              <Link to="/sign-in">Log Out</Link>
             </div>
           )
           :
           (
-            <div className="item logOut">
-              <Link to="/sign-in">Log In</Link>
-            </div>
+            // <div className="item logOut">
+            //   <Link to="/sign-in">Log In</Link>
+            // </div>
+            <div></div>
           )
         }
       </div>

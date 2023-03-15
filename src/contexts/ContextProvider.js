@@ -23,7 +23,9 @@ export const ContextProvider = ({ children }) => {
   // const coordinatorId = localStorage.getItem('coordinatorId');
   const coordinatorRole = localStorage.getItem('coordinatorRole');
   const coordinatorDomain = localStorage.getItem('coordinatorDomain');
+  const coordinatorId = localStorage.getItem('coordinatorId');
   const [token, setToken] = useState(localToken);
+  const [coorId, setCoorId] = useState(coordinatorId);
   const [role, setRole] = useState(coordinatorRole);
   const [domain, setDomain] = useState(coordinatorDomain);
   // const [expiryDate, setExpiryDate] = useState(localExpiryDate);
@@ -47,6 +49,7 @@ export const ContextProvider = ({ children }) => {
     }
   };
   const loginHandler = (coordinator) => {
+    console.log("login",coordinator)
     localStorage.setItem('token', coordinator.token);
     localStorage.setItem('coordinatorId', coordinator.coordinatorId);
     localStorage.setItem('coordinatorRole', coordinator.coordinatorRole);
@@ -57,6 +60,7 @@ export const ContextProvider = ({ children }) => {
     setToken(coordinator.token);
     setRole(coordinator.coordinatorRole);
     setDomain(coordinator.coordinatorDomain);
+    setCoorId(coordinator.coordinatorId);
     coordinatorLoggedIn = true;
     const remainingTime = calculateRemainingTime(expiry);
     resetLogoutTimer = setTimeout(logOutHandler, remainingTime);
@@ -73,7 +77,7 @@ export const ContextProvider = ({ children }) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{ activeMenu, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, localToken, token, setToken, calculateRemainingTime, logOutHandler, loginHandler, coordinatorLoggedIn, role, setRole, coordinatorDomain, setDomain, domain }}>
+    <StateContext.Provider value={{ activeMenu, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, localToken, token, setToken, calculateRemainingTime, logOutHandler, loginHandler, coordinatorLoggedIn, role, setRole, coordinatorDomain, setDomain, domain, coorId, setCoorId }}>
       {children}
     </StateContext.Provider>
   );

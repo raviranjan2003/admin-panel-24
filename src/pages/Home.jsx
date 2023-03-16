@@ -17,15 +17,17 @@ createTheme(
   "solarized",
   {
     text: {
-      primary: "#ffffff",
-      secondary: "#ffffff",
+      primary: "black",
+      secondary: "black",
     },
     background: {
-      default: "rgb(22,10,10)",
+      default: "white",
     },
   },
   "dark"
 );
+
+
 
 const Home = (props) => {
   // const { currentColor, currentMode } = useStateContext();
@@ -134,18 +136,22 @@ const Home = (props) => {
     {
       name: "Id",
       selector: (row) => row.id,
+      sortable: true,
     },
     {
       name: "Name",
       selector: (row) => row.name,
+      sortable: true,
     },
     {
       name: "Phone",
       selector: (row) => row.phone,
+      sortable: true,
     },
     {
       name: "E-mail",
       selector: (row) => row.email,
+      sortable: true,
     },
     {
       name: "Type",
@@ -234,8 +240,8 @@ const Home = (props) => {
       {isLoading && <Loader />}
 
       <div className="home">
-        <div className="headingHome">Namaste {coor && coor.coordinatorName}!</div>
-        <div className="descriptionHome">Your unique tF ID is {coor && coor.coordinatorId}</div>
+        <div className="headingHome">Namaste Admin {coor && coor.coordinatorName}!</div>
+        {/* <div className="descriptionHome">Your unique tF ID is {coor && coor.coordinatorId}</div> */}
         <div className="containerHome">
           <div className="container1">
             <div className="number">{user}</div>
@@ -264,9 +270,11 @@ const Home = (props) => {
       </div>
       <div
         style={{
-          border: "2px solid green",
+          // border: "2px solid green",
           padding: "0.75em",
-          background: "rgb(22,10,10)",
+           paddingBottom:'0px',
+           marginBottom:"0px",
+          // background: "rgb(22,10,10)",
           fontSize: "40px",
         }}
       >
@@ -274,9 +282,9 @@ const Home = (props) => {
           columns={columns}
           data={data}
           fixedHeader
-          fixedHeaderScrollHeight="450px"
+          fixedHeaderScrollHeight="100%"
           highlightOnHover
-          pagination
+         // pagination
           theme="solarized"
         />
       </div>

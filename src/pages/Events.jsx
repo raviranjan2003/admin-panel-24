@@ -10,7 +10,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Loader from "../components/Loader/Loader";
 import { useEffect } from "react";
 
-
+ import "./Event.css"
 const Events = () => {
   const navigate = useNavigate();
   const { coordinatorLoggedIn, role, domain } = useStateContext();
@@ -193,6 +193,7 @@ const Events = () => {
       <div style={{ margin: "7px" }}>
         <label for="domains">Choose Domains : </label>
         <select
+        
           id="domains"
           name="domains"
           onChange={(e) => {
@@ -231,7 +232,7 @@ const Events = () => {
           data={eventData}
           pagination
           fixedHeader
-          fixedHeaderScrollHeight="450px"
+          fixedHeaderScrollHeight="100%"
           theme="solarized"
           actions={[actionsMemo, actionsMemo2]}
         />

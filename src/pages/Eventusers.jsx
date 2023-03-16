@@ -41,11 +41,11 @@ const Eventusers = () => {
     "solarized",
     {
       text: {
-        primary: "#ffffff",
-        secondary: "#ffffff",
+        primary: "#00000",
+        secondary: "#00000",
       },
       background: {
-        default: 'rgb(22,10,10)',
+        default: 'white',
       },
     },
     "dark"
@@ -151,10 +151,11 @@ const Eventusers = () => {
         }}>Individual User Registered</h1>
       <div
         style={{
-          border: "2px solid green",
+         // border: "2px solid green",
         padding: "0.75em",
         borderRadius: "15px",
-        background: "rgb(22,10,10)",
+       
+        //background: "rgb(22,10,10)",
         fontSize: "40px",
         }}
       >
@@ -177,10 +178,10 @@ const Eventusers = () => {
         }}>Team User Registered</h1>
       <div
         style={{
-          border: "2px solid green",
+         // border: "2px solid green",
         padding: "0.75em",
         borderRadius: "15px",
-        background: "rgb(22,10,10)",
+        //background: "rgb(22,10,10)",
         fontSize: "40px",
         }}
       >

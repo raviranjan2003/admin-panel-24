@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 import { Navbar, Footer, Sidebar } from './components';
 import { Domains, Events, Sponsers, Workshops } from './pages';
@@ -26,23 +27,10 @@ import { useStateContext } from './contexts/ContextProvider';
 const App = () => {
   const { activeMenu, coordinatorLoggedIn, role } = useStateContext();
   return (
-    <div >
+    <div  style={{marginBottom:"0px"}}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg mb-0"  >
-          {/* <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
-            <TooltipComponent
-              content="Settings"
-              position="Top"
-            >
-              <button
-                type="button"
-                className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
-              >
-                <FiSettings />
-              </button>
-
-            </TooltipComponent>
-          </div> */}
+         
           {activeMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white  mb-0" style={{
             zIndex:"10" ,height:"100vh", color:'black'}}>
@@ -60,11 +48,11 @@ const App = () => {
                 : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 mb-0 '
             }
           >
-            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full mb-0">
+            <div className="fixed   md:static bg-main-bg dark:bg-main-dark-bg navbar w-full mb-0"  style={{background:"white"}}>
+             
               <Navbar />
             </div>
             <div style={{ marginBottom:'0px'}}>
-              {/* {themeSettings && (<ThemeSettings />)} */}
 
               <Routes>
                 {/* dashboard  */}
@@ -73,8 +61,7 @@ const App = () => {
                 {!coordinatorLoggedIn && <Route path="/sign-up" element={(<Signup /> )} />}
                 <Route path="/workshop/:id" element={<Workshop />} />
                 <Route path="/event/:id" element={<Eventusers />} />
-                <Route path='/profile' element={<Profile/>}/>
-                {/* <Route path='/profileupdate' element={<ProfileUpdate/>}/> */}
+                {coordinatorLoggedIn  &&<Route path='/profile' element={(<Profile/>)}/>}
                 {/* pages  */}
                 {coordinatorLoggedIn && <Route path="/domains" element={<Domains />} />}
                 {coordinatorLoggedIn && <Route path="/events" element={<Events />} />}

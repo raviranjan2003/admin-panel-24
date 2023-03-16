@@ -117,7 +117,7 @@ const Users = () => {
         <DataTable
           columns={columns}
           data={data}
-          pagination
+         // pagination
           theme="solarized"
           actions={actionsMemo2}
           highlightOnHover

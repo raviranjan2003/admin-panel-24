@@ -11,6 +11,7 @@ import axios from "axios";
 import { baseUrl } from "../API/api";
 import Loader from "../components/Loader/Loader";
 import { useStateContext } from "../contexts/ContextProvider.js";
+import { useNavigate } from "react-router-dom";
 
 const paginationComponentOptions = {
   rowsPerPageText: "Row per Page",
@@ -57,6 +58,7 @@ const customStyles = {
 const Home = (props) => {
   // const { currentColor, currentMode } = useStateContext();
   // const { name, tfId } = props;
+  const navigate = useNavigate();
   const { token } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [visitor, setVisitor] = useState(null);
@@ -96,6 +98,8 @@ const Home = (props) => {
         setIsLoading(false);
         if (result.status === 200) {
           notify("Coordinator validated!");
+          window.location.reload(false);
+          // navigate('/home');
         }
       });
   };
@@ -106,30 +110,24 @@ const Home = (props) => {
       setIsLoading(false);
       if (result.status === 200) {
         notify("Coordinator deleted!");
+        window.location.reload(false);
+        // navigate('/home');
       }
     });
   };
 
-  useEffect(async () => {
-    await axios.get(`${baseUrl}/coordinator/get`).then((result) => {
-      const res = result?.data;
-      setCoordinator(res);
-    });
-    await axios.get(`${baseUrl}/visitors/count`).then((result) => {
-      const res = result;
-      setVisitor(res.data.count);
-    });
-
-    await axios.get(`${baseUrl}/user/count`).then((result) => {
-      const res = result;
-      setUser(res.data.count);
-    });
-
+  useEffect( () => {
+    getCoordinator();
+    getUserCount();
+    getVisitorCount();
+    getInstitutionCount();
+  }, []);
+  const getInstitutionCount = async () => {
     await axios.get(`${baseUrl}/user/count/institution`).then((result) => {
       const res = result;
       setInstitution(res.data.count);
     });
-  }, [validateCoordinator, deleteCoordinator]);
+  };
 
   useEffect(async () => {
     await axios
@@ -141,6 +139,38 @@ const Home = (props) => {
         setCoor(res.data.coordinator);
       });
   });
+  }
+  const getVisitorCount = async () => {
+    await axios.get(`${baseUrl}/visitors/count`).then((result) => {
+      const res = result;
+      setVisitor(res.data.count);
+    });
+  }
+  const getUserCount = async () => {
+    await axios.get(`${baseUrl}/user/count`).then((result) => {
+      const res = result;
+      setUser(res.data.count);
+    });
+  }
+  const getCoordinator = async () => {
+    await axios.get(`${baseUrl}/coordinator/get`).then((result) => {
+      const res = result?.data;
+      setCoordinator(res);
+    });
+  }
+  useEffect( () => {
+    getCoordinaotrById();
+  }, [])
+  const getCoordinaotrById = async () => {
+    await axios.post(`${baseUrl}/coordinator/getById`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((result) => {
+      const res = result;
+      setCoor(res.data.coordinator);
+    });
+  }
   const columns = [
     {
       name: "Id",

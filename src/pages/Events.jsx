@@ -20,7 +20,7 @@ const Events = () => {
   const getEvent = async (domainN) => {
     setIsLoading(true);
     await axios
-    .post(`${baseUrl}/event/geteventbydomain`, { domainName: domainN })
+    .post(`${baseUrl}/event/geteventbydomainname`, { domainName: domainN })
     .then((result) => {
       setIsLoading(false);
       const res = result;

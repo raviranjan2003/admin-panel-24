@@ -15,14 +15,17 @@ const Workshops = () => {
   const [isLoading ,setIsLoading ] = useState(false);
   const { coordinatorLoggedIn, role } = useStateContext();
 
-  useEffect(async () => {
+  useEffect( () => {
+    getWorkshops();
+  }, []);
+  const getWorkshops = async () => {
     setIsLoading(true);
     await axios.get(`${baseUrl}/workshop/workshops`).then((result) => {
       setIsLoading(false);
       const res = result?.data.workshops;
       setWorkshops(res);
     });
-  }, []);
+  }
 
   createTheme('solarized', {
     text: {

@@ -49,11 +49,9 @@ const Sidebar = () => {
           <Link to="/events">Events</Link>
         </div>
         )}
-        {coordinatorLoggedIn && (role == 892348 || role == 948759) && (
         <div className="item">
           <Link to="/workshops">Workshops</Link>
         </div>
-        )}
         {coordinatorLoggedIn && role == 892348 && (
         <div className="item">
           <Link to="/sponsers">Sponsers</Link>

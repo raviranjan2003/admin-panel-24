@@ -32,7 +32,6 @@ const Domainadd = () => {
     formData.append('domainCoor1', domainCoor1);
     formData.append('domainCoor2', domainCoor2);
     formData.append('facultyAdvisor', facultyAdvisor);
-    // alert(JSON.stringify(formData));
     await axios.post(`${baseUrl}/domain/create`, formData).then((result) => {
       const res = result;
       console.log(res);

@@ -434,7 +434,7 @@ const Signup = () => {
               </button>
               <p className={styles.signup__text}>
                 Already have an account?{" "}
-                <Link to={"/sign-in"}>
+                <Link to={"/"}>
                   <span className={styles.signin__link}>Sign In</span>
                 </Link>
               </p>

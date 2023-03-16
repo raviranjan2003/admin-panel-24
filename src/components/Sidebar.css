@@ -9,7 +9,7 @@ img{
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 25%;
+    margin-top: 5%;
 }
 
 
@@ -21,15 +21,15 @@ img{
 }
 
 .item{
-    color: white;
-    border-bottom: 2px solid red;
-    border-radius: 5px;
+    color:  black;
+    /* border-bottom: 2px solid red;
+    border-radius: 5px; */
 }
 
 .item:hover{
-    color: whitesmoke;
-    border-bottom: 2px solid blue;
-    border-radius: 5px;
+    color: black;
+    border-bottom: 2px solid black;
+  
 }
 
 .logOut{

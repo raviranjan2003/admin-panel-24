@@ -15,7 +15,11 @@ const Workshops = () => {
   const navigate = useNavigate();
   const routerParams = useParams();
 
-  useEffect(async () => {
+  useEffect( () => {
+    getWorkshopUserRegistered();
+  }, []);
+
+  const getWorkshopUserRegistered = async() => {
     setIsLoading(true);
     await axios
       .get(`${baseUrl}/workshop/workshop/${routerParams.id}`)
@@ -26,7 +30,7 @@ const Workshops = () => {
         setWorkshop(res);
         setUser(res1);
       });
-  }, []);
+  }
 
   createTheme(
     "solarized",

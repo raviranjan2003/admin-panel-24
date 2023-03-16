@@ -4,7 +4,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../API/api";
+import Loader from "../components/Loader/Loader";
 function Profile() {
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
   const user_id = localStorage.getItem("coordinatorId");
 
@@ -13,9 +15,11 @@ function Profile() {
     getCoodinator();
   }, []);
   const getCoodinator = async () => {
+    setIsLoading(true);
     await axios
       .get(`${baseUrl}/coordinator/getById/${user_id}`)
       .then((result) => {
+        setIsLoading(false);
         const res = result;
         // alert(JSON.stringify(res.data.coordinator))
         setCoordinator(res.data.coordinator);
@@ -23,6 +27,7 @@ function Profile() {
   };
   return (
     <div style={{ width: "100%", height: "100%", marginTop: "20px" }}>
+    {isLoading && <Loader/>}
       <div
         className="ProfileWrapper"
         style={{

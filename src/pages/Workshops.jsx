@@ -150,4 +150,4 @@ const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(head
   )
 }
 
-export default Workshops
+export default Workshops;

@@ -45,11 +45,11 @@ const Events = () => {
     "solarized",
     {
       text: {
-        primary: "#ffffff",
-        secondary: "#ffffff",
+        primary: "rgb(22,10,10)",
+        secondary: "rgb(22,10,10)",
       },
       background: {
-        default: 'rgb(22,10,10)',
+        default: '#fff',
       },
     },
     "dark"
@@ -221,11 +221,8 @@ const Events = () => {
 
       <div
         style={{
-          border: "2px solid green",
           padding: "0.75em",
           borderRadius: "15px",
-          background: "#006600",
-          background: "rgb(22,10,10)",
           fontSize: "40px",
         }}
       >

@@ -153,7 +153,7 @@ const Signin = () => {
         </form>
         <p className={styles.signin__text}>
           Don&apos;t have an account?
-          <Link to="/">
+          <Link to="/sign-up">
             <span className={styles.signin__link}>Sign Up</span>
           </Link>
         </p>

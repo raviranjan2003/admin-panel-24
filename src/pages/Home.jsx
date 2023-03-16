@@ -13,47 +13,19 @@ import Loader from "../components/Loader/Loader";
 import { useStateContext } from "../contexts/ContextProvider.js";
 import { useNavigate } from "react-router-dom";
 
-const paginationComponentOptions = {
-  rowsPerPageText: "Row per Page",
-  rangeSeparatorText: "of",
-  selectAllRowsItem: true,
-  selectAllRowsItemText: "All",
-};
-
 createTheme(
   "solarized",
   {
     text: {
-      primary: "#00000",
-      secondary: "#00000",
+      primary: "#ffffff",
+      secondary: "#ffffff",
     },
-  
     background: {
-      default: "white",
+      default: "rgb(22,10,10)",
     },
   },
   "dark"
 );
-
-const customStyles = {
-  rows: {
-    style: {
-      minHeight: "72px", // override the row height
-    },
-  },
-  headCells: {
-    style: {
-      paddingLeft: "8px", // override the cell padding for head cells
-      paddingRight: "8px",
-    },
-  },
-  cells: {
-    style: {
-      paddingLeft: "8px", // override the cell padding for data cells
-      paddingRight: "8px",
-    },
-  },
-};
 
 const Home = (props) => {
   // const { currentColor, currentMode } = useStateContext();
@@ -63,10 +35,9 @@ const Home = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [visitor, setVisitor] = useState(null);
   const [coordinator, setCoordinator] = useState(null);
-  const [coor, setCoor] = useState(null);
+  const [coor, setCoor] = useState(null)
   const [user, setUser] = useState(null);
   const [institution, setInstitution] = useState(null);
-
   const notify = (msg) =>
     toast.success(msg, {
       position: "top-center",
@@ -127,18 +98,6 @@ const Home = (props) => {
       const res = result;
       setInstitution(res.data.count);
     });
-  };
-
-  useEffect(async () => {
-    await axios
-      .post(`${baseUrl}/coordinator/getById`, {
-        id: "6402bbb96b7c2169545d25a0",
-      })
-      .then((result) => {
-        const res = result;
-        setCoor(res.data.coordinator);
-      });
-  });
   }
   const getVisitorCount = async () => {
     await axios.get(`${baseUrl}/visitors/count`).then((result) => {
@@ -175,22 +134,18 @@ const Home = (props) => {
     {
       name: "Id",
       selector: (row) => row.id,
-      sortable: true,
     },
     {
       name: "Name",
       selector: (row) => row.name,
-      sortable: true,
     },
     {
       name: "Phone",
       selector: (row) => row.phone,
-      sortable: true,
     },
     {
       name: "E-mail",
       selector: (row) => row.email,
-      sortable: true,
     },
     {
       name: "Type",
@@ -279,12 +234,8 @@ const Home = (props) => {
       {isLoading && <Loader />}
 
       <div className="home">
-        <div className="headingHome">
-          Namaste {coor && coor.coordinatorName}!
-        </div>
-        <div className="descriptionHome">
-          Your unique tF ID is {coor && coor.coordinatorId}
-        </div>
+        <div className="headingHome">Namaste {coor && coor.coordinatorName}!</div>
+        <div className="descriptionHome">Your unique tF ID is {coor && coor.coordinatorId}</div>
         <div className="containerHome">
           <div className="container1">
             <div className="number">{user}</div>
@@ -312,12 +263,10 @@ const Home = (props) => {
         Coordinators
       </div>
       <div
-        className="table_pagenation"
         style={{
-          // border: "2px solid green",
+          border: "2px solid green",
           padding: "0.75em",
-           paddingBottom:"0px",
-          // background: "rgb(22,10,10)",
+          background: "rgb(22,10,10)",
           fontSize: "40px",
         }}
       >
@@ -325,13 +274,10 @@ const Home = (props) => {
           columns={columns}
           data={data}
           fixedHeader
-          customStyles={customStyles}
-          fixedHeaderScrollHeight="100%"
+          fixedHeaderScrollHeight="450px"
           highlightOnHover
-         // pagination // to hide pagenation
-          paginationComponentOptions={paginationComponentOptions}
+          pagination
           theme="solarized"
-          pointerOnHover
         />
       </div>
     </>

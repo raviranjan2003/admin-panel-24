@@ -48,7 +48,6 @@ const Signin = () => {
           return;
         }
         if (res.status === 200) {
-          alert(JSON.stringify(res.data))
           const coordinatorData = {
             token: res.data.token,
             coordinatorId: res.data.coordinatorId,
@@ -57,7 +56,11 @@ const Signin = () => {
           };
           console.log("ddgz",coordinatorData);
           loginHandler(coordinatorData);
-          navigate('/home');
+          if(res.data.coordinatorRole == 948759) {
+            navigate('/domains');
+          } else {
+            navigate('/home')
+          }
         } else {
           setErrorsMade(res.data.message);
         }

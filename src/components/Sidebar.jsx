@@ -51,11 +51,9 @@ const Sidebar = () => {
           <Link to="/events">Events</Link>
         </div>
         )}
-        {coordinatorLoggedIn && (role == 892348 || role == 948759) && (
         <div className="item">
           <Link to="/workshops">Workshops</Link>
         </div>
-        )}
         {coordinatorLoggedIn && role == 892348 && (
         <div className="item">
           <Link to="/sponsers">Sponsers</Link>
@@ -73,10 +71,9 @@ const Sidebar = () => {
           )
           :
           (
-            // <div className="item logOut">
-            //   <Link to="/sign-in">Log In</Link>
-            // </div>
-            <div></div>
+             <div className="item logOut">
+               <Link to="/sign-in">Log In</Link>
+             </div>
           )
         }
       </div>

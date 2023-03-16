@@ -11,11 +11,16 @@ const Eventusers = () => {
   const [event, setEvent] = useState(null);
     const [user, setUser] = useState(null);
     const [user1, setUser1] = useState(null);
+    const [members, setMembers] = useState(null);
     const [isLoading ,setIsLoading ] = useState(false);
   const navigate = useNavigate();
   const routerParams = useParams();
 
-  useEffect(async () => {
+  useEffect( () => {
+    getEventData();
+  }, []);
+  const getEventData = async () => {
+
     setIsLoading(true);
     await axios
       .get(`${baseUrl}/event/event/${routerParams.id}`)
@@ -23,12 +28,14 @@ const Eventusers = () => {
         setIsLoading(false);
         const res = result.data.event;
         const res1 = result.data.event.individual;
-        const res2 = result.data.event.team;
+        // alert(JSON.stringify(result.data))
+        const res2 = result.data.event.teams;
         setEvent(res);
         setUser(res1);
         setUser1(res2);
+        setMembers(res2[0].members)
       });
-  }, []);
+  }
 
   createTheme(
     "solarized",
@@ -46,10 +53,6 @@ const Eventusers = () => {
 
   const columns = [
     {
-      name: "Id",
-      selector: (row) => row.id,
-    },
-    {
       name: "User Name",
       selector: (row) => row.userName,
     },
@@ -66,11 +69,20 @@ const Eventusers = () => {
       selector: (row) => row.branch,
     },
   ];
+  const column = [
+    {
+      name: "Team Name",
+      selector: (row) => row.teamName,
+    },
+    {
+      name: "Leader Name",
+      selector: (row) => row.leaderName,
+    }
+  ];
 
   const data = [];
   user?.map((user) => {
     const work = {
-      id: user._id,
       userName: user.name,
       email: user.email,
       phone: user.phone,
@@ -81,11 +93,8 @@ const Eventusers = () => {
   const data2 = [];
   user1?.map((user) => {
     const work = {
-      id: user._id,
-      userName: user.name,
-      email: user.email,
-      phone: user.phone,
-      branch: user.branch,
+      teamName: user.teamName,
+      leaderName: user.leaderName,
     };
     return data2.push(work);
   });
@@ -118,6 +127,7 @@ const Eventusers = () => {
     ),
     []
   );
+  const membersData = ({data}) => <pre>{JSON.stringify(data)}</pre>
   return (
     <>
     {isLoading && <Loader />}
@@ -152,6 +162,9 @@ const Eventusers = () => {
           columns={columns}
           data={data}
           pagination
+          expandableRows
+          expandOnRowClicked
+          expandableRowsComponent={membersData}
           theme="solarized"
           actions={[actionsMemo, actionsMemo2]}
         />
@@ -172,9 +185,12 @@ const Eventusers = () => {
         }}
       >
         <DataTable
-          columns={columns}
+          columns={column}
           data={data2}
           pagination
+          expandableRows
+          expandOnRowClicked
+          expandableRowsComponent={membersData}
           theme="solarized"
           actions={[actionsMemo, actionsMemo2]}
         />

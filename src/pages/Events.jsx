@@ -10,22 +10,22 @@ import { toast, ToastContainer } from "react-toastify";
 import Loader from "../components/Loader/Loader";
 import { useEffect } from "react";
 
- import "./Event.css"
+import "./Event.css";
 const Events = () => {
   const navigate = useNavigate();
   const { coordinatorLoggedIn, role, domain } = useStateContext();
-  const [domainName, setDomainName] = useState('aarambh');
+  const [domainName, setDomainName] = useState("aarambh");
   const [isLoading, setIsLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState([]);
   const getEvent = async (domainN) => {
     setIsLoading(true);
     await axios
-    .post(`${baseUrl}/event/geteventbydomainname`, { domainName: domainN })
-    .then((result) => {
-      setIsLoading(false);
-      const res = result;
-      setEventDetails(res.data.event);
-    });
+      .post(`${baseUrl}/event/geteventbydomainname`, { domainName: domainN })
+      .then((result) => {
+        setIsLoading(false);
+        const res = result;
+        setEventDetails(res.data.event);
+      });
   };
   const notify = (msg) =>
     toast.success(msg, {
@@ -38,8 +38,6 @@ const Events = () => {
       progress: undefined,
       theme: "light",
     });
-    
-  
 
   createTheme(
     "solarized",
@@ -49,16 +47,16 @@ const Events = () => {
         secondary: "rgb(22,10,10)",
       },
       background: {
-        default: '#fff',
+        default: "#fff",
       },
     },
-    "dark"
+    "dark",
   );
 
   const columns = [
     {
-      name: 'Id',
-      selector: row => row.id,
+      name: "Id",
+      selector: (row) => row.id,
     },
     {
       name: "Event Name",
@@ -85,11 +83,9 @@ const Events = () => {
       cell: (row) => (
         <button
           className="btn"
-          onClick={
-            () => {
-                navigate(`/event/${row.id}`);
-            }
-          }
+          onClick={() => {
+            navigate(`/event/${row.id}`);
+          }}
         >
           View
         </button>
@@ -130,25 +126,26 @@ const Events = () => {
     elt.venue,
     elt.date,
   ]);
-  const actionsMemo = React.useMemo(
-    () => (
+  const actionsMemo = (
+    <>
       <button
         style={{ marginRight: "50px" }}
-        onClick={() => downloadCSV(eventData, "Events")}
+        onClick={() => downloadCSV(data, "Events")}
       >
         CSV
       </button>
-    ),
-    []
+    </>
   );
-  const actionsMemo2 = React.useMemo(
-    () => (
-      <button onClick={() =>setTimeout(() => {
-        downloadPdf(headers, data, `${domainName} Events`)
-      }, 5000)}>PDF</button>
-    ),
-    []
-  );
+  const actionsMemo2 = <>
+      <button
+        onClick={() =>
+          setTimeout(() => {
+            downloadPdf(headers, data, `${domainName} Events`);
+          }, 5000)}
+      >
+        PDF
+      </button>
+    </>;
   return (
     <>
       <ToastContainer
@@ -167,9 +164,9 @@ const Events = () => {
       <div
         style={{
           "width": "auto",
-        "textAlign": "center",
-        "fontSize": "2.5em",
-        "margin": "0.5em"
+          "textAlign": "center",
+          "fontSize": "2.5em",
+          "margin": "0.5em",
         }}
       >
         <div>EVENTS</div>
@@ -191,9 +188,8 @@ const Events = () => {
         </div>
       )}
       <div style={{ margin: "7px" }}>
-        <label for="domains">Choose Domains : </label>
+        <label for="domains">Choose Domains :</label>
         <select
-        
           id="domains"
           name="domains"
           onChange={(e) => {
@@ -202,21 +198,33 @@ const Events = () => {
           }}
         >
           <option value="0">Select</option>
-          {(domain == "Aarambh" || domain == "Admin")  && <option value="aarambh">Aarambh</option>}
-          {(domain == "Plexus" || domain == 'Admin')&& <option value="plexus">Plexus</option>}
-          {(domain == "Chemfor" || domain == 'Admin') && <option value="chemfor">Chemfor</option>}
-          {(domain == "Electrica" || domain == 'Admin') && (
+          {(domain == "Aarambh" || domain == "Admin") && (
+            <option value="aarambh">Aarambh</option>
+          )}
+          {(domain == "Plexus" || domain == "Admin") && (
+            <option value="plexus">Plexus</option>
+          )}
+          {(domain == "Chemfor" || domain == "Admin") && (
+            <option value="chemfor">Chemfor</option>
+          )}
+          {(domain == "Electrica" || domain == "Admin") && (
             <option value="electrica">Electrica</option>
           )}
-          {(domain == "Genesis" || domain == 'Admin') && <option value="genesis">Genesis</option>}
-          {(domain == "Karyarachana" || domain == 'Admin') && (
+          {(domain == "Genesis" || domain == "Admin") && (
+            <option value="genesis">Genesis</option>
+          )}
+          {(domain == "Karyarachana" || domain == "Admin") && (
             <option value="karyarachana">Karyarachana</option>
           )}
-          {(domain == "Kermis" || domain == 'Admin') && <option value="kermis">Kermis</option>}
-          {(domain == "Mechanica" || domain == 'Admin') && (
+          {(domain == "Kermis" || domain == "Admin") && (
+            <option value="kermis">Kermis</option>
+          )}
+          {(domain == "Mechanica" || domain == "Admin") && (
             <option value="mechanica">Mechanica</option>
           )}
-          {(domain == "Robozar" || domain == 'Admin') && <option value="robozar">Robozar</option>}
+          {(domain == "Robozar" || domain == "Admin") && (
+            <option value="robozar">Robozar</option>
+          )}
         </select>
       </div>
 

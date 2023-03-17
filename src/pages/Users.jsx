@@ -14,18 +14,18 @@ const Users = () => {
   const [users, setUsers] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect( () => {
-      getUser();
+  useEffect(() => {
+    getUser();
   }, []);
 
-  const getUser = async() => {
+  const getUser = async () => {
     setIsLoading(true);
     await axios.get(`${baseUrl}/user/getusers`).then((result) => {
       setIsLoading(false);
       const res = result?.data.user;
       setUsers(res);
     });
-  }
+  };
 
   createTheme(
     "solarized",
@@ -35,10 +35,10 @@ const Users = () => {
         secondary: "#rgb(22,10,10)",
       },
       background: {
-        default: '#fff',
+        default: "#fff",
       },
     },
-    "dark"
+    "dark",
   );
 
   const columns = [
@@ -71,7 +71,9 @@ const Users = () => {
     data.push(coor);
   });
   const headers = [["Id", "Name", "Email", "Phone"]];
-  const Dummydata = data.map((elt) => [elt.id, elt.name, elt.email, elt.phone]);
+  const UserData = users?.map((
+    elt,
+  ) => [elt.userId, elt.name, elt.email, elt.phone]);
 
   // const actionsMemo = React.useMemo(
   //   () => (
@@ -84,13 +86,42 @@ const Users = () => {
   //   ),
   //   []
   // );
-  const actionsMemo2 = React.useMemo(
-    () => (
-      <button onClick={() => downloadPdf(headers, Dummydata, "Users")}>
+  console.log(users);
+  const actionsMemo = (
+    <>
+      <button
+        style={{ marginRight: "50px" }}
+        onClick={() =>
+          downloadCSV(
+            users?.map((elt) => {
+              return {
+                id: elt.userId,
+                name: elt.name,
+                email: elt.email,
+                phone: elt.phone,
+              };
+            }),
+            "Users",
+          )}
+      >
+        CSV
+      </button>
+    </>
+  );
+  const actionsMemo2 = (
+    <>
+      <button
+        onClick={() => {
+          downloadPdf(
+            [["Id", "Name", "Email", "Phone"]],
+            users?.map((elt) => [elt.userId, elt.name, elt.email, elt.phone]),
+            "Users",
+          );
+        }}
+      >
         PDF
       </button>
-    ),
-    []
+    </>
   );
   return (
     <>
@@ -117,9 +148,9 @@ const Users = () => {
         <DataTable
           columns={columns}
           data={data}
-         // pagination
+          // pagination
           theme="solarized"
-          actions={actionsMemo2}
+          actions={[actionsMemo, actionsMemo2]}
           highlightOnHover
         />
       </div>

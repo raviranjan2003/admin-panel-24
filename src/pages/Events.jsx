@@ -50,7 +50,7 @@ const Events = () => {
         default: "#fff",
       },
     },
-    "dark",
+    "dark"
   );
 
   const columns = [
@@ -136,16 +136,19 @@ const Events = () => {
       </button>
     </>
   );
-  const actionsMemo2 = <>
+  const actionsMemo2 = (
+    <>
       <button
         onClick={() =>
           setTimeout(() => {
             downloadPdf(headers, data, `${domainName} Events`);
-          }, 5000)}
+          }, 5000)
+        }
       >
         PDF
       </button>
-    </>;
+    </>
+  );
   return (
     <>
       <ToastContainer
@@ -163,10 +166,10 @@ const Events = () => {
       {isLoading && <Loader />}
       <div
         style={{
-          "width": "auto",
-          "textAlign": "center",
-          "fontSize": "2.5em",
-          "margin": "0.5em",
+          width: "auto",
+          textAlign: "center",
+          fontSize: "2.5em",
+          margin: "0.5em",
         }}
       >
         <div>EVENTS</div>
@@ -198,33 +201,15 @@ const Events = () => {
           }}
         >
           <option value="0">Select</option>
-          {(domain == "Aarambh" || domain == "Admin") && (
-            <option value="aarambh">Aarambh</option>
-          )}
-          {(domain == "Plexus" || domain == "Admin") && (
-            <option value="plexus">Plexus</option>
-          )}
-          {(domain == "Chemfor" || domain == "Admin") && (
-            <option value="chemfor">Chemfor</option>
-          )}
-          {(domain == "Electrica" || domain == "Admin") && (
-            <option value="electrica">Electrica</option>
-          )}
-          {(domain == "Genesis" || domain == "Admin") && (
-            <option value="genesis">Genesis</option>
-          )}
-          {(domain == "Karyarachana" || domain == "Admin") && (
-            <option value="karyarachana">Karyarachana</option>
-          )}
-          {(domain == "Kermis" || domain == "Admin") && (
-            <option value="kermis">Kermis</option>
-          )}
-          {(domain == "Mechanica" || domain == "Admin") && (
-            <option value="mechanica">Mechanica</option>
-          )}
-          {(domain == "Robozar" || domain == "Admin") && (
-            <option value="robozar">Robozar</option>
-          )}
+          <option value="aarambh">Aarambh</option>
+          <option value="plexus">Plexus</option>
+          <option value="chemfor">Chemfor</option>
+          <option value="electrica">Electrica</option>
+          <option value="genesis">Genesis</option>
+          <option value="karyarachna">Karyarachna</option>
+          <option value="kermis">Kermis</option>
+          <option value="mechanica">Mechanica</option>
+          <option value="robozar">Robozar</option>
         </select>
       </div>
 

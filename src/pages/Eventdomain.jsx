@@ -56,11 +56,11 @@ const Events = () => {
     "solarized",
     {
       text: {
-        primary: "#ffffff",
-        secondary: "#ffffff",
+        primary: "#00000",
+        secondary: "#00000",
       },
       background: {
-        default: "rgb(22,10,10)",
+        default: "white",
       },
     },
     "dark"
@@ -195,7 +195,7 @@ const Events = () => {
           margin: "0.1em",
         }}
       >
-        <div>EVENTS</div>
+        <div> ALL EVENTS LIST</div>
       </div>
       {coordinatorLoggedIn && role == 948759 && (
         <div
@@ -217,21 +217,23 @@ const Events = () => {
 
       <div
         style={{
-          border: "2px solid green",
+         // border: "2px solid green",
         padding: "0.75em",
         borderRadius: "15px",
-        background: "rgb(22,10,10)",
+        //background: "rgb(22,10,10)",
         fontSize: "40px",
         }}
       >
         <DataTable
           columns={columns}
           data={eventData}
-          pagination
+        //  pagination
           fixedHeader
-          fixedHeaderScrollHeight="450px"
+          fixedHeaderScrollHeight="100%"
+          pointerOnHover
+          highlightOnHover
           theme="solarized"
-          actions={[actionsMemo, actionsMemo2]}
+          //actions={[actionsMemo, actionsMemo2]}
         />
       </div>
     </>

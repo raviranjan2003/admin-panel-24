@@ -10,7 +10,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Loader from "../components/Loader/Loader";
 import { useEffect } from "react";
 
-
+ import "./Event.css"
 const Events = () => {
   const navigate = useNavigate();
   const { coordinatorLoggedIn, role, domain } = useStateContext();
@@ -20,7 +20,7 @@ const Events = () => {
   const getEvent = async (domainN) => {
     setIsLoading(true);
     await axios
-    .post(`${baseUrl}/event/geteventbydomain`, { domainName: domainN })
+    .post(`${baseUrl}/event/geteventbydomainname`, { domainName: domainN })
     .then((result) => {
       setIsLoading(false);
       const res = result;
@@ -45,11 +45,11 @@ const Events = () => {
     "solarized",
     {
       text: {
-        primary: "#ffffff",
-        secondary: "#ffffff",
+        primary: "rgb(22,10,10)",
+        secondary: "rgb(22,10,10)",
       },
       background: {
-        default: 'rgb(22,10,10)',
+        default: '#fff',
       },
     },
     "dark"
@@ -193,6 +193,7 @@ const Events = () => {
       <div style={{ margin: "7px" }}>
         <label for="domains">Choose Domains : </label>
         <select
+        
           id="domains"
           name="domains"
           onChange={(e) => {
@@ -221,11 +222,8 @@ const Events = () => {
 
       <div
         style={{
-          border: "2px solid green",
           padding: "0.75em",
           borderRadius: "15px",
-          background: "#006600",
-          background: "rgb(22,10,10)",
           fontSize: "40px",
         }}
       >
@@ -234,7 +232,7 @@ const Events = () => {
           data={eventData}
           pagination
           fixedHeader
-          fixedHeaderScrollHeight="450px"
+          fixedHeaderScrollHeight="100%"
           theme="solarized"
           actions={[actionsMemo, actionsMemo2]}
         />

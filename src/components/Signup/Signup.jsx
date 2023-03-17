@@ -25,7 +25,7 @@ const Signup = () => {
   const [divOne, setDivOne] = useState(true);
   const [divTwo, setDivTwo] = useState(false);
   const [toggle, setToggle] = useState(null);
-  const [domain, setDomain] = useState('');
+  const [domain, setDomain] = useState(null);
   // const [errorMade, setErrorMade] = useState();
 
   // const onErrorMadeHandle = () => {
@@ -109,9 +109,6 @@ const Signup = () => {
       }, 3000);
       return;
     }
-    // if (branch.valueOf === 0) {
-    //   setBranchErr("Please choose your branch");
-    // // console.log("branch",typeof(branch));
     if (branch === '0') {
       setBranchErr('Please choose your branch');
       setTimeout(() => {
@@ -157,7 +154,6 @@ const Signup = () => {
       type,
       domain,
     };
-    console.log("user",user)
     setIsLoading(true);
     await axios
       .post(`${baseUrl}/coor/sign-up`, user)
@@ -165,7 +161,7 @@ const Signup = () => {
         const res = result;
         setIsLoading(false);
         if (res.status === 200) {
-          navigate("/home");
+          navigate("/sign-in");
         } else if (res.status === 208 || res.status === 400) {
           setErrorsMade(res.data.message);
           setTimeout(() => {
@@ -322,14 +318,12 @@ const Signup = () => {
                 <option value="Event">Event</option>
                 <option value="Faculty">Faculty</option>
               </select>
-              {/* {(toggle === 'Domain' || toggle === 'Event' ) && ( */}
               {toggle === 'Domain' && (
                 <select
                   className={styles.signup__select}
                   sx={{ height: "10px" }}
                   onChange={(e) => {
                     setDomain(e.target.value);
-                    console.log(domain);
                   }}
                   id="domain"
                   name="domain"
@@ -434,7 +428,7 @@ const Signup = () => {
               </button>
               <p className={styles.signup__text}>
                 Already have an account?{" "}
-                <Link to={"/sign-in"}>
+                <Link to={"/"}>
                   <span className={styles.signin__link}>Sign In</span>
                 </Link>
               </p>

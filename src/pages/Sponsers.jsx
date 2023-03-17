@@ -8,11 +8,11 @@ import { downloadPdf } from '../contexts/exportAsPDF';
 const Sponsers = () => {
   createTheme('solarized', {
     text: {
-      primary: '#ffffff',
-      secondary: '#ffffff',
+      primary: 'rgb(22,10,10)',
+      secondary: 'rgb(22,10,10)',
     },
     background: {
-      default: 'rgb(22,10,10)',
+      default: '#fff',
     },
   }, 'dark');
   
@@ -72,10 +72,8 @@ const actionsMemo = React.useMemo(() => <button style={{marginRight:"50px"}} onC
     </button>
 </Link></div>
       <div style={{
-        border: "2px solid green",
         padding: "0.75em",
         borderRadius: "15px",
-        background: "rgb(22,10,10)",
         fontSize: "40px",
       }}>
       <DataTable

@@ -12,7 +12,6 @@ const Workshopadd = () => {
   const [workshopDescription, setWorkshopDescription] = useState(null);
   const [workshopPhoto, setWorkshopPhoto] = useState(null);
   const [domainCoor1, setDomainCoor1] = useState(null);
-  const [domainCoor2, setDomainCoor2] = useState(null);
   const [domainName, setDomainName] = useState();
   const [workshopVenue, setWorkshopVenue] = useState(null);
   const [workshopDate, setWorkshopDate] = useState(null);

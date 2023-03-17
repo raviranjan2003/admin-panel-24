@@ -4,6 +4,7 @@ import Domainadd from "../pages/Domainadd";
 import DataTable, { createTheme } from "react-data-table-component";
 import { useStateContext } from "../contexts/ContextProvider";
 import { downloadCSV } from "../contexts/Csv";
+ import './Domians.css'
 import { downloadPdf } from "../contexts/exportAsPDF";
 // import Button from '../shared/Button';
 const Dummydata = [
@@ -77,11 +78,11 @@ const Domains = () => {
   
   createTheme('solarized', {
     text: {
-      primary: '#ffffff',
-      secondary: '#ffffff',
+      primary: '#00000',
+      secondary: '#000000',
     },
     background: {
-      default: 'rgb(22,10,10)',
+      default: ' white',
     },
   }, 'dark');
 
@@ -121,9 +122,10 @@ const Domains = () => {
           textAlign: "center",
           fontSize: "2.5em",
           margin: "0.5em",
+           marginBottom:"0px"
         }}
       >
-        DOMAINS
+         ALL DOMAINS
       </div>
       {/* {coordinatorLoggedIn && role == 892348 && (
       <div
@@ -143,18 +145,24 @@ const Domains = () => {
       )} */}
       <div
         style={{
-          border: "2px solid green",
+          // border: "2px solid green",
           padding: "0.75em",
-          borderRadius: "15px",
-          background: "rgb(22,10,10)",
+           borderRadius: "15px",
+           paddingBottom:"0px",
+          // background: "rgb(22,10,10)",
           fontSize: "40px",
         }}
       >
-        <DataTable columns={columns} data={Dummydata} pagination theme="solarized" 
-        actions={
-          [actionsMemo,
-          actionsMemo2]
-        }
+        <DataTable 
+        columns={columns} 
+        data={Dummydata} 
+        
+        
+        theme="solarized" 
+        // actions={
+        //   [actionsMemo,
+        //   actionsMemo2]
+        // }
         />
         
       </div>

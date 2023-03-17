@@ -11,24 +11,28 @@ import axios from "axios";
 import { baseUrl } from "../API/api";
 import Loader from "../components/Loader/Loader";
 import { useStateContext } from "../contexts/ContextProvider.js";
+import { useNavigate } from "react-router-dom";
 
 createTheme(
   "solarized",
   {
     text: {
-      primary: "#ffffff",
-      secondary: "#ffffff",
+      primary: "black",
+      secondary: "black",
     },
     background: {
-      default: "rgb(22,10,10)",
+      default: "white",
     },
   },
   "dark"
 );
 
+
+
 const Home = (props) => {
   // const { currentColor, currentMode } = useStateContext();
   // const { name, tfId } = props;
+  const navigate = useNavigate();
   const { token } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [visitor, setVisitor] = useState(null);
@@ -67,6 +71,8 @@ const Home = (props) => {
         setIsLoading(false);
         if (result.status === 200) {
           notify("Coordinator validated!");
+          window.location.reload(false);
+          // navigate('/home');
         }
       });
   };
@@ -77,54 +83,75 @@ const Home = (props) => {
       setIsLoading(false);
       if (result.status === 200) {
         notify("Coordinator deleted!");
+        window.location.reload(false);
+        // navigate('/home');
       }
     });
   };
 
-  useEffect(async () => {
-    await axios.get(`${baseUrl}/coordinator/get`).then((result) => {
-      const res = result?.data;
-      setCoordinator(res);
-    });
-    await axios.get(`${baseUrl}/visitors/count`).then((result) => {
-      const res = result;
-      setVisitor(res.data.count);
-    });
-
-    await axios.get(`${baseUrl}/user/count`).then((result) => {
-      const res = result;
-      setUser(res.data.count);
-    });
-
+  useEffect( () => {
+    getCoordinator();
+    getUserCount();
+    getVisitorCount();
+    getInstitutionCount();
+  }, []);
+  const getInstitutionCount = async () => {
     await axios.get(`${baseUrl}/user/count/institution`).then((result) => {
       const res = result;
       setInstitution(res.data.count);
     });
-  }, [validateCoordinator, deleteCoordinator]);
-
-
-  useEffect(async () => {
-    await axios.post(`${baseUrl}/coordinator/getById`, {id: '6402bbb96b7c2169545d25a0'}).then((result) => {
+  }
+  const getVisitorCount = async () => {
+    await axios.get(`${baseUrl}/visitors/count`).then((result) => {
+      const res = result;
+      setVisitor(res.data.count);
+    });
+  }
+  const getUserCount = async () => {
+    await axios.get(`${baseUrl}/user/count`).then((result) => {
+      const res = result;
+      setUser(res.data.count);
+    });
+  }
+  const getCoordinator = async () => {
+    await axios.get(`${baseUrl}/coordinator/get`).then((result) => {
+      const res = result?.data;
+      setCoordinator(res);
+    });
+  }
+  useEffect( () => {
+    getCoordinaotrById();
+  }, [])
+  const getCoordinaotrById = async () => {
+    await axios.post(`${baseUrl}/coordinator/getById`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((result) => {
       const res = result;
       setCoor(res.data.coordinator);
     });
-  })
+  }
   const columns = [
     {
       name: "Id",
       selector: (row) => row.id,
+      sortable: true,
     },
     {
       name: "Name",
       selector: (row) => row.name,
+      sortable: true,
     },
     {
       name: "Phone",
       selector: (row) => row.phone,
+      sortable: true,
     },
     {
       name: "E-mail",
       selector: (row) => row.email,
+      sortable: true,
     },
     {
       name: "Type",
@@ -213,8 +240,8 @@ const Home = (props) => {
       {isLoading && <Loader />}
 
       <div className="home">
-        <div className="headingHome">Namaste {coor && coor.coordinatorName}!</div>
-        <div className="descriptionHome">Your unique tF ID is {coor && coor.coordinatorId}</div>
+        <div className="headingHome">Namaste Admin {coor && coor.coordinatorName}!</div>
+        {/* <div className="descriptionHome">Your unique tF ID is {coor && coor.coordinatorId}</div> */}
         <div className="containerHome">
           <div className="container1">
             <div className="number">{user}</div>
@@ -243,9 +270,11 @@ const Home = (props) => {
       </div>
       <div
         style={{
-          border: "2px solid green",
+          // border: "2px solid green",
           padding: "0.75em",
-          background: "rgb(22,10,10)",
+           paddingBottom:'0px',
+           marginBottom:"0px",
+          // background: "rgb(22,10,10)",
           fontSize: "40px",
         }}
       >
@@ -253,9 +282,9 @@ const Home = (props) => {
           columns={columns}
           data={data}
           fixedHeader
-          fixedHeaderScrollHeight="450px"
+          fixedHeaderScrollHeight="100%"
           highlightOnHover
-          pagination
+         // pagination
           theme="solarized"
         />
       </div>

@@ -15,22 +15,25 @@ const Workshops = () => {
   const [isLoading ,setIsLoading ] = useState(false);
   const { coordinatorLoggedIn, role } = useStateContext();
 
-  useEffect(async () => {
+  useEffect( () => {
+    getWorkshops();
+  }, []);
+  const getWorkshops = async () => {
     setIsLoading(true);
     await axios.get(`${baseUrl}/workshop/workshops`).then((result) => {
       setIsLoading(false);
       const res = result?.data.workshops;
       setWorkshops(res);
     });
-  }, []);
+  }
 
   createTheme('solarized', {
     text: {
-      primary: '#ffffff',
-      secondary: '#ffffff',
+      primary: '#00000',
+      secondary: '#00000',
     },
     background: {
-      default: 'rgb(22,10,10)',
+      default: 'white',
     },
   }, 'dark');
   
@@ -99,7 +102,7 @@ const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(head
   return (
     <>
     {isLoading && <Loader />}
-    <div className="heading" style={{
+    {/* <div className="heading" style={{
         "width": "auto",
         "textAlign": "center",
         "fontSize": "2.5em",
@@ -111,29 +114,30 @@ const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(head
         "textAlign": "center",
         "fontSize": "0.75em",
         "marginBottom":"3.5em"
-      }}>Your unique tF ID is t960</div>
+      }}>Your unique tF ID is t960</div> */}
       <div className='container' style={{
         "width": "auto",
         "textAlign": "center",
         "fontSize": "2.5em",
         "margin":"0.5em"
-      }}>WORKSHOPS</div>
+      }}>WORKSHOPS LIST</div>
       {coordinatorLoggedIn && (role == 892348) && <div style={{"fontSize": "18px","border":"2px solid blue", "display": "table",
     "margin": "5px auto", "padding":"5px","borderRadius":"8px"}}><Link to="/workshopadd">
     <button type="button">
          Add New Workshop
     </button>
 </Link></div>}
-      <div style={{ border: "2px solid green",
+      <div style={{// border: "2px solid green",
         padding: "0.75em",
         borderRadius: "15px",
-        background: "rgb(22,10,10)",
+       // background: "rgb(22,10,10)",
         fontSize: "40px",}}>
       <DataTable
             columns={columns}
             data={data}
-            pagination
+            //pagination
             theme="solarized"
+
             actions={
               [actionsMemo,
               actionsMemo2]
@@ -146,4 +150,4 @@ const actionsMemo2 = React.useMemo(() => <button onClick={() => downloadPdf(head
   )
 }
 
-export default Workshops
+export default Workshops;

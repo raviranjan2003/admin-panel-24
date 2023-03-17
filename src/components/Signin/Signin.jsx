@@ -28,14 +28,14 @@ const Signin = () => {
           setMailErr(res.data.message);
           setTimeout(() => {
             setMailErr(null);
-            navigate('/');
+            navigate('/profile');
           }, 3000);
         } else if (res.status === 208) {
           setPasswordErr(res.data.message);
           setTimeout(() => {
             setPasswordErr(null);
             if (res.data.message.includes('registered')) {
-              navigate('/');
+              navigate('/profile');
             }
           }, 3000);
           return;
@@ -43,20 +43,21 @@ const Signin = () => {
           setPasswordErr(res.data.message);
           setTimeout(() => {
             setPasswordErr(null);
-            // navigate('/verify');
+            navigate('/profile');
           }, 3000);
           return;
         }
         if (res.status === 200) {
-          // alert(JSON.stringify(res.data))
+        
           const coordinatorData = {
             token: res.data.token,
             coordinatorId: res.data.coordinatorId,
             coordinatorRole: res.data.coordinatorRole,
             coordinatorDomain: res.data.coordinatorDomain,
           };
+        //console.log("ddgz",coordinatorData);
           loginHandler(coordinatorData);
-          navigate('/home');
+          navigate('/profile');
         } else {
           setErrorsMade(res.data.message);
         }
@@ -146,13 +147,13 @@ const Signin = () => {
             >
               Sign In
             </button>
-            <Link to="/forgot-password">Forgot Password?</Link>
+            {/* <Link to="/forgot-password">Forgot Password?</Link> */}
           </div>
           {/* </div> */}
         </form>
         <p className={styles.signin__text}>
           Don&apos;t have an account?
-          <Link to="/">
+          <Link to="/sign-up">
             <span className={styles.signin__link}>Sign Up</span>
           </Link>
         </p>

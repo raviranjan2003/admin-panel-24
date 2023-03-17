@@ -19,16 +19,17 @@ function Profile() {
   const [sizeMsg, setSizeMsg] = useState(null);
   const [coordinator, setCoordinator] = useState(null);
   const [sizeErr, setSizeErr] = useState(false);
-  const notify = (msg) => toast.success(msg, {
-    position: 'top-center',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
-  });
+  const notify = (msg) =>
+    toast.success(msg, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   useEffect(() => {
     getCoodinator();
   }, []);
@@ -51,7 +52,7 @@ function Profile() {
       .post(`${baseUrl}/coordinator/updatephoto/${user_id}`, formData)
       .then((result) => {
         setIsLoading(false);
-        if(result.status === 208){
+        if (result.status === 208) {
           setSizeMsg(result.data.message);
           setSizeErr(true);
           setTimeout(() => {
@@ -92,17 +93,23 @@ function Profile() {
       >
         <div className="content">
           <div className="detail">
-
-            {coordinator?.coordinatorPhoto && <img
-              src={`${baseUrl}/${coordinator?.coordinatorPhoto}`}
-              alt="profile_image"
-            />}
+            <div className="image_container">
+              {coordinator?.coordinatorPhoto && (
+                <img
+                  src={`${baseUrl}/${coordinator?.coordinatorPhoto}`}
+                  alt="profile_image"
+                />
+              )}
+            </div>
             <div className="designation">
               <h1>{coordinator?.coordinatorName}</h1>
               <p>{coordinator?.coordinatorType} Coordinator</p>
             </div>
             <div className="button">
-              <a href={`mailto:${coordinator?.coordinatorEmail}`} className="email">
+              <a
+                href={`mailto:${coordinator?.coordinatorEmail}`}
+                className="email"
+              >
                 {/* <HiOutlineMail /> */}
                 <span className="email">Email</span>
               </a>
@@ -122,30 +129,32 @@ function Profile() {
             </div>
           </div>
         </div>
-        
       </div>
-      {!coordinator?.coordinatorPhoto && <div className="update_photo">
-        Profile Picture:
-        <input
-          id="profile-upload"
-          style={{ border: "none", width: "250px" }}
-          type="file"
-          onChange={(e) => setUserPhoto(e.target.files[0])}
-          accept="image/*"
-        />
-        {sizeErr && <p style={{color: "red", display: "inline"}}>{sizeMsg}</p>}
-        <button
-          style={{
-            marginTop: "20px",
-            border: "2px solid green",
-            padding: "5px",
-          }}
-          onClick={uploadPhoto}
-        >
-          Update
-        </button>
-      </div>}
-      
+      {!coordinator?.coordinatorPhoto && (
+        <div className="update_photo">
+          Profile Picture:
+          <input
+            id="profile-upload"
+            style={{ border: "none", width: "250px" }}
+            type="file"
+            onChange={(e) => setUserPhoto(e.target.files[0])}
+            accept="image/*"
+          />
+          {sizeErr && (
+            <p style={{ color: "red", display: "inline" }}>{sizeMsg}</p>
+          )}
+          <button
+            style={{
+              marginTop: "20px",
+              border: "2px solid green",
+              padding: "5px",
+            }}
+            onClick={uploadPhoto}
+          >
+            Update
+          </button>
+        </div>
+      )}
     </div>
   );
 }

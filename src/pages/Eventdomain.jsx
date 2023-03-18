@@ -154,22 +154,51 @@ const Events = () => {
     elt.date,
   ]);
 
-  const actionsMemo = React.useMemo(
-    () => (
+  const actionsMemo = (
+    <>
       <button
         style={{ marginRight: "50px" }}
-        onClick={() => downloadCSV(eventData, "Events")}
+        onClick={() =>
+          downloadCSV(
+            eventData?.map((elt) => {
+              return {
+                id: elt.id,
+                eventName: elt.eventName,
+                StudentCoordinator1: elt.std1,
+                StudentCoordinator2: elt.std2,
+                date: elt.date,
+                venue: elt.venue.replace(",", "⹁"),
+              };
+            }),
+            "Events",
+          )}
       >
         CSV
       </button>
-    ),
-    []
+    </>
   );
-  const actionsMemo2 = React.useMemo(
-    () => (
-      <button onClick={() => downloadPdf(headers, data, "Events")}>PDF</button>
-    ),
-    []
+  const actionsMemo2 = (
+    <>
+      <button
+        onClick={() =>
+          setTimeout(() => {
+            downloadPdf(
+              headers,
+              eventData?.map((elt) => [
+                elt.id,
+                elt.eventName,
+                elt.std1,
+                elt.std2,
+                elt.venue,
+                elt.date,
+              ]),
+              `${domainName} Events`,
+            );
+          }, 5000)}
+      >
+        PDF
+      </button>
+    </>
   );
   return (
     <>
@@ -233,7 +262,7 @@ const Events = () => {
           pointerOnHover
           highlightOnHover
           theme="solarized"
-          //actions={[actionsMemo, actionsMemo2]}
+          actions={[actionsMemo, actionsMemo2]}
         />
       </div>
     </>

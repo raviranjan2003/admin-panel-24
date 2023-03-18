@@ -96,14 +96,15 @@ function Profile() {
             <div className="image_container">
               {coordinator?.coordinatorPhoto && (
                 <img
+                  className="profile_image"
                   src={`${baseUrl}/${coordinator?.coordinatorPhoto}`}
                   alt="profile_image"
                 />
               )}
             </div>
             <div className="designation">
-              <h1>{coordinator?.coordinatorName}</h1>
-              <p>{coordinator?.coordinatorType} Coordinator</p>
+              <h1 className="designation_heading">{coordinator?.coordinatorName}</h1>
+              <p className="designation_content">{coordinator?.coordinatorType} Coordinator</p>
             </div>
             <div className="button">
               <a

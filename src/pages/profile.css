@@ -32,7 +32,7 @@
     text-align: center;
     margin-bottom: 33px;
 }
-.detail > img {
+.profile_image {
     width: 360px;
     height: 360px;
     border-radius: 20px 20px 0 0;
@@ -41,10 +41,10 @@
 .designation {
     margin-bottom: 20px;
 }
-.designation > h1 {
+.designation_heading {
     font-size: 30px;
 }
-.designation > p {
+.designation_content {
     color: rgba(243, 191, 153, 1);
     font-size: 12.8px;
 }

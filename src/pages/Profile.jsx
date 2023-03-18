@@ -10,7 +10,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { baseUrl } from "../API/api";
 import Loader from "../components/Loader/Loader";
-
 function Profile() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -63,11 +62,11 @@ function Profile() {
         }
         const res = result;
         notify(res.data.message);
+        window.location.reload(false);
       });
   };
   return (
-    <div style={{ width: "100%", height: "100%", marginTop: "20px" }}>
-      {isLoading && <Loader />}
+    <>
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -80,59 +79,60 @@ function Profile() {
         pauseOnHover
         theme="light"
       />
-      <div
-        className="ProfileWrapper"
-        style={{
-          width: "100%",
-          display: "flex",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-      >
-        <div className="content">
-          <div className="detail">
-            <div className="image_container">
-              {coordinator?.coordinatorPhoto && (
-                <img
-                  className="profile_image"
-                  src={`${baseUrl}/${coordinator?.coordinatorPhoto}`}
-                  alt="profile_image"
-                />
-              )}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className="profile-cards">
+          <div className="card card-1">
+            <div className="card-description">
+              <h2 className="card-description-title">
+                Name :<b>{coordinator?.coordinatorName}</b>
+              </h2>
+              <span className="card-description-content">
+                Phone: <b>{coordinator?.coordinatorPhone}</b>
+              </span>
+              <span className="card-description-content">
+                Coordinator Type :<b>{coordinator?.coordinatorType} </b>
+              </span>
+              <span className="card-description-content">
+                Branch :<b>{coordinator?.coordinatorBranch}</b>
+              </span>
+              <span className="card-description-content">
+                Email :<b> {coordinator?.coordinatorEmail}</b>
+              </span>
             </div>
-            <div className="designation">
-              <h1 className="designation_heading">{coordinator?.coordinatorName}</h1>
-              <p className="designation_content">{coordinator?.coordinatorType} Coordinator</p>
-            </div>
-            <div className="button">
-              <a
-                href={`mailto:${coordinator?.coordinatorEmail}`}
-                className="email"
-              >
-                {/* <HiOutlineMail /> */}
-                <span className="email">Email</span>
-              </a>
-              <a
-                href={`tel:${coordinator?.coordinatorPhone}`}
-                className="phone"
-              >
-                <span className="phone">Phone</span>
-              </a>
-            </div>
-            <div className="coordinator_details">
-              <h3>Details</h3>
-              <p>Email: {coordinator?.coordinatorEmail}</p>
-              <p>Phone: {coordinator?.coordinatorPhone}</p>
-              <p>Branch: {coordinator?.coordinatorBranch}</p>
-              <p>Coordinator Type: {coordinator?.coordinatorType}</p>
-            </div>
+            {coordinator?.coordinatorPhoto && (
+              <img
+                alt="profile"
+                src={`${baseUrl}/${coordinator?.coordinatorPhoto}`}
+                className="card-image"
+              />
+            )}
           </div>
         </div>
-      </div>
-      {!coordinator?.coordinatorPhoto && (
-        <div className="update_photo">
+        <div className="file-upload">
+          {/* <div className="file-select">
+            <div className="file-select-button" id="fileName">
+              Choose File
+            </div>
+            {
+              !sizeErr ?
+
+              <div className="file-select-name" id="noFile">
+                No file chosen...
+              </div>
+              :
+              <div className="file-select-name" id="noFile" style={{color: 'red'}}>
+                {sizeMsg}
+              </div>
+            }
+            <input
+              type="file"
+              name="chooseFile"
+              id="chooseFile"
+              style={{ border: "none", width: "250px" }}
+              onChange={(e) => setUserPhoto(e.target.files[0])}
+              accept="image/*"
+            />
+          </div> */}
           Profile Picture:
           <input
             id="profile-upload"
@@ -155,8 +155,25 @@ function Profile() {
             Update
           </button>
         </div>
-      )}
-    </div>
+      </div>
+
+      {/* {!coordinator?.coordinatorPhoto && (
+        <div className="update_photo">
+          Profile Picture:
+          <input
+            id="profile-upload"
+            style={{ border: "none", width: "250px" }}
+            type="file"
+            onChange={(e) => setUserPhoto(e.target.files[0])}
+            accept="image/*"
+          />
+          {sizeErr && (
+            <p style={{ color: "red", display: "inline" }}>{sizeMsg}</p>
+          )}
+          
+        </div>
+      )} */}
+    </>
   );
 }
 

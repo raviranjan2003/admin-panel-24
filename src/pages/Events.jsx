@@ -118,19 +118,24 @@ const Events = () => {
       "Venue",
     ],
   ];
-  const data = eventData?.map((elt) => [
-    elt.id,
-    elt.eventName,
-    elt.std1,
-    elt.std2,
-    elt.venue,
-    elt.date,
-  ]);
   const actionsMemo = (
     <>
       <button
         style={{ marginRight: "50px" }}
-        onClick={() => downloadCSV(data, "Events")}
+        onClick={() =>
+          downloadCSV(
+            eventData?.map((elt) => {
+              return {
+                id: elt.id,
+                eventName: elt.eventName,
+                StudentCoordinator1: elt.std1,
+                StudentCoordinator2: elt.std2,
+                date: elt.date,
+                venue: elt.venue.replace(",", "⹁"),
+              };
+            }),
+            "Events",
+          )}
       >
         CSV
       </button>
@@ -141,9 +146,19 @@ const Events = () => {
       <button
         onClick={() =>
           setTimeout(() => {
-            downloadPdf(headers, data, `${domainName} Events`);
-          }, 5000)
-        }
+            downloadPdf(
+              headers,
+              eventData?.map((elt) => [
+                elt.id,
+                elt.eventName,
+                elt.std1,
+                elt.std2,
+                elt.venue,
+                elt.date,
+              ]),
+              `${domainName} Events`,
+            );
+          }, 5000)}
       >
         PDF
       </button>

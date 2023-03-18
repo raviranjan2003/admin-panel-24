@@ -5,37 +5,37 @@ import { baseUrl } from "../API/api";
 import { downloadCSV } from "../contexts/Csv";
 import { downloadPdf } from "../contexts/exportAsPDF";
 import axios from "axios";
-import Loader from '../components/Loader/Loader';
+import "./eventusers.css";
+import Loader from "../components/Loader/Loader";
 
 const Eventusers = () => {
   const [event, setEvent] = useState(null);
-    const [user, setUser] = useState(null);
-    const [user1, setUser1] = useState(null);
-    const [members, setMembers] = useState(null);
-    const [isLoading ,setIsLoading ] = useState(false);
+  const [user, setUser] = useState(null);
+  const [user1, setUser1] = useState(null);
+  const [members, setMembers] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const routerParams = useParams();
 
-  useEffect( () => {
+  useEffect(() => {
     getEventData();
   }, []);
   const getEventData = async () => {
-
     setIsLoading(true);
     await axios
       .get(`${baseUrl}/event/event/${routerParams.id}`)
       .then((result) => {
         setIsLoading(false);
+        console.log(result.data.event.teams)
         const res = result.data.event;
         const res1 = result.data.event.individual;
-        // alert(JSON.stringify(result.data))
         const res2 = result.data.event.teams;
         setEvent(res);
         setUser(res1);
         setUser1(res2);
-        setMembers(res2[0].members)
+        setMembers(res2[0].members);
       });
-  }
+  };
 
   createTheme(
     "solarized",
@@ -45,7 +45,7 @@ const Eventusers = () => {
         secondary: "#00000",
       },
       background: {
-        default: 'white',
+        default: "white",
       },
     },
     "dark"
@@ -69,16 +69,7 @@ const Eventusers = () => {
       selector: (row) => row.branch,
     },
   ];
-  const column = [
-    {
-      name: "Team Name",
-      selector: (row) => row.teamName,
-    },
-    {
-      name: "Leader Name",
-      selector: (row) => row.leaderName,
-    }
-  ];
+
 
   const data = [];
   user?.map((user) => {
@@ -90,18 +81,10 @@ const Eventusers = () => {
     };
     return data.push(work);
   });
-  const data2 = [];
-  user1?.map((user) => {
-    const work = {
-      teamName: user.teamName,
-      leaderName: user.leaderName,
-    };
-    return data2.push(work);
-  });
 
-  const headers = [["Id", "User Name", "Email", "Phone", "Branch"]];
+
+  const headers = [["User Name", "Email", "Phone", "Branch"]];
   const Dummydata = data.map((elt) => [
-    elt.id,
     elt.userName,
     elt.email,
     elt.whatsapp,
@@ -127,10 +110,9 @@ const Eventusers = () => {
     ),
     []
   );
-  const membersData = ({data}) => <pre>{JSON.stringify(data)}</pre>
   return (
     <>
-    {isLoading && <Loader />}
+      {isLoading && <Loader />}
       <div
         className="container"
         style={{
@@ -143,58 +125,81 @@ const Eventusers = () => {
         <p>Domain : {event && `${event.domainName}`.toUpperCase()}</p>
         <p>Event: {event && event.eventName}</p>
       </div>
-      <h1 style={{
+      <h1
+        style={{
           width: "auto",
           textAlign: "center",
           fontSize: "2em",
           margin: "0.5em",
-        }}>Individual User Registered</h1>
+        }}
+      >
+        User Registered Individually
+      </h1>
       <div
         style={{
-         // border: "2px solid green",
-        padding: "0.75em",
-        borderRadius: "15px",
-       
-        //background: "rgb(22,10,10)",
-        fontSize: "40px",
+          // border: "2px solid green",
+          padding: "0.75em",
+          borderRadius: "15px",
+
+          //background: "rgb(22,10,10)",
+          fontSize: "40px",
         }}
       >
         <DataTable
           columns={columns}
           data={data}
           pagination
-          expandableRows
-          expandOnRowClicked
-          expandableRowsComponent={membersData}
           theme="solarized"
           actions={[actionsMemo, actionsMemo2]}
         />
       </div>
-      <h1 style={{
+      <h1
+        style={{
           width: "auto",
           textAlign: "center",
           fontSize: "2em",
           margin: "0.5em",
-        }}>Team User Registered</h1>
-      <div
-        style={{
-         // border: "2px solid green",
-        padding: "0.75em",
-        borderRadius: "15px",
-        //background: "rgb(22,10,10)",
-        fontSize: "40px",
         }}
       >
-        <DataTable
-          columns={column}
-          data={data2}
-          pagination
-          expandableRows
-          expandOnRowClicked
-          expandableRowsComponent={membersData}
-          theme="solarized"
-          actions={[actionsMemo, actionsMemo2]}
-        />
+        User Registered in Team
+      </h1>
+      <div
+        style={{
+          // border: "2px solid green",
+          padding: "0.75em",
+          borderRadius: "15px",
+          //background: "rgb(22,10,10)",
+          fontSize: "40px",
+        }}
+      >
+        <div className="teamregistration">
+          <table className="team_table">
+            <tr>
+              <th>Team Name</th>
+              <th>Leader Name</th>
+              <th>Members</th>
+            </tr>
+            {user1?.map((team) => {
+              return (
+                <tr>
+                  <td>{team.teamName}</td>
+                  <td>{team.leaderName}</td>
+                  <td>
+                    {team.members.map((member) => {
+                      return (
+                        <div>
+                          Email: {member.email}
+                          <br />
+                          Phone: {member.phone}
+                        </div>
+                      );
+                    })}
+                  </td>
+                </tr>
+              );
+            })}
+          </table>
+        </div>
       </div>
     </>
   );

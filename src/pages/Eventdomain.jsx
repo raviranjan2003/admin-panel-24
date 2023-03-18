@@ -9,6 +9,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import Loader from "../components/Loader/Loader";
 import { useEffect } from "react";
+import { getThemeProps } from "@material-ui/styles";
 
 const Events = () => {
   const { coordinatorLoggedIn, role, domain } = useStateContext();
@@ -29,8 +30,11 @@ const Events = () => {
       theme: "light",
     });
 
-  // const getEvent = async (domain) => {
-  useEffect(async () => {
+  useEffect( () => {
+    getEvent();
+  }, []);
+
+  const getEvent = async () => {
     setIsLoading(true);
     await axios
       .post(`${baseUrl}/event/geteventbydomain`, {
@@ -41,8 +45,7 @@ const Events = () => {
         const res = result;
         setEventDetails(res.data.event);
       });
-  }, []);
-  // };
+  }
 
   const deleteEvent = async (id) => {
     setIsLoading(true);
@@ -86,9 +89,18 @@ const Events = () => {
       selector: (row) => row.venue,
     },
     {
+      name: "Mode",
+      selector: (row) => row.eventMode,
+    },
+    {
+      name: "Participation Type",
+      selector: (row) => row.eventParticipationType,
+    },
+    {
       name: "Date",
       selector: (row) => row.date.slice(0, 10),
     },
+    
     {
       name: "Edit",
       selector: (row) => {
@@ -134,6 +146,8 @@ const Events = () => {
       date: item.startDate,
       std1: item.studentCoordinator[0].coordinatorName,
       std2: item.studentCoordinator[1]?.coordinatorName,
+      eventMode: item.eventMode,
+      eventParticipationType: item.eventParticipationType,
     };
   });
 
@@ -142,6 +156,8 @@ const Events = () => {
       "Event Name",
       "Student Coordinator 1",
       "Student Coordinator 2",
+      "Mode",
+      "Participation Type",
       "Date",
       "Venue",
     ],
@@ -159,6 +175,8 @@ const Events = () => {
                 eventName: elt.eventName,
                 StudentCoordinator1: elt.std1,
                 StudentCoordinator2: elt.std2,
+                Mode: elt.eventMode,
+                ParticipationType: elt.eventParticipationType,
                 date: elt.date,
                 venue: elt.venue.replace(",", "⹁"),
               };

@@ -75,11 +75,19 @@ const Events = () => {
       selector: (row) => row.venue,
     },
     {
+      name: "Mode",
+      selector: (row) => row.eventMode,
+    },
+    {
+      name: "Participation Type",
+      selector: (row) => row.eventParticipationType,
+    },
+    {
       name: "Date",
       selector: (row) => row.date.slice(0, 10),
     },
     {
-      name: "View",
+      name: "Users Registered",
       cell: (row) => (
         <button
           className="btn"
@@ -104,6 +112,8 @@ const Events = () => {
       date: item.startDate,
       std1: item.studentCoordinator[0].coordinatorName,
       std2: item.studentCoordinator[1]?.coordinatorName,
+      eventMode: item.eventMode,
+      eventParticipationType: item.eventParticipationType,
     };
     eventData.push(event);
   });
@@ -114,6 +124,8 @@ const Events = () => {
       "Event Name",
       "Student Coordinator 1",
       "Student Coordinator 2",
+      "Mode",
+      "Participation Type",
       "Date",
       "Venue",
     ],
@@ -130,6 +142,8 @@ const Events = () => {
                 eventName: elt.eventName,
                 StudentCoordinator1: elt.std1,
                 StudentCoordinator2: elt.std2,
+                Mode: elt.eventMode,
+                ParticipationType: elt.eventParticipationType,
                 date: elt.date,
                 venue: elt.venue.replace(",", "⹁"),
               };

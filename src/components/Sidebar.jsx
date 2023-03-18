@@ -59,7 +59,7 @@ const Sidebar = () => {
         )}
         {coordinatorLoggedIn &&  (
         <div className="item">
-          <Link to="/profile">Profile</Link>
+          <Link to="/">Profile</Link>
         </div>
         )}
         {
@@ -69,13 +69,13 @@ const Sidebar = () => {
               logOutHandler();
               window.location.reload(false);
             }}>
-              <Link to="/">Log Out</Link>
+              <Link to="/sign-in">Log Out</Link>
             </div>
           )
           :
           (
           <div className="item logOut">
-             <Link to="/">Log In</Link>
+             <Link to="/sign-in">Log In</Link>
            </div>
             
           )

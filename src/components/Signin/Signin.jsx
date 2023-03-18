@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styles from './Signin.module.css';
-import { baseUrl } from '../../API/api';
-import { useStateContext } from '../../contexts/ContextProvider';
-import Loader from '../Loader/Loader.jsx';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import styles from "./Signin.module.css";
+import { baseUrl } from "../../API/api";
+import { useStateContext } from "../../contexts/ContextProvider";
+import Loader from "../Loader/Loader.jsx";
 
 const Signin = () => {
   const { loginHandler } = useStateContext();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorsMade, setErrorsMade] = useState();
   const [fieldErr, setFieldErr] = useState(null);
@@ -24,40 +24,26 @@ const Signin = () => {
       .then((result) => {
         setIsLoading(false);
         const res = result;
-        if (res.status === 204) {
-          setMailErr(res.data.message);
-          setTimeout(() => {
-            setMailErr(null);
-            navigate('/profile');
-          }, 3000);
-        } else if (res.status === 208) {
+        if (res.status === 208) {
           setPasswordErr(res.data.message);
           setTimeout(() => {
             setPasswordErr(null);
-            if (res.data.message.includes('registered')) {
-              navigate('/profile');
+            if (res.data.message.includes("registered")) {
+              navigate("/sign-up");
             }
-          }, 3000);
-          return;
-        } else if (res.status === 206) {
-          setPasswordErr(res.data.message);
-          setTimeout(() => {
-            setPasswordErr(null);
-            navigate('/profile');
           }, 3000);
           return;
         }
         if (res.status === 200) {
-        
           const coordinatorData = {
             token: res.data.token,
             coordinatorId: res.data.coordinatorId,
             coordinatorRole: res.data.coordinatorRole,
             coordinatorDomain: res.data.coordinatorDomain,
           };
-        //console.log("ddgz",coordinatorData);
+          //console.log("ddgz",coordinatorData);
           loginHandler(coordinatorData);
-          navigate('/profile');
+          navigate("/");
         } else {
           setErrorsMade(res.data.message);
         }
@@ -73,14 +59,14 @@ const Signin = () => {
   const PostData = async (e) => {
     e.preventDefault();
     if (email.trim().length === 0 || password.trim().length === 0) {
-      setFieldErr('Field should not be empty');
+      setFieldErr("Field should not be empty");
       setTimeout(() => {
         setFieldErr(null);
       }, 3000);
       return;
     }
-    if (!email.trim().includes('@')) {
-      setMailErr('Invalid mail!');
+    if (!email.trim().includes("@")) {
+      setMailErr("Invalid mail!");
       setTimeout(() => {
         setMailErr(null);
       }, 3000);
@@ -95,13 +81,13 @@ const Signin = () => {
   };
 
   return (
-    <div className={styles.signin__content} style={{ height: '100vh' }}>
+    <div className={styles.signin__content} style={{ height: "100vh" }}>
       {isLoading && <Loader />}
       {/* <div>
         <img src="techFEST'23.webp" alt="techFest'23" className={styles.signin__logo} />
       </div> */}
       <div className={styles.signin__page}>
-        {errorsMade && <p style={{ color: 'red' }}>{errorsMade}</p>}
+        {errorsMade && <p style={{ color: "red" }}>{errorsMade}</p>}
         <form
           method="post"
           onSubmit="return myFormValidation()"
@@ -110,10 +96,10 @@ const Signin = () => {
         >
           <h1 className={styles.signin__title}>Welcome Back!</h1>
           <p className={styles.signin__text}>Sign in to continue</p>
-          {fieldErr && <p style={{ color: 'red' }}>{fieldErr}</p>}
-          {password && <p style={{ color: 'red' }}>{passwordErr}</p>}
+          {fieldErr && <p style={{ color: "red" }}>{fieldErr}</p>}
+          {password && <p style={{ color: "red" }}>{passwordErr}</p>}
           <label htmlFor="email" className={styles.signin__label}>
-            {mailErr && <p style={{ color: 'red' }}>{mailErr}</p>}
+            {mailErr && <p style={{ color: "red" }}>{mailErr}</p>}
             E-mail
           </label>
           <input

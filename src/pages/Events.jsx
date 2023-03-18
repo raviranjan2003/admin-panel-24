@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import "./Event.css";
 const Events = () => {
   const navigate = useNavigate();
-  const { coordinatorLoggedIn, role, domain } = useStateContext();
+  const { coordinatorLoggedIn, role } = useStateContext();
   const [domainName, setDomainName] = useState("aarambh");
   const [isLoading, setIsLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState([]);
@@ -174,7 +174,7 @@ const Events = () => {
       >
         <div>EVENTS</div>
       </div>
-      {coordinatorLoggedIn && role == 948759 && (
+      {coordinatorLoggedIn  && role === 892348 && (
         <div
           style={{
             fontSize: "18px",
@@ -185,8 +185,8 @@ const Events = () => {
             borderRadius: "8px",
           }}
         >
-          <Link to="/eventadd">
-            <button type="button">Add New Event</button>
+          <Link to="/addaarambh">
+            <button type="button">Add Aarambh Event</button>
           </Link>
         </div>
       )}

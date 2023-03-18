@@ -197,7 +197,7 @@ const Events = () => {
       >
         <div> ALL EVENTS LIST</div>
       </div>
-      {coordinatorLoggedIn && role == 948759 && (
+      {coordinatorLoggedIn && role === 948759 && (
         <div
           style={{
             fontSize: "18px",
@@ -213,7 +213,25 @@ const Events = () => {
           </Link>
         </div>
       )}
+      {coordinatorLoggedIn  && (
+        <div
+          style={{
+            fontSize: "18px",
+            border: "2px solid blue",
+            display: "table",
+            margin: "7px auto",
+            padding: "5px",
+            borderRadius: "8px",
+          }}
+        >
+          <Link to="/addaarambh">
+            <button type="button">Add Aarambh Event</button>
+          </Link>
+        </div>
+      )}
+      
         <br />
+      
 
       <div
         style={{

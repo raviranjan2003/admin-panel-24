@@ -10,6 +10,7 @@ import Eventadd from './pages/Eventadd';
 import Eventedit from './pages/Eventedit.jsx';
 import Workshopadd from './pages/Workshopadd';
 import Workshop from './pages/Workshop';
+import Aarambh from './pages/aarambhAdd.jsx';
 import Eventusers from './pages/Eventusers';
 import Sponseradd from './pages/Sponseradd';
 import Profile from './pages/Profile';
@@ -55,12 +56,14 @@ const App = () => {
 
               <Routes>
                 {/* dashboard  */}
-                {!coordinatorLoggedIn && <Route path="/" element={(<Signin />)} />}
+                
+                {!coordinatorLoggedIn && <Route path="/sign-in" element={(<Signin />)} />}
                 {coordinatorLoggedIn && coordinatorLoggedIn && role == 892348 && <Route path="home" element={(<Home />)} />}
                 {!coordinatorLoggedIn && <Route path="/sign-up" element={(<Signup /> )} />}
                 {coordinatorLoggedIn && <Route path="/workshop/:id" element={<Workshop />} />}
                 {coordinatorLoggedIn && <Route path="/event/:id" element={<Eventusers />} />}
-                {coordinatorLoggedIn  &&<Route path='/profile' element={(<Profile/>)}/>}
+                {coordinatorLoggedIn && (role === 948759 || role === 892348) && <Route path="/addaarambh" element={<Aarambh />} />}
+                {coordinatorLoggedIn  &&<Route path='/' element={(<Profile/>)}/>}
                 {/* pages  */}
                 {coordinatorLoggedIn && <Route path="/domains" element={<Domains />} />}
                 {coordinatorLoggedIn && <Route path="/events" element={<Events />} />}

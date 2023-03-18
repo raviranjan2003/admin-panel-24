@@ -49,7 +49,6 @@ export const ContextProvider = ({ children }) => {
     }
   };
   const loginHandler = (coordinator) => {
-    console.log("login",coordinator)
     localStorage.setItem('token', coordinator.token);
     localStorage.setItem('coordinatorId', coordinator.coordinatorId);
     localStorage.setItem('coordinatorRole', coordinator.coordinatorRole);

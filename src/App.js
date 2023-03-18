@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
-
 import { Navbar, Footer, Sidebar } from './components';
 import { Domains, Events, Sponsers, Workshops } from './pages';
 import Home from './pages/Home';
@@ -59,8 +58,8 @@ const App = () => {
                 {!coordinatorLoggedIn && <Route path="/" element={(<Signin />)} />}
                 {coordinatorLoggedIn && coordinatorLoggedIn && role == 892348 && <Route path="home" element={(<Home />)} />}
                 {!coordinatorLoggedIn && <Route path="/sign-up" element={(<Signup /> )} />}
-                <Route path="/workshop/:id" element={<Workshop />} />
-                <Route path="/event/:id" element={<Eventusers />} />
+                {coordinatorLoggedIn && <Route path="/workshop/:id" element={<Workshop />} />}
+                {coordinatorLoggedIn && <Route path="/event/:id" element={<Eventusers />} />}
                 {coordinatorLoggedIn  &&<Route path='/profile' element={(<Profile/>)}/>}
                 {/* pages  */}
                 {coordinatorLoggedIn && <Route path="/domains" element={<Domains />} />}
@@ -78,9 +77,9 @@ const App = () => {
 
               </Routes>
             </div>
-            {coordinatorLoggedIn && role == 892348 && (<Footer />)}
           </div>
         </div>
+      {coordinatorLoggedIn  && (<Footer />)}
       </BrowserRouter>
     </div>
   );

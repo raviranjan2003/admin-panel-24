@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import DataTable, { createTheme } from "react-data-table-component";
 import { baseUrl } from "../API/api";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -13,7 +13,7 @@ import { useEffect } from "react";
 const Events = () => {
   const { coordinatorLoggedIn, role, domain } = useStateContext();
   const navigate = useNavigate();
-  const [domainName, setDomainName] = useState('aarambh');
+  const [domainName, setDomainName] = useState("aarambh");
   const paramsDomain = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState([]);
@@ -30,16 +30,18 @@ const Events = () => {
     });
 
   // const getEvent = async (domain) => {
-    useEffect( async () => {
-      setIsLoading(true);
-      await axios
-      .post(`${baseUrl}/event/geteventbydomain`, { domainName: paramsDomain.domain })
+  useEffect(async () => {
+    setIsLoading(true);
+    await axios
+      .post(`${baseUrl}/event/geteventbydomain`, {
+        domainName: paramsDomain.domain,
+      })
       .then((result) => {
         setIsLoading(false);
         const res = result;
         setEventDetails(res.data.event);
       });
-    }, [])
+  }, []);
   // };
 
   const deleteEvent = async (id) => {
@@ -63,7 +65,7 @@ const Events = () => {
         default: "white",
       },
     },
-    "dark"
+    "dark",
   );
 
   const columns = [
@@ -102,11 +104,9 @@ const Events = () => {
       cell: (row) => (
         <button
           className="btn"
-          onClick={
-            () => {
-                navigate(`/event/${row.id}`);
-            }
-          }
+          onClick={() => {
+            navigate(`/event/${row.id}`);
+          }}
         >
           View
         </button>
@@ -115,17 +115,18 @@ const Events = () => {
     {
       name: "Delete Event",
       selector: (row) => (
-        <button className="btn_delete" onClick={() => deleteEvent(row.id)}>
+        <button
+          className="btn_delete"
+          onClick={() => deleteEvent(row.id)}
+        >
           Delete
         </button>
       ),
     },
   ];
 
-  const eventData = [];
-
-  eventDetails?.map((item) => {
-    const event = {
+  const eventData = eventDetails?.map((item) => {
+    return {
       id: item._id,
       eventName: item.eventName,
       venue: item.venue,
@@ -134,7 +135,6 @@ const Events = () => {
       std1: item.studentCoordinator[0].coordinatorName,
       std2: item.studentCoordinator[1]?.coordinatorName,
     };
-    eventData.push(event);
   });
 
   const headers = [
@@ -146,13 +146,6 @@ const Events = () => {
       "Venue",
     ],
   ];
-  const data = eventData.map((elt) => [
-    elt.eventName,
-    elt.std1,
-    elt.std2,
-    elt.venue,
-    elt.date,
-  ]);
 
   const actionsMemo = (
     <>
@@ -224,7 +217,7 @@ const Events = () => {
           margin: "0.1em",
         }}
       >
-        <div> ALL EVENTS LIST</div>
+        <div>ALL EVENTS LIST</div>
       </div>
       {coordinatorLoggedIn && role == 948759 && (
         <div
@@ -242,21 +235,21 @@ const Events = () => {
           </Link>
         </div>
       )}
-        <br />
+      <br />
 
       <div
         style={{
-         // border: "2px solid green",
-        padding: "0.75em",
-        borderRadius: "15px",
-        //background: "rgb(22,10,10)",
-        fontSize: "40px",
+          // border: "2px solid green",
+          padding: "0.75em",
+          borderRadius: "15px",
+          //background: "rgb(22,10,10)",
+          fontSize: "40px",
         }}
       >
         <DataTable
           columns={columns}
           data={eventData}
-        //  pagination
+          //  pagination
           fixedHeader
           fixedHeaderScrollHeight="100%"
           pointerOnHover

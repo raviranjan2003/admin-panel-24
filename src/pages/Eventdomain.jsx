@@ -183,7 +183,7 @@ const Events = () => {
       venue: item.venue,
       prize: item.ePrizeWorth,
       date: item.startDate,
-      std1: item.studentCoordinator[0].coordinatorName,
+      std1: item.studentCoordinator[0]?.coordinatorName,
       std2: item.studentCoordinator[1]?.coordinatorName,
       registration: item.registrationLive,
       eventMode: item.eventMode,

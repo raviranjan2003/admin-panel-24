@@ -27,10 +27,24 @@ const Events = () => {
         setEventDetails(res.data.event);
       });
   };
+  const toggleRegistration = async (id) => {
+    setIsLoading(true);
+    await axios
+      .post(`${baseUrl}/event/toggleregistration`, { id })
+      .then((result) => {
+        setIsLoading(false);
+        if (result.status === 200) {
+          notify(result.data.message);
+          setTimeout(() => {
+            window.location.reload(false);
+          },2000);
+        }
+      });
+    }
   const notify = (msg) =>
     toast.success(msg, {
       position: "top-center",
-      autoClose: 3000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -99,6 +113,30 @@ const Events = () => {
         </button>
       ),
     },
+    {
+      name: "Toggle Registration",
+      cell: (row) => {
+        if (row.registration) {
+          return (
+            <button
+              className="btn"
+              onClick={() => toggleRegistration(row.id)}
+            >
+              LIVE
+            </button>
+          );
+        }
+        return (
+          <button
+            className="btn_delete"
+            onClick={() => toggleRegistration(row.id)}
+          >
+            CLOSED
+          </button>
+        );
+      },
+
+    },
   ];
 
   const eventData = [];
@@ -114,6 +152,7 @@ const Events = () => {
       std2: item.studentCoordinator[1]?.coordinatorName,
       eventMode: item.eventMode,
       eventParticipationType: item.eventParticipationType,
+      registration: item.registrationLive,
     };
     eventData.push(event);
   });

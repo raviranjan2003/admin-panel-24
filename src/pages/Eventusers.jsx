@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import DataTable, { createTheme } from "react-data-table-component";
 import { baseUrl } from "../API/api";
 import { downloadCSV } from "../contexts/Csv";
 import { downloadPdf } from "../contexts/exportAsPDF";
+import ReactToPrint from "react-to-print";
 import axios from "axios";
 import "./eventusers.css";
 import Loader from "../components/Loader/Loader";
 
 const Eventusers = () => {
+  const componentRef = useRef();
   const [event, setEvent] = useState(null);
   const [user, setUser] = useState(null);
   const [user1, setUser1] = useState(null);
@@ -163,7 +165,9 @@ const Eventusers = () => {
       >
         User Registered in Team
       </h1>
+      
       <div
+        ref={componentRef}
         style={{
           // border: "2px solid green",
           padding: "0.75em",

@@ -21,7 +21,7 @@ const Events = () => {
   const notify = (msg) =>
     toast.success(msg, {
       position: "top-center",
-      autoClose: 3000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -30,7 +30,22 @@ const Events = () => {
       theme: "light",
     });
 
-  useEffect( () => {
+  const toggleRegistration = async (id) => {
+    setIsLoading(true);
+    await axios
+      .post(`${baseUrl}/event/toggleregistration`, { id })
+      .then((result) => {
+        setIsLoading(false);
+        if (result.status === 200) {
+          notify(result.data.message);
+          setTimeout(() => {
+            window.location.reload(false);
+          },2000);
+        }
+      });
+    }
+
+  useEffect(() => {
     getEvent();
   }, []);
 
@@ -45,7 +60,7 @@ const Events = () => {
         const res = result;
         setEventDetails(res.data.event);
       });
-  }
+  };
 
   const deleteEvent = async (id) => {
     setIsLoading(true);
@@ -53,6 +68,9 @@ const Events = () => {
       setIsLoading(false);
       if (result.status === 200) {
         notify(result.data.message);
+        setTimeout(() => {
+          window.location.reload(false);
+        },2000);
       }
     });
   };
@@ -68,7 +86,7 @@ const Events = () => {
         default: "white",
       },
     },
-    "dark",
+    "dark"
   );
 
   const columns = [
@@ -100,7 +118,7 @@ const Events = () => {
       name: "Date",
       selector: (row) => row.date.slice(0, 10),
     },
-    
+
     {
       name: "Edit",
       selector: (row) => {
@@ -112,7 +130,7 @@ const Events = () => {
       },
     },
     {
-      name: "View",
+      name: "Users",
       cell: (row) => (
         <button
           className="btn"
@@ -125,12 +143,33 @@ const Events = () => {
       ),
     },
     {
+      name: "Toggle Registration",
+      cell: (row) => {
+        if (row.registration) {
+          return (
+            <button
+              className="btn"
+              onClick={() => toggleRegistration(row.id)}
+            >
+              LIVE
+            </button>
+          );
+        }
+        return (
+          <button
+            className="btn_delete"
+            onClick={() => toggleRegistration(row.id)}
+          >
+            CLOSED
+          </button>
+        );
+      },
+
+    },
+    {
       name: "Delete Event",
       selector: (row) => (
-        <button
-          className="btn_delete"
-          onClick={() => deleteEvent(row.id)}
-        >
+        <button className="btn_delete" onClick={() => deleteEvent(row.id)}>
           Delete
         </button>
       ),
@@ -146,6 +185,7 @@ const Events = () => {
       date: item.startDate,
       std1: item.studentCoordinator[0].coordinatorName,
       std2: item.studentCoordinator[1]?.coordinatorName,
+      registration: item.registrationLive,
       eventMode: item.eventMode,
       eventParticipationType: item.eventParticipationType,
     };
@@ -159,6 +199,7 @@ const Events = () => {
       "Mode",
       "Participation Type",
       "Date",
+      "Toogle Registration",
       "Venue",
     ],
   ];
@@ -181,8 +222,9 @@ const Events = () => {
                 venue: elt.venue.replace(",", "⹁"),
               };
             }),
-            "Events",
-          )}
+            "Events"
+          )
+        }
       >
         CSV
       </button>
@@ -203,9 +245,10 @@ const Events = () => {
                 elt.venue,
                 elt.date,
               ]),
-              `${domainName} Events`,
+              `${domainName} Events`
             );
-          }, 5000)}
+          }, 5000)
+        }
       >
         PDF
       </button>
@@ -253,7 +296,7 @@ const Events = () => {
           </Link>
         </div>
       )}
-      {coordinatorLoggedIn  && role === 948759 && (
+      {coordinatorLoggedIn && role === 948759 && (
         <div
           style={{
             fontSize: "18px",

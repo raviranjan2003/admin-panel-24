@@ -13,63 +13,63 @@ const Dummydata = [
     domainName: "Aarambh",
     domainCoordinator1: "----------",
     domainCoordinator2: "----------",
-    facultyAdvisor: "----------",
+    // facultyAdvisor: "----------",
   },
   {
     id: 2,
     domainName: "Plexus",
     domainCoordinator1: "Abhishek",
     domainCoordinator2: "Gaurav Kumar",
-    facultyAdvisor: "----------",
+    // facultyAdvisor: "----------",
   },
   {
     id: 3,
     domainName: "Chemfor",
     domainCoordinator1: "Tanu Shakya",
     domainCoordinator2: "Shubham",
-    facultyAdvisor: "----------",
+    // facultyAdvisor: "----------",
   },
   {
     id: 4,
     domainName: "Electrica",
     domainCoordinator1: "Sudhanshu Kumar",
     domainCoordinator2: "Amit Kumar Singh",
-    facultyAdvisor: "----------",
+    // facultyAdvisor: "----------",
   },
   {
     id: 5,
     domainName: "Genesis",
     domainCoordinator1: "Saksham Sharma",
     domainCoordinator2: "----------",
-    facultyAdvisor: "----------",
+    // facultyAdvisor: "----------",
   },
   {
     id: 6,
     domainName: "Karyarachana",
     domainCoordinator1: "Adarsh Kumar",
     domainCoordinator2: "Aditee Pankaj",
-    facultyAdvisor: "----------",
+    // facultyAdvisor: "----------",
   },
   {
     id: 7,
     domainName: "Kermis",
     domainCoordinator1: "Aditya Mall",
     domainCoordinator2: "----------",
-    facultyAdvisor: "----------",
+    // facultyAdvisor: "----------",
   },
   {
     id: 8,
     domainName: "Mechanica",
     domainCoordinator1: "Shahab Mahfooz",
     domainCoordinator2: "----------",
-    facultyAdvisor: "----------",
+    // facultyAdvisor: "----------",
   },
   {
     id: 9,
     domainName: "Robozar",
     domainCoordinator1: "Tushar Chandra",
     domainCoordinator2: "----------",
-    facultyAdvisor: "----------",
+    // facultyAdvisor: "----------",
   },
 ];
 
@@ -103,12 +103,12 @@ const Domains = () => {
       name: "Domain Coordinator 2",
       selector: (row) => row.domainCoordinator2,
     },
-    {
-      name: "Faculty Advisor",
-      selector: (row) => row.facultyAdvisor,
-    },
+    // {
+    //   name: "Faculty Advisor",
+    //   selector: (row) => row.facultyAdvisor,
+    // },
   ];
-  const headers = [["Id", "Domain Name","Student Coordintor 1", "Student Coordinator 2","Faculity Cooridator"]];
+  const headers = [["Id", "Domain Name","Student Coordintor 1", "Student Coordinator 2"]];
   const data = Dummydata.map(elt=> [elt.id, elt.domainName,elt.domainCoordinator1,elt.domainCoordinator2,elt.facultyAdvisor]);
  
   

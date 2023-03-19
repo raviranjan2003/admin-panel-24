@@ -114,26 +114,46 @@ const Events = () => {
       ),
     },
     {
-      name: "Toggle Registration",
+      name: "Registration",
       cell: (row) => {
-        if (row.registration) {
+        if( role === 3924875) {
+          if (row.registration) {
+            return (
+              <button
+                className="btn"
+              >
+                LIVE
+              </button>
+            );
+          }
           return (
             <button
-              className="btn"
+              className="btn_delete"
+            >
+              CLOSED
+            </button>
+          );
+
+        } else {
+          if (row.registration) {
+            return (
+              <button
+                className="btn"
+                onClick={() => toggleRegistration(row.id)}
+              >
+                LIVE
+              </button>
+            );
+          }
+          return (
+            <button
+              className="btn_delete"
               onClick={() => toggleRegistration(row.id)}
             >
-              LIVE
+              CLOSED
             </button>
           );
         }
-        return (
-          <button
-            className="btn_delete"
-            onClick={() => toggleRegistration(row.id)}
-          >
-            CLOSED
-          </button>
-        );
       },
 
     },
@@ -142,19 +162,19 @@ const Events = () => {
   const eventData = [];
 
   eventDetails?.map((item) => {
-    const event = {
-      id: item._id,
-      eventName: item.eventName,
-      venue: item.venue,
-      prize: item.ePrizeWorth,
-      date: item.startDate,
-      std1: item.studentCoordinator[0].coordinatorName,
-      std2: item.studentCoordinator[1]?.coordinatorName,
-      eventMode: item.eventMode,
-      eventParticipationType: item.eventParticipationType,
-      registration: item.registrationLive,
-    };
-    eventData.push(event);
+      const event = {
+        id: item._id,
+        eventName: item.eventName,
+        venue: item.venue,
+        prize: item.ePrizeWorth,
+        date: item.startDate,
+        std1: item.studentCoordinator[0].coordinatorName,
+        std2: item.studentCoordinator[1]?.coordinatorName,
+        eventMode: item.eventMode,
+        eventParticipationType: item.eventParticipationType,
+        registration: item.registrationLive,
+      };
+      eventData.push(event);
   });
 
   const headers = [

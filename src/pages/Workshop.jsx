@@ -11,15 +11,15 @@ import Loader from "../components/Loader/Loader";
 const Workshops = () => {
   const [workshop, setWorkshop] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const routerParams = useParams();
 
-  useEffect( () => {
+  useEffect(() => {
     getWorkshopUserRegistered();
   }, []);
 
-  const getWorkshopUserRegistered = async() => {
+  const getWorkshopUserRegistered = async () => {
     setIsLoading(true);
     await axios
       .get(`${baseUrl}/workshop/workshop/${routerParams.id}`)
@@ -30,17 +30,17 @@ const Workshops = () => {
         setWorkshop(res);
         setUser(res1);
       });
-  }
+  };
 
   createTheme(
     "solarized",
     {
       text: {
-        primary: "#ffffff",
-        secondary: "#ffffff",
+        primary: "black",
+        secondary: "black",
       },
       background: {
-        default: 'rgb(22,10,10)',
+        default: "white",
       },
     },
     "dark"
@@ -118,20 +118,24 @@ const Workshops = () => {
         {workshop && workshop.workshopName}
         <p>Domain : {workshop && workshop.domainName}</p>
       </div>
-        <h1 style={{
+      <h1
+        style={{
           width: "auto",
           textAlign: "center",
           fontSize: "2.5em",
           margin: "0.5em",
-        }}>User Registered</h1>
+        }}
+      >
+        User Registered
+      </h1>
 
       <div
         style={{
           border: "2px solid green",
-        padding: "0.75em",
-        borderRadius: "15px",
-        background: "rgb(22,10,10)",
-        fontSize: "40px",
+          padding: "0.75em",
+          borderRadius: "15px",
+          background: "black",
+          fontSize: "40px",
         }}
       >
         <DataTable

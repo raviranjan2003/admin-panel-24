@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { createTheme } from "react-data-table-component";
-import { BsCurrencyDollar } from "react-icons/bs";
-import { GoPrimitiveDot } from "react-icons/go";
-import { IoIosMore } from "react-icons/io";
-import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";

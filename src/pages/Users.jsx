@@ -31,11 +31,11 @@ const Users = () => {
     "solarized",
     {
       text: {
-        primary: "rgb(22,10,10)",
-        secondary: "#rgb(22,10,10)",
+        primary: "white",
+        secondary: "white",
       },
       background: {
-        default: "#fff",
+        default: "black",
       },
     },
     "dark",
@@ -143,6 +143,7 @@ const Users = () => {
           padding: "0.75em",
           borderRadius: "15px",
           fontSize: "40px",
+          background:"black"
         }}
       >
         <DataTable

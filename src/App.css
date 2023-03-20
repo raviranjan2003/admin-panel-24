@@ -1,5 +1,11 @@
 @import url('https://cdn.syncfusion.com/ej2/material.css');
 
+select option {
+  margin: 40px;
+  background: rgba(0, 0, 0, 1);
+  color: #fff;
+}
+
 .sidebar {
   box-shadow: rgb(113 122 131 / 11%) 0px 7px 30px 0px;
 }

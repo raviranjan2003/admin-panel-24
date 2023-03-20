@@ -43,11 +43,11 @@ const Eventusers = () => {
     "solarized",
     {
       text: {
-        primary: "#00000",
-        secondary: "#00000",
+        primary: "white",
+        secondary: "white",
       },
       background: {
-        default: "white",
+        default: "black",
       },
     },
     "dark"
@@ -142,8 +142,7 @@ const Eventusers = () => {
           // border: "2px solid green",
           padding: "0.75em",
           borderRadius: "15px",
-
-          //background: "rgb(22,10,10)",
+          background: "black",
           fontSize: "40px",
         }}
       >
@@ -171,8 +170,9 @@ const Eventusers = () => {
         style={{
           // border: "2px solid green",
           padding: "0.75em",
+          color: 'white',
           borderRadius: "15px",
-          //background: "rgb(22,10,10)",
+          background: "black",
           fontSize: "40px",
         }}
       >

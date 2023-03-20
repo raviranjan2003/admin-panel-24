@@ -78,11 +78,11 @@ const Domains = () => {
   
   createTheme('solarized', {
     text: {
-      primary: '#00000',
-      secondary: '#000000',
+      primary: '#fff',
+      secondary: '#fff',
     },
     background: {
-      default: ' white',
+      default: ' black',
     },
   }, 'dark');
 
@@ -149,15 +149,13 @@ const Domains = () => {
           padding: "0.75em",
            borderRadius: "15px",
            paddingBottom:"0px",
-          // background: "rgb(22,10,10)",
+          background: "rgb(22,10,10)",
           fontSize: "40px",
         }}
       >
         <DataTable 
         columns={columns} 
         data={Dummydata} 
-        
-        
         theme="solarized" 
         // actions={
         //   [actionsMemo,
@@ -166,31 +164,6 @@ const Domains = () => {
         />
         
       </div>
-      {/* [
-          {
-            icon: () => <button>Export</button>,
-            tooltip: "export to pdf",
-            onClick: () => downloadPdf(),
-            isFreeAction: true
-          }
-        ] */}
-
-      {/* <div style={{"border":"2px solid green", "padding":"1.2em", "borderRadius":'15px', "background":"#8578e3", "fontSize":"2em"}}>
-      <DataTableExtensions
-      columns={columns}
-      data={data}
-    >
-    <DataTable
-            noHeader
-            defaultSortField="id"
-            defaultSortAsc={false}
-            pagination
-            highlightOnHover
-            theme="solarized"
-
-        />
-        </DataTableExtensions>
-      </div> */}
     </>
   );
 };

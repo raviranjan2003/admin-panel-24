@@ -17,11 +17,11 @@ createTheme(
   "solarized",
   {
     text: {
-      primary: "black",
-      secondary: "black",
+      primary: "white",
+      secondary: "white",
     },
     background: {
-      default: "white",
+      default: "black",
     },
   },
   "dark"
@@ -274,7 +274,7 @@ const Home = (props) => {
           padding: "0.75em",
            paddingBottom:'0px',
            marginBottom:"0px",
-          // background: "rgb(22,10,10)",
+          background: "black",
           fontSize: "40px",
         }}
       >
@@ -284,7 +284,7 @@ const Home = (props) => {
           fixedHeader
           fixedHeaderScrollHeight="100%"
           highlightOnHover
-         // pagination
+        //  pagination
           theme="solarized"
         />
       </div>

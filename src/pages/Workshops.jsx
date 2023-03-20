@@ -105,28 +105,34 @@ const Workshops = () => {
       ),
     },
     {
-      name: "Toggle Registration",
+      name: "Registration",
       cell: (row) => {
-        if (row.registration) {
+        if (role === 3924875) {
+          if (row.registration) {
+            return <button className="btn">LIVE</button>;
+          }
+          return <button className="btn_delete">CLOSED</button>;
+        } else {
+          if (row.registration) {
+            return (
+              <button
+                className="btn"
+                onClick={() => toggleRegistration(row.id)}
+              >
+                LIVE
+              </button>
+            );
+          }
           return (
             <button
-              className="btn"
+              className="btn_delete"
               onClick={() => toggleRegistration(row.id)}
             >
-              LIVE
+              CLOSED
             </button>
           );
         }
-        return (
-          <button
-            className="btn_delete"
-            onClick={() => toggleRegistration(row.id)}
-          >
-            CLOSED
-          </button>
-        );
       },
-
     },
   ];
 

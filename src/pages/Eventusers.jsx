@@ -28,7 +28,7 @@ const Eventusers = () => {
       .get(`${baseUrl}/event/event/${routerParams.id}`)
       .then((result) => {
         setIsLoading(false);
-        console.log(result.data.event.teams)
+        console.log(result.data.event.teams);
         const res = result.data.event;
         const res1 = result.data.event.individual;
         const res2 = result.data.event.teams;
@@ -72,7 +72,6 @@ const Eventusers = () => {
     },
   ];
 
-
   const data = [];
   user?.map((user) => {
     const work = {
@@ -84,7 +83,6 @@ const Eventusers = () => {
     return data.push(work);
   });
 
-
   const headers = [["User Name", "Email", "Phone", "Branch"]];
   const Dummydata = data.map((elt) => [
     elt.userName,
@@ -93,20 +91,44 @@ const Eventusers = () => {
     elt.branch,
   ]);
 
-  const actionsMemo = React.useMemo(
-    () => (
+  const actionsMemo = (
+    <>
       <button
         style={{ marginRight: "50px" }}
-        onClick={() => downloadCSV(data, "Workshops")}
+        onClick={() =>
+          downloadCSV(
+            user?.map((user) => {
+              return {
+                Name: user.name,
+                Email: user.email,
+                Phone: user.phone,
+                Branch: user.branch,
+              };
+            }),
+            "Users"
+          )
+        }
       >
         CSV
       </button>
-    ),
-    []
+    </>
   );
   const actionsMemo2 = React.useMemo(
     () => (
-      <button onClick={() => downloadPdf(headers, Dummydata, "Workshops")}>
+      <button
+        onClick={() =>
+          downloadPdf(
+            headers,
+            user?.map((user) => [
+              user.name,
+              user.email,
+              user.phone,
+              user.branch,
+            ]),
+            `Users`
+          )
+        }
+      >
         PDF
       </button>
     ),
@@ -164,13 +186,12 @@ const Eventusers = () => {
       >
         User Registered in Team
       </h1>
-      
+
       <div
-        ref={componentRef}
         style={{
           // border: "2px solid green",
           padding: "0.75em",
-          color: 'white',
+          color: "white",
           borderRadius: "15px",
           background: "black",
           fontSize: "40px",

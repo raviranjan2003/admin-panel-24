@@ -113,8 +113,8 @@ const Eventusers = () => {
       </button>
     </>
   );
-  const actionsMemo2 = React.useMemo(
-    () => (
+  const actionsMemo2 = (
+    <>
       <button
         onClick={() =>
           downloadPdf(
@@ -131,8 +131,7 @@ const Eventusers = () => {
       >
         PDF
       </button>
-    ),
-    []
+    </>
   );
   return (
     <>

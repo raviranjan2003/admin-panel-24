@@ -62,6 +62,11 @@ const Sidebar = () => {
           <Link to="/">Profile</Link>
         </div>
         )}
+        {coordinatorLoggedIn && role == 892348 &&  (
+        <div className="item">
+          <Link to="/payment">Payment</Link>
+        </div>
+        )}
         {
         coordinatorLoggedIn ?
           (

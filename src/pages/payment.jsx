@@ -85,12 +85,20 @@ const Payment = () => {
       selector: (row) => row.amount,
     },
     {
-      name: "Payment Date",
-      selector: (row) => row.date,
+      name: "Name",
+      selector: (row) => row.name,
     },
     {
-      name: "Payment Time",
-      selector: (row) => row.time,
+      name: "Email",
+      selector: (row) => row.email,
+    },
+    {
+      name: "Phone",
+      selector: (row) => row.phone,
+    },
+    {
+      name: "Payment Date",
+      selector: (row) => row.date,
     },
     {
       name: "Payment SS",
@@ -224,6 +232,9 @@ const Payment = () => {
             const time = date.slice(11, 19);
             return {
               id: paidUser._id,
+              name: paidUser.name,
+              email:paidUser.email,
+              phone: paidUser.phone,
               paymentid: paidUser.payment.paymentId,
               amount: paidUser.payment.paymentAmount,
               date: date.slice(0, 10),

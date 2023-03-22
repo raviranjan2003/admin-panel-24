@@ -8,6 +8,7 @@ import ReactToPrint from "react-to-print";
 import axios from "axios";
 import "./eventusers.css";
 import Loader from "../components/Loader/Loader";
+import TeamUsers from './teamusers.jsx';
 
 const Eventusers = () => {
   const componentRef = useRef();
@@ -28,7 +29,6 @@ const Eventusers = () => {
       .get(`${baseUrl}/event/event/${routerParams.id}`)
       .then((result) => {
         setIsLoading(false);
-        console.log(result.data.event.teams);
         const res = result.data.event;
         const res1 = result.data.event.individual;
         const res2 = result.data.event.teams;
@@ -185,46 +185,18 @@ const Eventusers = () => {
       >
         User Registered in Team
       </h1>
-
-      <div
-        style={{
-          // border: "2px solid green",
-          padding: "0.75em",
-          color: "white",
-          borderRadius: "15px",
-          background: "black",
-          fontSize: "40px",
-        }}
-      >
-        <div className="teamregistration">
-          <table className="team_table">
-            <tr>
-              <th>Team Name</th>
-              <th>Leader Name</th>
-              <th>Members</th>
-            </tr>
-            {user1?.map((team) => {
-              return (
-                <tr>
-                  <td>{team.teamName}</td>
-                  <td>{team.leaderName}</td>
-                  <td>
-                    {team.members.map((member) => {
-                      return (
-                        <div>
-                          Email: {member.email}
-                          <br />
-                          Phone: {member.phone}
-                        </div>
-                      );
-                    })}
-                  </td>
-                </tr>
-              );
-            })}
-          </table>
-        </div>
-      </div>
+        <ReactToPrint 
+          trigger={() => <button className="btn" style={{
+            width: "auto",
+            position:'relative',
+            left:'50%',
+            transform:'translateX(-50%)',
+            textAlign: "center",
+            margin: "0.5em",
+          }}>Print</button>}
+          content={() => componentRef.current}
+        />
+        <TeamUsers teams={user1} ref={componentRef}/>
     </>
   );
 };

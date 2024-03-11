@@ -23,9 +23,14 @@ const Sidebar = () => {
           </Link>
         </div>
 
-        {coordinatorLoggedIn && role == 892348 && (
+        {/* {coordinatorLoggedIn && role == 892348 && (
         <div className="item">
           <Link to="/home">Admin</Link>
+        </div>
+        )} */}
+        {(
+        <div className="item">
+          <Link to="/">Admin</Link>
         </div>
         )}
         {coordinatorLoggedIn && role == 892348 && (
@@ -59,7 +64,7 @@ const Sidebar = () => {
         )}
         {coordinatorLoggedIn &&  (
         <div className="item">
-          <Link to="/">Profile</Link>
+          <Link to="/profile">Profile</Link>
         </div>
         )}
         {coordinatorLoggedIn && role == 892348 &&  (

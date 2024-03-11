@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { baseUrl } from "../../API/api.js";
+import { baseUrl, localUrlIns } from "../../API/api.js";
 import styles from "./Signup.module.css";
 import Loader from "../Loader/Loader.jsx";
 
@@ -155,7 +155,7 @@ const Signup = () => {
       domain,
     };
     setIsLoading(true);
-    await axios
+    await localUrlIns
       .post(`${baseUrl}/coor/sign-up`, user)
       .then((result) => {
         const res = result;

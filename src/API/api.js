@@ -6,7 +6,7 @@ export const localUrlIns = axios.create({
   baseURL: baseUrl,
   'withCredentials':true,
   headers: {
-    'Content-Type': 'multipart/form-data',
+    'Content-Type': 'application/json',
     "Access-Control-Allow-Credentials": true,
     "Access-Control-Allow-Origin": "*.techfestsliet.org",
   },

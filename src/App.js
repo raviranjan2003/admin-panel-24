@@ -67,10 +67,10 @@ const App = () => {
                 {!coordinatorLoggedIn && (
                   <Route path="/sign-in" element={<Signin />} />
                 )}
-                {/* {coordinatorLoggedIn &&
+                {coordinatorLoggedIn &&
                   coordinatorLoggedIn &&
-                  role == 892348 && <Route path="home" element={<Home />} />} */}
-                {<Route path="/" element={<Home />} />}
+                  role == 892348 && <Route path="home" element={<Home />} />}
+                {/* {<Route path="/" element={<Home />} />} */}
                 {!coordinatorLoggedIn && (
                   <Route path="/sign-up" element={<Signup />} />
                 )}

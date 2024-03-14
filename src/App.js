@@ -67,10 +67,7 @@ const App = () => {
                 {!coordinatorLoggedIn && (
                   <Route path="/sign-in" element={<Signin />} />
                 )}
-                {coordinatorLoggedIn &&
-                  coordinatorLoggedIn &&
-                  role == 892348 && <Route path="home" element={<Home />} />}
-                {/* {<Route path="/" element={<Home />} />} */}
+                {coordinatorLoggedIn  && <Route path="/" element={<Home />} />}
                 {!coordinatorLoggedIn && (
                   <Route path="/sign-up" element={<Signup />} />
                 )}
@@ -85,7 +82,7 @@ const App = () => {
                     <Route path="/addaarambh" element={<Aarambh />} />
                   )}
                 {coordinatorLoggedIn && (
-                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/" element={<Profile />} />
                 )}
                 {/* pages  */}
                 {coordinatorLoggedIn && (

@@ -285,7 +285,7 @@ select option:hover {
   padding: 0.4em 1.5em;
   margin-right: 12px;
   border-radius: 7px;
-  background: linear-gradient(to right, green, rgb(17, 39, 7));
+  background: linear-gradient(to right, rgb(0, 0, 128), rgb(7, 11, 39));
   border: none;
   color: white;
   cursor: pointer;

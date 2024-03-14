@@ -127,7 +127,7 @@ const Domains = () => {
       >
          ALL DOMAINS
       </div>
-       {coordinatorLoggedIn && role == 892348 && (
+      {/* {coordinatorLoggedIn && role == 892348 && (
       <div
         style={{
           fontSize: "18px",
@@ -142,7 +142,7 @@ const Domains = () => {
           <button type="button">Add New Domain</button>
         </Link>
       </div>
-      )} 
+      )} */}
       <div
         style={{
           // border: "2px solid green",

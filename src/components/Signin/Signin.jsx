@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./Signin.module.css";
-import { baseUrl, localUrlIns } from "../../API/api";
+import { baseUrl } from "../../API/api";
 import { useStateContext } from "../../contexts/ContextProvider";
 import Loader from "../Loader/Loader.jsx";
 
@@ -19,7 +19,7 @@ const Signin = () => {
 
   const coordinatorLoginHandle = async (authData) => {
     setIsLoading(true);
-    await localUrlIns
+    await axios
       .post(`${baseUrl}/coor/sign-in`, authData)
       .then((result) => {
         setIsLoading(false);

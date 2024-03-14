@@ -8,6 +8,6 @@ export const localUrlIns = axios.create({
   headers: {
     'Content-Type': 'application/json',
     "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Origin": "*.techfestsliet.org",
+    "Access-Control-Allow-Origin": "*",
   },
 });

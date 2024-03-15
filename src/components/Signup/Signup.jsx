@@ -332,14 +332,18 @@ const Signup = () => {
                 >
                   <option value="">Choose Domain</option>
                   <option value="Aarambh">Aarambh</option>
+                  <option value="Atomheimer">Atomheimer</option>
                   <option value="Chemfor">Chemfor</option>
                   <option value="Electrica">Electrica</option>
+                  <option value="Electronica">Electronica</option>
+                  <option value="Food-o-crats">Food-O-Crats</option>
                   <option value="Genesis">Genesis</option>
                   <option value="Karyarachna">Karyarachna</option>
                   <option value="Kermis">Kermis</option>
                   <option value="Mechanica">Mechanica</option>
                   <option value="Plexus">Plexus</option>
                   <option value="Robozar">Robozar</option>
+                  <option value="Venture-vault">Venture Vault</option>
                 </select>
               )}
 

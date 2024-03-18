@@ -12,7 +12,7 @@ const Dummydata = [
     id: 1,
     domainName: "Aarambh",
     domainCoordinator1: "Amisha",
-    domainCoordinator2: "",
+    domainCoordinator2: "----------",
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const Dummydata = [
     id: 4,
     domainName: "Electrica",
     domainCoordinator1: "Aman Kumar",
-    domainCoordinator2: "",
+    domainCoordinator2: "----------",
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const Dummydata = [
     id: 6,
     domainName: "Karyarachana",
     domainCoordinator1: "Ankit Raj",
-    domainCoordinator2: "",
+    domainCoordinator2: "----------",
   },
   {
     id: 7,
@@ -54,25 +54,25 @@ const Dummydata = [
     id: 8,
     domainName: "Mechanica",
     domainCoordinator1: "Pradeep Kumar",
-    domainCoordinator2: "",
+    domainCoordinator2: "----------",
   },
   {
     id: 9,
     domainName: "Robozar",
     domainCoordinator1: "Vaibhav Roy",
-    domainCoordinator2: "",
+    domainCoordinator2: "----------",
   },
   {
     id: 10,
     domainName: "Electronica",
     domainCoordinator1: "Hritik Kumar",
-    domainCoordinator2: "",
+    domainCoordinator2: "----------",
   },
   {
     id: 11,
     domainName: "Atomhiemer",
     domainCoordinator1: "Vishal Anand",
-    domainCoordinator2: "",
+    domainCoordinator2: "----------",
   },
   {
     id: 12,
@@ -83,8 +83,8 @@ const Dummydata = [
   {
     id: 13,
     domainName: "Venture Vault",
-    domainCoordinator1: "",
-    domainCoordinator2: "",
+    domainCoordinator1: "----------",
+    domainCoordinator2: "----------",
   },
 ];
 

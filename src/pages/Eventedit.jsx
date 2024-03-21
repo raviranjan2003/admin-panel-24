@@ -80,7 +80,7 @@ const Eventadd = () => {
   };
   const { id } = useParams();
   useEffect(()=>{
-    axios.get(`${baseUrl}/event/event/${id}`)
+    axios.get(`${baseUrl}/event/geteventbyid/${id}`)
     .then((response)=>{
       const eventDetails = response.data.event;
       setDomainName(eventDetails.domainName);

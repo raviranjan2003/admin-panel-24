@@ -5,6 +5,7 @@ import { baseUrl } from "../API/api";
 import Loader from "../components/Loader/Loader";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useParams } from "react-router-dom";
 
 const Eventadd = () => {
   const [startDate, setStartDate] = useState("");
@@ -77,6 +78,24 @@ const Eventadd = () => {
       notify(res.data.message);
     });
   };
+  const { id } = useParams();
+  useEffect(()=>{
+    axios.get(`${baseUrl}/event/event/${id}`)
+    .then((response)=>{
+      const eventDetails = response.data.event;
+      setDomainName(eventDetails.domainName);
+      setEventName(eventDetails.eventName);
+      setDriveLink(eventDetails.driveLink);
+      setEventDescription(eventDetails.eventDescription);
+      setEPrizeWorth(eventDetails.ePrizeWorth);
+      setEventVenue(eventDetails.venue);
+      setEventParticipationType(eventDetails.eventParticipationType);
+      setWhatsappLink(eventDetails.whatsappLink);
+    })
+    .catch(err=>{
+      console.log("error==>",err);
+    })
+  },[])
   return (
     <div className="eventEdit">
       <div className="eventHeader">Edit Event</div>
@@ -104,31 +123,37 @@ const Eventadd = () => {
           >
             <option value="0">Select</option>
             <option value="aarambh">Aarambh</option>
+            <option value="atomheimer">Atomheimer</option>
             <option value="plexus">Plexus</option>
             <option value="chemfor">Chemfor</option>
             <option value="electrica">Electrica</option>
+            <option value="electronica">Electronica</option>
+            <option value="foodocrats">Food-O-Crats</option>
             <option value="genesis">Genesis</option>
             <option value="karyarachana">Karyarachana</option>
             <option value="kermis">Kermis</option>
             <option value="mechanica">Mechanica</option>
             <option value="robozar">Robozar</option>
+            <option value="venturevault">Venture Vault</option>
           </select>
         </label>
         <label>
           Event Name :{" "}
           <input
             name="eventName"
+            value={eventName}
             onChange={(e) => setEventName(e.target.value)}
           />
         </label>
         <label>
           Event Drive Link :{" "}
-          <input name="drive" onChange={(e) => setDriveLink(e.target.value)} />
+          <input name="drive" value={driveLink} onChange={(e) => setDriveLink(e.target.value)} />
         </label>
         <label>
           Event Whatsapp Link :{" "}
           <input
             name="whatsapp"
+            value={whatsappLink}
             onChange={(e) => setWhatsappLink(e.target.value)}
           />
         </label>
@@ -142,6 +167,7 @@ const Eventadd = () => {
           name="description"
           cols="40"
           rows="5"
+          value={eventDescription}
           onChange={(e) => setEventDescription(e.target.value)}
         >
         </textarea>
@@ -254,6 +280,7 @@ const Eventadd = () => {
                 Venue :{" "}
                 <input
                   name="venue"
+                  value={eventVenue}
                   onChange={(e) => setEventVenue(e.target.value)}
                 />
               </label>
@@ -263,6 +290,7 @@ const Eventadd = () => {
                 Prize Worth :{" "}
                 <input
                   name="prize"
+                  value={ePrizeWorth}
                   onChange={(e) => setEPrizeWorth(e.target.value)}
                 />
               </label>

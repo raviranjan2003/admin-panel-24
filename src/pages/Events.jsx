@@ -292,7 +292,7 @@ const Events = () => {
           <option value="aarambh">Aarambh</option>
           <option value="atomheimer">Atomheimer</option>
           <option value="plexus">Plexus</option>
-          <option value="chemfor">Chemfor</option>
+          <option value="chemica">Chemica</option>
           <option value="electrica">Electrica</option>
           <option value="electronica">Electronica</option>
           <option value="foodocrats">Food-O-Crats</option>
